@@ -30,3 +30,14 @@ Wishlist:
 
 - Create a docs reference website like [readme.com](https://readme.com) (there are many) - for this we're using stoplight now.
 - Add weird custom logic that is non-standard to the OpenAPI. Instead, I aim to create a layer on top of openapis to improve the implementation of the standard. I'll use [actionschema](https://actionschema.com) for this.
+
+# Changelog
+
+## 2025-03-20
+
+I did lots of work in this area and left it all behind after moving to cloudflare. It's time to take some of this work and redo it with a new vision, taking in all learnings from the last months.
+
+My current intuition is as follows:
+
+- Don't focus on quantity, focus on quality of a few great OpenAPIs. Make it very easy to build with a particular OpenAPI, for example.
+- People want to see their own OpenAPIs, and aren't interested in 99% of all other OpenAPIs
