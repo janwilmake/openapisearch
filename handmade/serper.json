@@ -1,0 +1,849 @@
+{
+  "$schema": "https://ref.actionschema.com/openapi.json",
+  "x-actionschema": "0.0.1",
+  "openapi": "3.0.0",
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "info": {
+    "title": "serper.dev openapi",
+    "version": "1.0",
+
+    "description": "Google SERP API. Missing endpoints: /maps and /autocomplete",
+    "x-links": {
+      "docsUrl": "https://serper.dev/playground",
+      "apiAuthorizationSettingsUrl": "https://serper.dev/api-key",
+      "billingUrl": "https://serper.dev/billing",
+      "forgotPasswordUrl": "https://serper.dev/password-forget",
+      "loginUrl": "https://serper.dev/login",
+      "pricingUrl": "https://serper.dev",
+      "signupUrl": "https://serper.dev/signup",
+      "usageUrl": "https://serper.dev/dashboard"
+    },
+    "x-pricing": {
+      "description": "Pay-as-you-Go with steps starting at $50 for 50.000 credits.",
+      "plans": [
+        {
+          "title": "Starter",
+          "credit": 50000,
+          "price": 50,
+          "currency": "USD",
+          "persistence": "capped",
+          "persistenceCappedDays": 180,
+          "rateLimit": { "interval": "second", "limit": 50 }
+        },
+        {
+          "title": "Standard",
+          "credit": 500000,
+          "price": 375,
+          "currency": "USD",
+          "persistence": "capped",
+          "persistenceCappedDays": 180,
+          "rateLimit": { "interval": "second", "limit": 100 }
+        },
+        {
+          "title": "Scale",
+          "credit": 2500000,
+          "price": 1250,
+          "currency": "USD",
+          "persistence": "capped",
+          "persistenceCappedDays": 180,
+          "rateLimit": { "interval": "second", "limit": 200 }
+        },
+        {
+          "title": "Ultimate",
+          "credit": 12500000,
+          "price": 3750,
+          "currency": "USD",
+          "persistence": "capped",
+          "persistenceCappedDays": 180,
+          "rateLimit": { "interval": "second", "limit": 300 }
+        }
+      ]
+    },
+
+    "x-logo": {
+      "url": "https://databar.ai/media/external_source_logo/Serper.dev.png",
+      "backgroundColor": "#000000",
+      "secondaryColor": "#90CDF4"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://google.serper.dev"
+    }
+  ],
+
+  "components": {
+    "securitySchemes": {
+      "apiKey": { "type": "apiKey", "name": "X-API-KEY", "in": "header" }
+    },
+    "schemas": {
+      "SearchInputOrBatch": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SearchInput" }
+          },
+          { "$ref": "#/components/schemas/SearchInput" }
+        ]
+      },
+      "SearchInput": {
+        "type": "object",
+        "properties": {
+          "q": { "type": "string", "description": "Search Query" },
+          "gl": {
+            "type": "string",
+            "description": "A country for search results"
+          },
+          "location": {
+            "type": "string",
+            "description": "This optional parameter determines where your Google search originates, allowing for more specific locations such as cities and neighborhoods."
+          },
+          "hl": {
+            "type": "string",
+            "description": "2-letter country-code for locale"
+          },
+          "autocorrect": { "type": "boolean" },
+          "num": {
+            "type": "number",
+            "enum": [10, 100],
+            "description": "Amount of results 10-100 (default 10)"
+          },
+          "page": {
+            "type": "number",
+            "description": "Page for this query (default 1)"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["q"]
+      }
+    }
+  },
+  "paths": {
+    "/search": {
+      "post": {
+        "x-priceCredit": 1,
+
+        "summary": "Get Google Search Results.",
+        "operationId": "search",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SearchInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "knowledgeGraph": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "website": {
+                          "type": "string"
+                        },
+                        "imageUrl": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "descriptionSource": {
+                          "type": "string"
+                        },
+                        "descriptionLink": {
+                          "type": "string"
+                        },
+                        "attributes": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "organic": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "sitelinks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "title": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "position": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "topStories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "source": {
+                            "type": "string"
+                          },
+                          "date": {
+                            "type": "string"
+                          },
+                          "imageUrl": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "peopleAlsoAsk": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "question": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "relatedSearches": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "query": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images": {
+      "post": {
+        "x-priceCredit": 1,
+
+        "summary": "Get Google Image Results.",
+        "operationId": "images",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Image Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "The title of the web page."
+                          },
+                          "imageUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL of the main image."
+                          },
+                          "imageWidth": {
+                            "type": "integer",
+                            "description": "The width of the main image in pixels."
+                          },
+                          "imageHeight": {
+                            "type": "integer",
+                            "description": "The height of the main image in pixels."
+                          },
+                          "thumbnailUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL of the thumbnail image."
+                          },
+                          "thumbnailWidth": {
+                            "type": "integer",
+                            "description": "The width of the thumbnail image in pixels."
+                          },
+                          "thumbnailHeight": {
+                            "type": "integer",
+                            "description": "The height of the thumbnail image in pixels."
+                          },
+                          "source": {
+                            "type": "string",
+                            "description": "The source of the content, usually the organization name."
+                          },
+                          "domain": {
+                            "type": "string",
+                            "description": "The domain where the content is published."
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "A link to the source page of the content."
+                          },
+                          "googleUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "A Google search URL that can direct to the content."
+                          },
+                          "position": {
+                            "type": "integer",
+                            "description": "The position of the item in some kind of ordered list."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videos": {
+      "post": {
+        "x-priceCredit": 1,
+
+        "summary": "Get Google Video Results.",
+        "operationId": "videos",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Video Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "videos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "The title of the YouTube video."
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL of the YouTube video."
+                          },
+                          "snippet": {
+                            "type": "string",
+                            "description": "A brief description or summary of the video content."
+                          },
+                          "imageUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL of the thumbnail image for the video."
+                          },
+                          "duration": {
+                            "type": "string",
+                            "description": "The duration of the video in a readable format (hours:minutes:seconds)."
+                          },
+                          "source": {
+                            "type": "string",
+                            "description": "The source of the video, in this case, 'YouTube'."
+                          },
+                          "channel": {
+                            "type": "string",
+                            "description": "The YouTube channel name where the video is published."
+                          },
+                          "date": {
+                            "type": "string",
+                            "description": "The publication date of the video."
+                          },
+                          "position": {
+                            "type": "integer",
+                            "description": "The position of the item in a list or collection."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/places": {
+      "post": {
+        "x-priceCredit": 1,
+
+        "summary": "Get Google Places Results.",
+        "operationId": "places",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Places Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "places": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "position": {
+                            "type": "integer",
+                            "description": "The position or ranking of the place in a list or directory."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the place."
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "The full address of the place."
+                          },
+                          "latitude": {
+                            "type": "number",
+                            "format": "float",
+                            "minimum": -90,
+                            "maximum": 90,
+                            "description": "The latitude coordinate of the place."
+                          },
+                          "longitude": {
+                            "type": "number",
+                            "format": "float",
+                            "minimum": -180,
+                            "maximum": 180,
+                            "description": "The longitude coordinate of the place."
+                          },
+                          "rating": {
+                            "type": "number",
+                            "format": "float",
+                            "minimum": 0,
+                            "maximum": 5,
+                            "description": "The average rating of the place, typically on a scale from 0 to 5."
+                          },
+                          "ratingCount": {
+                            "type": "integer",
+                            "description": "The total number of ratings that the place has received."
+                          },
+                          "category": {
+                            "type": "string",
+                            "description": "The category or type of the place, such as 'restaurant', 'museum', 'park', etc."
+                          },
+                          "identifier": {
+                            "type": "string",
+                            "description": "A unique identifier for the place, such as a CID or business ID."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news": {
+      "post": {
+        "x-priceCredit": 1,
+
+        "summary": "Get Google News Results.",
+        "operationId": "news",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP News Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "news": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "The title of the news article."
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL linking to the full news article."
+                          },
+                          "snippet": {
+                            "type": "string",
+                            "description": "A brief excerpt or summary of the news article."
+                          },
+                          "date": {
+                            "type": "string",
+                            "description": "The publication date or time ago the article was published."
+                          },
+                          "source": {
+                            "type": "string",
+                            "description": "The source of the news article, such as the publishing newspaper or website."
+                          },
+                          "imageUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "A URL linking to an image related to the news article."
+                          },
+                          "position": {
+                            "type": "integer",
+                            "description": "The position of the article in a list or feed."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shopping": {
+      "post": {
+        "x-priceCredit": 2,
+
+        "summary": "Get Google Shopping Results.",
+        "operationId": "shopping",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Video Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "shopping": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "The title or name of the product."
+                          },
+                          "source": {
+                            "type": "string",
+                            "description": "The store or website where the product is sold."
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL linking to the product page where it can be purchased."
+                          },
+                          "price": {
+                            "type": "string",
+                            "description": "The price of the product, typically formatted as a string with currency symbol."
+                          },
+                          "delivery": {
+                            "type": "string",
+                            "description": "Delivery cost information, potentially including additional costs."
+                          },
+                          "imageUrl": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "A URL linking to an image of the product."
+                          },
+                          "rating": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "The average user rating of the product."
+                          },
+                          "ratingCount": {
+                            "type": "integer",
+                            "description": "The total number of ratings the product has received."
+                          },
+                          "offers": {
+                            "type": "string",
+                            "description": "The number of available offers or variations for the product."
+                          },
+                          "productId": {
+                            "type": "string",
+                            "description": "A unique identifier for the product."
+                          },
+                          "position": {
+                            "type": "integer",
+                            "description": "The position of the product in a list or a search result page."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scholar": {
+      "post": {
+        "x-priceCredit": 2,
+
+        "summary": "Get Google Scholar Results.",
+        "operationId": "scholar",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SERP Scholar Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchParameters": {
+                      "type": "object",
+                      "properties": {
+                        "q": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "engine": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "organic": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "description": "The title of the scholarly article."
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The URL linking to the full text of the scholarly article."
+                          },
+                          "publicationInfo": {
+                            "type": "string",
+                            "description": "Detailed publication information including authors, journal title, and publisher."
+                          },
+                          "snippet": {
+                            "type": "string",
+                            "description": "A brief excerpt or summary of the scholarly article."
+                          },
+                          "year": {
+                            "type": "integer",
+                            "description": "The year in which the scholarly article was published."
+                          },
+                          "citedBy": {
+                            "type": "integer",
+                            "description": "The number of times the scholarly article has been cited in other works."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

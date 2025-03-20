@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ref.actionschema.com/actionschema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "providers": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "$ref": "https://openapisearch.com/provider.schema.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "WakaTime API",
+    "version": "1.0.0",
+    "description": "API for accessing WakaTime coding activity data"
+  },
+  "servers": [
+    {
+      "url": "https://api.wakatime.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/users/{user}/summaries": {
+      "get": {
+        "summary": "Get user summaries",
+        "description": "A user's coding activity for the given time range as an array of summaries segmented by day.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User identifier (can be 'current' for authenticated user)"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Start date of the time range"
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "End date of the time range"
+          },
+          {
+            "name": "project",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only show time logged to this project"
+          },
+          {
+            "name": "branches",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only show coding activity for these branches; comma separated list of branch names"
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The keystroke timeout preference used when joining heartbeats into durations"
+          },
+          {
+            "name": "writes_only",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "The writes_only preference"
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The timezone for given start and end dates"
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Today",
+                "Yesterday",
+                "Last 7 Days",
+                "Last 7 Days from Yesterday",
+                "Last 14 Days",
+                "Last 30 Days",
+                "This Week",
+                "Last Week",
+                "This Month",
+                "Last Month"
+              ]
+            },
+            "description": "Alternative way to supply start and end dates"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummariesResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["read_summaries"]
+          }
+        ]
+      }
+    },
+    "/users/{user}/stats/{range}": {
+      "get": {
+        "summary": "Get user stats",
+        "description": "A user's coding activity for the given time range.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User identifier (can be 'current' for authenticated user)"
+          },
+          {
+            "name": "range",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "last_7_days",
+                "last_30_days",
+                "last_6_months",
+                "last_year",
+                "all_time"
+              ]
+            },
+            "description": "Time range for the stats"
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The keystroke timeout value used to calculate these stats"
+          },
+          {
+            "name": "writes_only",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "The writes_only value used to calculate these stats"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["read_stats"]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SummariesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DailySummary"
+            }
+          },
+          "cumulative_total": {
+            "$ref": "#/components/schemas/CumulativeTotal"
+          },
+          "daily_average": {
+            "$ref": "#/components/schemas/DailyAverage"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DailySummary": {
+        "type": "object",
+        "properties": {
+          "grand_total": {
+            "$ref": "#/components/schemas/GrandTotal"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Language"
+            }
+          },
+          "editors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Editor"
+            }
+          },
+          "operating_systems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatingSystem"
+            }
+          },
+          "range": {
+            "$ref": "#/components/schemas/Range"
+          }
+        }
+      },
+      "GrandTotal": {
+        "type": "object",
+        "properties": {
+          "digital": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "digital": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "digital": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          }
+        }
+      },
+      "Language": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "digital": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          },
+          "seconds": {
+            "type": "integer"
+          }
+        }
+      },
+      "Editor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "digital": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          },
+          "seconds": {
+            "type": "integer"
+          }
+        }
+      },
+      "OperatingSystem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "total_seconds": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "digital": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          },
+          "seconds": {
+            "type": "integer"
+          }
+        }
+      },
+      "Range": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "text": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          }
+        }
+      },
+      "CumulativeTotal": {
+        "type": "object",
+        "properties": {
+          "seconds": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          },
+          "decimal": {
+            "type": "string"
+          },
+          "digital": {
+            "type": "string"
+          }
+        }
+      },
+      "DailyAverage": {
+        "type": "object",
+        "properties": {
+          "holidays": {
+            "type": "integer"
+          },
+          "days_including_holidays": {
+            "type": "integer"
+          },
+          "days_minus_holidays": {
+            "type": "integer"
+          },
+          "seconds": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          },
+          "seconds_including_other_language": {
+            "type": "number"
+          },
+          "text_including_other_language": {
+            "type": "string"
+          }
+        }
+      },
+      "StatsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Stats"
+          }
+        }
+      },
+      "Stats": {
+        "type": "object",
+        "properties": {
+          "total_seconds": {
+            "type": "number"
+          },
+          "total_seconds_including_other_language": {
+            "type": "number"
+          },
+          "human_readable_total": {
+            "type": "string"
+          },
+          "human_readable_total_including_other_language": {
+            "type": "string"
+          },
+          "daily_average": {
+            "type": "number"
+          },
+          "daily_average_including_other_language": {
+            "type": "number"
+          },
+          "human_readable_daily_average": {
+            "type": "string"
+          },
+          "human_readable_daily_average_including_other_language": {
+            "type": "string"
+          },
+          "range": {
+            "type": "string"
+          },
+          "human_readable_range": {
+            "type": "string"
+          },
+          "percent_calculated": {
+            "type": "integer"
+          },
+          "is_up_to_date": {
+            "type": "boolean"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timezone": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://wakatime.com/oauth/authorize",
+            "tokenUrl": "https://wakatime.com/oauth/token",
+            "scopes": {
+              "read_stats": "Access user's Stats",
+              "read_summaries": "Access user's Summaries"
+            }
+          }
+        }
+      }
+    }
+  }
+}

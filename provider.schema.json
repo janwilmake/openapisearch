@@ -1,0 +1,68 @@
+{
+  "$schema": "https://ref.actionschema.com/actionschema.json",
+
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "openapiUrl": { "type": "string" },
+
+    "registryUrl": {
+      "type": "string",
+      "description": "Where this OpenAPI was found, if any."
+    },
+
+    "categories": { "type": "array", "items": { "type": "string" } },
+
+    "info": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "x-links": {
+          "$ref": "https://ref.actionschema.com/openapi-info.json#/properties/x-links"
+        }
+      },
+      "description": "Extension of OpenAPI info object"
+    },
+
+    "components": {
+      "type": "object",
+      "properties": {
+        "securitySchemes": {
+          "$ref": "https://ref.actionschema.com/openapi-security-schemes.json"
+        }
+      }
+    },
+
+    "auth_mode": {
+      "type": "string",
+      "examples": ["BEARER"],
+      "default": "BEARER",
+      "description": "If OAuth2 is not supported, the API key will be requested directly, and there will be links to signup, login, and API management.",
+      "enum": ["API_KEY", "BASIC", "BEARER", "PUBLIC"]
+    },
+
+    "auth_standard": {
+      "type": "string",
+      "enum": ["oauth2", "openid"],
+      "description": "If given, will prefer oauth2. If the OpenID standard is used, we can populate a lot of info about the provider from the discovery document."
+    },
+
+    "isByocDisabled": {
+      "type": "boolean",
+      "description": "This flag will disable the feature that allows ActionSchema Auth users to bring their own client (BYOC = Bring Your Own Client). There might be several reasons for this to be needed, e.g. the ToS of the provider, legal implications, or to satisfy our own security requirements."
+    },
+
+    "isTrustedOauthLink": {
+      "type": "boolean",
+      "description": "If true, connecting this will make it a link to login to your account as well."
+    },
+
+    "scope_separator": {
+      "type": "string",
+      "description": "Default is space (' '), but can be given if the platform uses a different separator."
+    }
+  }
+}

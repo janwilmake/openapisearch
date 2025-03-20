@@ -1,0 +1,1420 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Notion API - Search",
+    "version": "2022-06-28",
+    "description": "Searches all parent or child pages and databases that have been shared with an integration."
+  },
+  "servers": [
+    {
+      "url": "https://api.notion.com/v1"
+    }
+  ],
+  "paths": {
+    "/search": {
+      "post": {
+        "summary": "Search by title",
+        "description": "Returns all pages or databases, excluding duplicated linked databases, that have titles that include the query param. If no query param is provided, then the response contains all pages or databases that have been shared with the integration.",
+        "operationId": "searchNotionContent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "429": {
+            "description": "Too many requests"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SearchRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The text that the API compares page and database titles against."
+          },
+          "sort": {
+            "type": "object",
+            "properties": {
+              "direction": {
+                "type": "string",
+                "enum": ["ascending", "descending"],
+                "description": "The direction to sort the results."
+              },
+              "timestamp": {
+                "type": "string",
+                "enum": ["last_edited_time"],
+                "description": "The timestamp to use for sorting."
+              }
+            },
+            "description": "A set of criteria that orders the results."
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "enum": ["page", "database"],
+                "description": "The type of content to filter by."
+              },
+              "property": {
+                "type": "string",
+                "enum": ["object"],
+                "description": "The property to apply the filter to."
+              }
+            },
+            "description": "A set of criteria that limits the results to either only pages or only databases."
+          },
+          "start_cursor": {
+            "type": "string",
+            "description": "A cursor value returned in a previous response that limits the response to results starting after the cursor."
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 100,
+            "description": "The number of items from the full list to include in the response."
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "The list of pages or databases matching the search criteria."
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "The cursor to use for pagination in subsequent requests."
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "Whether there are more results available."
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
+
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API - Database Query",
+      "version": "1.0.0",
+      "description": "API endpoint for querying a Notion database"
+    },
+    "servers": [
+      {
+        "url": "https://api.notion.com/v1"
+      }
+    ],
+    "paths": {
+      "/databases/{database_id}/query": {
+        "post": {
+          "summary": "Query a database",
+          "description": "Gets a list of Pages and/or Databases contained in the database, filtered and ordered according to the filter conditions and sort criteria provided in the request.",
+          "parameters": [
+            {
+              "name": "database_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the database to query"
+            },
+            {
+              "name": "Notion-Version",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "example": "2022-06-28"
+            },
+            {
+              "name": "filter_properties",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "description": "Array of property IDs to filter the response"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "filter": {
+                      "type": "object",
+                      "description": "The filter to apply to the database query"
+                    },
+                    "sorts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "property": {
+                            "type": "string"
+                          },
+                          "direction": {
+                            "type": "string",
+                            "enum": ["ascending", "descending"]
+                          }
+                        }
+                      },
+                      "description": "The sort criteria to apply to the database query"
+                    },
+                    "page_size": {
+                      "type": "integer",
+                      "description": "The number of results to return per page"
+                    },
+                    "start_cursor": {
+                      "type": "string",
+                      "description": "The cursor to start the query from"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "type": "string",
+                        "example": "list"
+                      },
+                      "results": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "object": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_time": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "last_edited_time": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "properties": {
+                              "type": "object",
+                              "additionalProperties": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "next_cursor": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "has_more": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "integer"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "429": {
+              "description": "Too many requests",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "integer"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+  }
+
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API - Retrieve a database",
+      "version": "1.0.0",
+      "description": "API specification for retrieving a Notion database"
+    },
+    "servers": [
+      {
+        "url": "https://api.notion.com/v1"
+      }
+    ],
+    "paths": {
+      "/databases/{database_id}": {
+        "get": {
+          "summary": "Retrieve a database",
+          "description": "Retrieves a database object — information that describes the structure and columns of a database — for a provided database ID.",
+          "operationId": "getDatabase",
+          "parameters": [
+            {
+              "name": "database_id",
+              "in": "path",
+              "required": true,
+              "description": "The ID of the database to retrieve",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Database"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Not found"
+            }
+          },
+          "security": [
+            {
+              "notionAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Database": {
+          "type": "object",
+          "properties": {
+            "object": {
+              "type": "string",
+              "enum": ["database"]
+            },
+            "id": {
+              "type": "string"
+            },
+            "created_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_edited_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "icon": {
+              "type": "object"
+            },
+            "cover": {
+              "type": "object"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "title": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "description": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            },
+            "parent": {
+              "type": "object"
+            },
+            "archived": {
+              "type": "boolean"
+            },
+            "is_inline": {
+              "type": "boolean"
+            },
+            "public_url": {
+              "type": "string",
+              "format": "uri",
+              "nullable": true
+            }
+          },
+          "required": ["object", "id", "created_time", "last_edited_time", "properties"]
+        }
+      },
+      "securitySchemes": {
+        "notionAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+  }
+
+
+
+
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API",
+      "version": "2022-06-28",
+      "description": "API for interacting with Notion databases"
+    },
+    "paths": {
+      "/v1/databases/{database_id}": {
+        "patch": {
+          "summary": "Update a database",
+          "description": "Updates the database object — the title, description, or properties — of a specified database. Returns the updated database object.",
+          "parameters": [
+            {
+              "name": "database_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the database to update"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "The title of the database"
+                    },
+                    "description": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "The description of the database"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "object"
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "multi_select": {
+                                "type": "object",
+                                "properties": {
+                                  "options": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "color": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": ["name"]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "description": "The properties of the database"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successfully updated database",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "type": "string",
+                        "enum": ["database"]
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "last_edited_time": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "parent": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "page_id": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "icon": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "emoji": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "cover": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "external": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "null"
+                                }
+                              }
+                            },
+                            "annotations": {
+                              "type": "object",
+                              "properties": {
+                                "bold": {
+                                  "type": "boolean"
+                                },
+                                "italic": {
+                                  "type": "boolean"
+                                },
+                                "strikethrough": {
+                                  "type": "boolean"
+                                },
+                                "underline": {
+                                  "type": "boolean"
+                                },
+                                "code": {
+                                  "type": "boolean"
+                                },
+                                "color": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "plain_text": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "null"
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "null"
+                                }
+                              }
+                            },
+                            "annotations": {
+                              "type": "object",
+                              "properties": {
+                                "bold": {
+                                  "type": "boolean"
+                                },
+                                "italic": {
+                                  "type": "boolean"
+                                },
+                                "strikethrough": {
+                                  "type": "boolean"
+                                },
+                                "underline": {
+                                  "type": "boolean"
+                                },
+                                "code": {
+                                  "type": "boolean"
+                                },
+                                "color": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "plain_text": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "null"
+                            }
+                          }
+                        }
+                      },
+                      "properties": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": true
+                        }
+                      },
+                      "is_inline": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Database not found"
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API - Create Database",
+      "version": "1.0.0",
+      "description": "API endpoint to create a database in Notion"
+    },
+    "servers": [
+      {
+        "url": "https://api.notion.com/v1"
+      }
+    ],
+    "paths": {
+      "/databases": {
+        "post": {
+          "summary": "Create a database",
+          "description": "Creates a database as a subpage in the specified parent page, with the specified properties schema.",
+          "tags": ["Databases"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDatabaseRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Database"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "403": {
+              "description": "Forbidden - Integration lacks insert content capabilities"
+            },
+            "404": {
+              "description": "Not found - Parent page doesn't exist or integration lacks access"
+            },
+            "429": {
+              "description": "Too many requests"
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CreateDatabaseRequest": {
+          "type": "object",
+          "required": ["parent", "title", "properties"],
+          "properties": {
+            "parent": {
+              "type": "object",
+              "required": ["type", "page_id"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["page_id"]
+                },
+                "page_id": {
+                  "type": "string"
+                }
+              }
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["emoji"]
+                },
+                "emoji": {
+                  "type": "string"
+                }
+              }
+            },
+            "cover": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["external"]
+                },
+                "external": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "title": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["text"]
+                  },
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "Database": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+  }
+
+
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API - Create Page",
+      "version": "1.0",
+      "description": "Creates a new page that is a child of an existing page or database in Notion."
+    },
+    "servers": [
+      {
+        "url": "https://api.notion.com/v1"
+      }
+    ],
+    "paths": {
+      "/pages": {
+        "post": {
+          "summary": "Create a new page",
+          "description": "Creates a new page that is a child of an existing page or database.",
+          "operationId": "createPage",
+          "tags": [
+            "Pages"
+          ],
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePageRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Page"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "429": {
+              "description": "Rate limited"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "BearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      },
+      "schemas": {
+        "CreatePageRequest": {
+          "type": "object",
+          "required": [
+            "parent",
+            "properties"
+          ],
+          "properties": {
+            "parent": {
+              "type": "object",
+              "oneOf": [
+                {
+                  "required": ["page_id"],
+                  "properties": {
+                    "page_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "required": ["database_id"],
+                  "properties": {
+                    "database_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "icon": {
+              "type": "object",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "emoji": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "external": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "cover": {
+              "type": "object",
+              "properties": {
+                "external": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Page": {
+          "type": "object",
+          "properties": {
+            "object": {
+              "type": "string",
+              "enum": ["page"]
+            },
+            "id": {
+              "type": "string"
+            },
+            "created_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_edited_time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "created_by": {
+              "$ref": "#/components/schemas/User"
+            },
+            "last_edited_by": {
+              "$ref": "#/components/schemas/User"
+            },
+            "cover": {
+              "$ref": "#/components/schemas/Cover"
+            },
+            "icon": {
+              "$ref": "#/components/schemas/Icon"
+            },
+            "parent": {
+              "$ref": "#/components/schemas/Parent"
+            },
+            "archived": {
+              "type": "boolean"
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "url": {
+              "type": "string"
+            }
+          }
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "object": {
+              "type": "string",
+              "enum": ["user"]
+            },
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+        "Cover": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["external"]
+            },
+            "external": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Icon": {
+          "type": "object",
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["emoji"]
+                },
+                "emoji": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["external"]
+                },
+                "external": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Parent": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["database_id", "page_id"]
+            },
+            "database_id": {
+              "type": "string"
+            },
+            "page_id": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notion API - Update Page Properties",
+      "version": "1.0.0",
+      "description": "API endpoint to update the properties of a Notion page"
+    },
+    "servers": [
+      {
+        "url": "https://api.notion.com/v1"
+      }
+    ],
+    "paths": {
+      "/pages/{page_id}": {
+        "patch": {
+          "summary": "Update page properties",
+          "description": "Updates the properties of a page in a database. Can also update page icon, cover, and trash status.",
+          "operationId": "updatePageProperties",
+          "parameters": [
+            {
+              "name": "page_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The identifier for the Notion page to be updated"
+            },
+            {
+              "name": "Notion-Version",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "default": "2022-06-28"
+              },
+              "description": "Notion API version"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "properties": {
+                      "type": "object",
+                      "description": "The property values to update for the page"
+                    },
+                    "in_trash": {
+                      "type": "boolean",
+                      "description": "Set to true to delete a block, false to restore it",
+                      "default": false
+                    },
+                    "icon": {
+                      "type": "object",
+                      "description": "A page icon for the page (external file or emoji object)"
+                    },
+                    "cover": {
+                      "type": "object",
+                      "description": "A cover image for the page (external file object only)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "object": {
+                        "type": "string",
+                        "example": "page"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_time": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "last_edited_time": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "created_by": {
+                        "type": "object",
+                        "properties": {
+                          "object": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "last_edited_by": {
+                        "type": "object",
+                        "properties": {
+                          "object": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "cover": {
+                        "type": "object"
+                      },
+                      "icon": {
+                        "type": "object"
+                      },
+                      "parent": {
+                        "type": "object"
+                      },
+                      "archived": {
+                        "type": "boolean"
+                      },
+                      "properties": {
+                        "type": "object"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "429": {
+              "description": "Too Many Requests"
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+  }

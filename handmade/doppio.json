@@ -1,0 +1,2441 @@
+{
+  "openapi": "3.0.0",
+  "$schema": "https://ref.actionschema.com/openapi.json",
+  "x-actionschema": "0.0.1",
+  "tags": [],
+  "servers": [
+    {
+      "url": "https://api.doppio.sh"
+    }
+  ],
+  "info": {
+    "title": "Doppio",
+    "description": "The Doppio Renderer API documentation",
+    "version": "1.0",
+    "contact": {}
+  },
+  "paths": {
+    "/v1/render/pdf/direct": {
+      "post": {
+        "operationId": "RenderController_renderPDFDirect",
+        "summary": "renders a PDF file directly ",
+        "description": "Renders a PDF document from the provided HTML/URL, and returns it directly",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderPdfSyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The PDF document was rendered successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "file"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render PDF"]
+      }
+    },
+    "/v1/render/screenshot/direct": {
+      "post": {
+        "operationId": "RenderController_renderScreenshotDirect",
+        "summary": "renders a screenshot directly ",
+        "description": "Renders a screenshot of the provided HTML/URL, and returns it directly",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderScreenshotSyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The screenshot was rendered successfully",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/jpg": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/png": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "type": "file"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Screenshot"]
+      }
+    },
+    "/v1/render/pdf/sync": {
+      "post": {
+        "operationId": "RenderController_renderPDFSync",
+        "summary": "renders a PDF file accesssible by a hosted link",
+        "description": "Renders a PDF document from the provided HTML/URL, saves it temporarily in a S3 bucket and returns its download link.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderPdfSyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request was processed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render PDF"]
+      }
+    },
+    "/v1/render/screenshot/sync": {
+      "post": {
+        "operationId": "RenderController_renderScreenshotSync",
+        "summary": "renders a screenshot accesssible by a hosted link",
+        "description": "Renders a screenshot of the provided HTML/URL, saves it temporarily in a S3 bucket and returns its download link.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderScreenshotSyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request was processed successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Screenshot"]
+      }
+    },
+    "/v1/render/screenshot/async": {
+      "post": {
+        "operationId": "RenderController_renderScreenshotASync",
+        "summary": "renders a screenshot asynchronously ",
+        "description": "Renders a screenshot of the provided HTML/URL, saves it temporarily in a S3 bucket and sends the download link to your webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderScreenshotAsyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request was processed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Screenshot"]
+      }
+    },
+    "/v1/render/pdf/async": {
+      "post": {
+        "operationId": "RenderController_renderPDFASync",
+        "summary": "renders a PDF file asynchronously ",
+        "description": "Renders a PDF document from the provided HTML/URL, saves it temporarily in a S3 bucket and sends the download link to your webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderPdfAsyncDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request was processed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render PDF"]
+      }
+    },
+    "/v1/template/direct": {
+      "post": {
+        "operationId": "RenderController_renderTemplateDirect",
+        "summary": "renders a PDF or Screenshot file directly from a Template",
+        "description": "Renders a PDF or Screenshot document from the provided templateId, and returns it directly",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The PDF or Screenshot document was rendered successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/jpg": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/png": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "type": "file"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Template"]
+      }
+    },
+    "/v1/template/sync": {
+      "post": {
+        "operationId": "RenderController_renderTemplateSync",
+        "summary": "renders a PDF or Screenshot template accesssible by a hosted link",
+        "description": "Renders a PDF or Screenshot document from the provided templateId, saves it temporarily in a S3 bucket and returns its download link.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request was processed successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              },
+              "image/jpg": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              },
+              "image/png": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Template"]
+      }
+    },
+    "/v1/template/async": {
+      "post": {
+        "operationId": "RenderController_renderTemplateAsync",
+        "summary": "renders a PDF or Screenshot asynchronously from templateId",
+        "description": "Renders a PDF or screenshot from templateId, saves it temporarily in a S3 bucket and sends the download link to your webhook",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RenderTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request was processed successfully",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              },
+              "image/jpg": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              },
+              "image/png": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderAsyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "page.goto should be a valid url"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong API key provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong API key provided"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Account inactive | Account blocked due to unpaid invoices | Current subscription does not allow this feature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Account inactive"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Request timeout, render takes too long"
+          },
+          "422": {
+            "description": "The number of requests for this month exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 400 requests per month. Upgrade your plan or contact support for a custom one."
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Unprocessable Entity"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The request rate exceeds the current subscription limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 422
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Current subscription only allow up to 10 requests per 60 second. Upgrade your plan or contact support for a custom one."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong while rendering your page or uploading to your S3 bucket. Please contact our support team.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenderSyncResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Render Template"]
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "RenderSyncResponse": {
+        "type": "object",
+        "properties": {
+          "doppioRequestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "renderStatus": {
+            "type": "string",
+            "enum": ["QUEUED", "PROCESSING", "SUCCESS", "ERROR"],
+            "description": "Statut du render"
+          },
+          "documentUrl": {
+            "type": "string",
+            "format": "url",
+            "description": "URL d'accès au document"
+          },
+          "isAsync": {
+            "type": "boolean"
+          },
+          "isCustomBucket": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "doppioRequestId",
+          "renderStatus",
+          "documentUrl",
+          "isAsync",
+          "isCustomBucket"
+        ]
+      },
+      "DoppioSpecificSyncOptionsDto": {
+        "type": "object",
+        "properties": {
+          "presignedUrl": {
+            "type": "string",
+            "description": "S3 presigned URL to upload the document into your bucket",
+            "format": "url"
+          },
+          "contentDisposition": {
+            "type": "string",
+            "description": "The Content-Disposition header can be set to inline or attachment. If not specified, the upload proceeds without this header. When using a custom presigned URL, ensure that setting this header is supported."
+          }
+        }
+      },
+      "ViewportConfigDto": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "integer",
+            "description": "Viewport width in pixels",
+            "minimum": 0,
+            "maximum": 1920
+          },
+          "height": {
+            "type": "integer",
+            "description": "Viewport height in pixels",
+            "minimum": 0,
+            "maximum": 1920
+          },
+          "deviceScaleFactor": {
+            "type": "integer",
+            "description": "Device scale factor",
+            "minimum": 1,
+            "maximum": 2
+          },
+          "isMobile": {
+            "type": "boolean",
+            "description": "If meta viewport tag is taken into account"
+          },
+          "hasTouch": {
+            "type": "boolean",
+            "description": "If the viewport supports touch events"
+          },
+          "isLandscape": {
+            "type": "boolean",
+            "description": "If the viewport is in landscape mode"
+          }
+        },
+        "required": ["width", "height"]
+      },
+      "ConnectConfigDto": {
+        "type": "object",
+        "properties": {
+          "defaultViewport": {
+            "description": "Viewport of the page",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ViewportConfigDto"
+              }
+            ]
+          }
+        }
+      },
+      "GotoOptionsConfigDto": {
+        "type": "object",
+        "properties": {
+          "waitUntil": {
+            "type": "array",
+            "description": "Events to wait for before rendering the document",
+            "items": {
+              "type": "string",
+              "enum": [
+                "load",
+                "domcontentloaded",
+                "networkidle0",
+                "networkidle2"
+              ]
+            }
+          },
+          "referer": {
+            "type": "string",
+            "description": "Referer header value. Overrides the one set by page.setExtraHTTPHeaders",
+            "maxLength": 1024
+          }
+        }
+      },
+      "GotoConfigDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "url of the page to render",
+            "example": "https://doc.doppio.sh"
+          },
+          "options": {
+            "description": "options passed down to Puppetter page.goTo method",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GotoOptionsConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["url"]
+      },
+      "SetContentOptionsConfigDto": {
+        "type": "object",
+        "properties": {
+          "waitUntil": {
+            "type": "array",
+            "description": "Events to wait for before rendering the document",
+            "items": {
+              "type": "string",
+              "enum": [
+                "load",
+                "domcontentloaded",
+                "networkidle0",
+                "networkidle2"
+              ]
+            }
+          }
+        }
+      },
+      "SetContentConfigDto": {
+        "type": "object",
+        "properties": {
+          "html": {
+            "type": "string",
+            "description": "HTML encoded as BASE64 to avoid problems with characters that would break JSON",
+            "example": "PHA+aGVsbG8gZG9wcGlvLnNoPC9wPg=="
+          },
+          "options": {
+            "description": "options passed down to Puppetter page.setContent method",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SetContentOptionsConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["html"]
+      },
+      "AuthenticateConfigDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "password"]
+      },
+      "MarginConfigDto": {
+        "type": "object",
+        "properties": {
+          "top": {
+            "type": "object"
+          },
+          "right": {
+            "type": "object"
+          },
+          "bottom": {
+            "type": "object"
+          },
+          "left": {
+            "type": "object"
+          }
+        }
+      },
+      "PdfConfigDto": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "type": "number",
+            "description": "Scales the rendering of the page",
+            "minimum": 0.1,
+            "maximum": 2
+          },
+          "displayHeaderFooter": {
+            "type": "boolean",
+            "description": "Whether to show the header and footer"
+          },
+          "headerTemplate": {
+            "type": "string",
+            "description": "HTML to add as header in every page of the document. Expecting base64 encoding.",
+            "format": "byte"
+          },
+          "footerTemplate": {
+            "type": "string",
+            "description": "HTML to add as footer in every page of the document. Expecting base64 encoding.",
+            "format": "byte"
+          },
+          "printBackground": {
+            "type": "boolean",
+            "description": "Whether to print background graphics"
+          },
+          "landscape": {
+            "type": "boolean",
+            "description": "Whether to print in landscape orientation"
+          },
+          "pageRanges": {
+            "type": "string",
+            "description": "Page ranges to print",
+            "example": "1-2, 4"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "Letter",
+              "Legal",
+              "Ledger",
+              "A0",
+              "A1",
+              "A2",
+              "A3",
+              "A4",
+              "A5",
+              "A6"
+            ]
+          },
+          "width": {
+            "description": "Width of the paper. Number or string with unit.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "height": {
+            "description": "Height of the paper. Number or string with unit.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "preferCSSPageSize": {
+            "type": "boolean",
+            "description": "Give any CSS @page size declared in the page priority over what is declared in the width or height or format option."
+          },
+          "omitBackground": {
+            "type": "boolean",
+            "description": "Hides default white background and allows generating pdfs with transparency."
+          },
+          "margin": {
+            "description": "Margin to apply to every page",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MarginConfigDto"
+              }
+            ]
+          }
+        }
+      },
+      "CookiesConfigDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "url": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "secure": {
+            "type": "boolean"
+          },
+          "httpOnly": {
+            "type": "boolean"
+          },
+          "sameSite": {
+            "type": "string",
+            "enum": ["Strict", "Lax", "None"]
+          },
+          "expires": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "value"]
+      },
+      "LocalStorageConfigDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": ["key", "value"]
+      },
+      "WaitForFunctionOptionsConfigDto": {
+        "type": "object",
+        "properties": {
+          "polling": {
+            "type": "object",
+            "description": "Function to be evaluated in browser context",
+            "example": "'raf' | 'mutation' | number"
+          },
+          "timeout": {
+            "type": "number",
+            "description": "Maximum time to wait in milliseconds"
+          }
+        }
+      },
+      "WaitForFunctionConfigDto": {
+        "type": "object",
+        "properties": {
+          "pageFunction": {
+            "type": "string",
+            "description": "Function to be evaluated in browser context",
+            "example": "window.innerWidth < 100"
+          },
+          "options": {
+            "$ref": "#/components/schemas/WaitForFunctionOptionsConfigDto"
+          }
+        },
+        "required": ["pageFunction"]
+      },
+      "WaitForSelectorOptionsConfigDto": {
+        "type": "object",
+        "properties": {
+          "hidden": {
+            "type": "boolean",
+            "description": "(Optional) Wait for the selected element to not be found in the DOM or to be hidden, i.e. have display: none or visibility: hidden CSS properties."
+          },
+          "timeout": {
+            "type": "number",
+            "description": "Maximum time to wait in milliseconds"
+          },
+          "visible": {
+            "type": "boolean",
+            "description": "(Optional) Wait for the selected element to be present in DOM and to be visible, i.e. to not have display: none or visibility: hidden CSS properties."
+          }
+        }
+      },
+      "WaitForSelectorConfigDto": {
+        "type": "object",
+        "properties": {
+          "selector": {
+            "type": "string",
+            "description": "A selector of an element to wait for",
+            "example": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors"
+          },
+          "options": {
+            "description": "(Optional) Optional waiting parameters",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WaitForSelectorOptionsConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["selector"]
+      },
+      "PagePdfConfigDto": {
+        "type": "object",
+        "properties": {
+          "goto": {
+            "description": "URL source. Required if setContent is not defined",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GotoConfigDto"
+              }
+            ]
+          },
+          "setContent": {
+            "description": "HTML source in base64 encoding. Required if goto is not defined",
+            "format": "byte",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SetContentConfigDto"
+              }
+            ]
+          },
+          "setJavaScriptEnabled": {
+            "type": "boolean",
+            "description": "Enable/Disable Javascript on your page. Puppeteer default behavior is javascript enabled."
+          },
+          "emulateMediaType": {
+            "type": "string",
+            "description": "Changes the CSS media type of the page",
+            "enum": ["print", "screen"]
+          },
+          "setExtraHTTPHeaders": {
+            "type": "object",
+            "description": "HTTP headers to send with every request your page initiates"
+          },
+          "authenticate": {
+            "description": "Authentification credentials",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AuthenticateConfigDto"
+              }
+            ]
+          },
+          "pdf": {
+            "description": "PDF options to pass to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PdfConfigDto"
+              }
+            ]
+          },
+          "setCookies": {
+            "description": "Cookies added to the page. Format Network.CookieParam",
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CookiesConfigDto"
+            }
+          },
+          "setLocalStorageItems": {
+            "description": "LocalStorage items added to the page.",
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocalStorageConfigDto"
+            }
+          },
+          "waitForFunction": {
+            "description": "Waits for a function to finish evaluating in the page's context.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WaitForFunctionConfigDto"
+              }
+            ]
+          },
+          "waitForSelector": {
+            "description": "Wait for the selector to appear in page.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WaitForSelectorConfigDto"
+              }
+            ]
+          },
+          "setUserAgent": {
+            "type": "string",
+            "description": "Specific user agent to use in this page"
+          }
+        }
+      },
+      "RenderPdfSyncDto": {
+        "type": "object",
+        "properties": {
+          "doppio": {
+            "description": "Config specific to Doppio",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DoppioSpecificSyncOptionsDto"
+              }
+            ]
+          },
+          "launch": {
+            "description": "BrowserConnectOptions to pass down to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConnectConfigDto"
+              }
+            ]
+          },
+          "page": {
+            "description": "Page to render",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PagePdfConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["page"]
+      },
+      "ScreenshotClipDto": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "number",
+            "description": "Width of clipping area",
+            "minimum": 1,
+            "maximum": 1920
+          },
+          "height": {
+            "type": "number",
+            "description": "Height of clipping area",
+            "minimum": 1,
+            "maximum": 1920
+          },
+          "x": {
+            "type": "number",
+            "description": "x-coordinate of top-left corner of clip area",
+            "minimum": 0,
+            "maximum": 1920
+          },
+          "y": {
+            "type": "number",
+            "description": "y-coordinate of top-left corner of clip area",
+            "minimum": 0,
+            "maximum": 1920
+          }
+        },
+        "required": ["width", "height", "x", "y"]
+      },
+      "ScreenshotConfigDto": {
+        "type": "object",
+        "properties": {
+          "captureBeyondViewport": {
+            "type": "boolean",
+            "description": "Wheter to capture the screenshot beyond the viewport or cut by the viewport size",
+            "default": true
+          },
+          "clip": {
+            "description": "Defines the clipping region of the page",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScreenshotClipDto"
+              }
+            ]
+          },
+          "fullPage": {
+            "type": "boolean",
+            "description": "Whether to take a screenshot of the full scrollable page",
+            "default": false
+          },
+          "omitBackground": {
+            "type": "boolean",
+            "description": "Hides default white background and allows capturing screenshots with transparency",
+            "default": false
+          },
+          "quality": {
+            "type": "number",
+            "description": "Image quality. Not applicable to PNG images",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "type": {
+            "type": "string",
+            "enum": ["png", "jpg", "jpeg", "webp"],
+            "description": "Image type",
+            "default": "png"
+          }
+        }
+      },
+      "PageScreenshotConfigDto": {
+        "type": "object",
+        "properties": {
+          "goto": {
+            "description": "URL source. Required if setContent is not defined",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GotoConfigDto"
+              }
+            ]
+          },
+          "setContent": {
+            "description": "HTML source in base64 encoding. Required if goto is not defined",
+            "format": "byte",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SetContentConfigDto"
+              }
+            ]
+          },
+          "setJavaScriptEnabled": {
+            "type": "boolean",
+            "description": "Enable/Disable Javascript on your page. Puppeteer default behavior is javascript enabled."
+          },
+          "emulateMediaType": {
+            "type": "string",
+            "description": "Changes the CSS media type of the page",
+            "enum": ["print", "screen"]
+          },
+          "setExtraHTTPHeaders": {
+            "type": "object",
+            "description": "HTTP headers to send with every request your page initiates"
+          },
+          "authenticate": {
+            "description": "Authentification credentials",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AuthenticateConfigDto"
+              }
+            ]
+          },
+          "setCookies": {
+            "description": "Cookies added to the page. Format Network.CookieParam",
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CookiesConfigDto"
+            }
+          },
+          "setLocalStorageItems": {
+            "description": "LocalStorage items added to the page.",
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocalStorageConfigDto"
+            }
+          },
+          "waitForFunction": {
+            "description": "Waits for a function to finish evaluating in the page's context.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WaitForFunctionConfigDto"
+              }
+            ]
+          },
+          "waitForSelector": {
+            "description": "Wait for the selector to appear in page.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WaitForSelectorConfigDto"
+              }
+            ]
+          },
+          "setUserAgent": {
+            "type": "string",
+            "description": "Specific user agent to use in this page"
+          },
+          "screenshot": {
+            "description": "Screenshot options to pass to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScreenshotConfigDto"
+              }
+            ]
+          }
+        }
+      },
+      "RenderScreenshotSyncDto": {
+        "type": "object",
+        "properties": {
+          "doppio": {
+            "description": "Config specific to Doppio",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DoppioSpecificSyncOptionsDto"
+              }
+            ]
+          },
+          "launch": {
+            "description": "BrowserConnectOptions to pass down to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConnectConfigDto"
+              }
+            ]
+          },
+          "page": {
+            "description": "Page to render",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageScreenshotConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["page"]
+      },
+      "WebhookConfigDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "url"
+          },
+          "method": {
+            "type": "string",
+            "enum": ["POST", "PUT", "PATCH", "DELETE", "GET"]
+          },
+          "headers": {
+            "type": "object",
+            "description": "Headers to add to the webhook request"
+          }
+        },
+        "required": ["url", "method"]
+      },
+      "DoppioSpecificAsyncOptionsDto": {
+        "type": "object",
+        "properties": {
+          "presignedUrl": {
+            "type": "string",
+            "description": "S3 presigned URL to upload the document into your bucket",
+            "format": "url"
+          },
+          "webhook": {
+            "description": "Webhook configuration",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WebhookConfigDto"
+              }
+            ]
+          },
+          "contentDisposition": {
+            "type": "string",
+            "description": "The Content-Disposition header can be set to inline or attachment. If not specified, the upload proceeds without this header. When using a custom presigned URL, ensure that setting this header is supported."
+          }
+        },
+        "required": ["webhook"]
+      },
+      "RenderScreenshotAsyncDto": {
+        "type": "object",
+        "properties": {
+          "doppio": {
+            "description": "Config specific to Doppio",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DoppioSpecificAsyncOptionsDto"
+              }
+            ]
+          },
+          "launch": {
+            "description": "BrowserConnectOptions to pass down to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConnectConfigDto"
+              }
+            ]
+          },
+          "page": {
+            "description": "Page to render",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageScreenshotConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["doppio", "page"]
+      },
+      "RenderAsyncResponse": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "used to identify the resulting webhook call"
+          },
+          "jobId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "used by the support team in case of an issue"
+          }
+        },
+        "required": ["requestId", "jobId"]
+      },
+      "RenderPdfAsyncDto": {
+        "type": "object",
+        "properties": {
+          "doppio": {
+            "description": "Config specific to Doppio",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DoppioSpecificAsyncOptionsDto"
+              }
+            ]
+          },
+          "launch": {
+            "description": "BrowserConnectOptions to pass down to puppeteer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConnectConfigDto"
+              }
+            ]
+          },
+          "page": {
+            "description": "Page to render",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PagePdfConfigDto"
+              }
+            ]
+          }
+        },
+        "required": ["doppio", "page"]
+      },
+      "RenderTemplateDto": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "string",
+            "description": "The templateId to render"
+          },
+          "templateData": {
+            "type": "object",
+            "description": "Optional data to be injected before render"
+          },
+          "doppio": {
+            "description": "Config specific to Doppio",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DoppioSpecificSyncOptionsDto"
+              }
+            ]
+          }
+        },
+        "required": ["templateId"]
+      }
+    }
+  }
+}

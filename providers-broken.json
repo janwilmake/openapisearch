@@ -1,0 +1,21 @@
+{
+  "posthog-cdp": {
+    "openapiUrl": "https://raw.githubusercontent.com/PostHog/posthog/master/openapi/customer-data-pipeline.yaml",
+    "info": {
+      "x-links": {
+        "apiManagementUrl": "https://us.posthog.com/project/{projectId}/settings/user-api-keys"
+      },
+      "description": "The Customer Data Pipeline (CDP) is a service that allows users to upload data to the platform. It allows users to specify `Destination`s to which the data should be sent, and `Source`s from which the data is sent from the client.\n\nDestinations can be of type 'webhook' only currently. The CDP service will send a POST request to the webhook URL with the data in the body of the request. A basic transformation can be specified to transform event data into the format required by the destination."
+    }
+  },
+  "linode": {
+    "openapiUrl": "https://www.linode.com/docs/api/openapi.yaml"
+  },
+
+  "convertapi": {
+    "info": {
+      "description": "API for converting documents into various formats"
+    },
+    "openapiUrl": "https://v2.convertapi.com/info/openapi"
+  }
+}

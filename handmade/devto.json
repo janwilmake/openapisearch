@@ -1,0 +1,294 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "DEV.to API",
+    "description": "API for interacting with the DEV.to platform",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://dev.to/api"
+    }
+  ],
+  "paths": {
+    "/articles": {
+      "get": {
+        "summary": "List articles",
+        "description": "Get a list of articles for a specific user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The username of the author"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Article"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{id}": {
+      "get": {
+        "summary": "Get article by ID",
+        "description": "Get a specific article by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the article"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{username}/{slug}": {
+      "get": {
+        "summary": "Get article by slug",
+        "description": "Get a specific article by its slug",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The username of the author"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The slug of the article"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user by ID",
+        "description": "Get user data by user ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/by_username": {
+      "get": {
+        "summary": "Get user by username",
+        "description": "Get user data by username",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The username of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "type_of": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "readable_publish_date": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "comments_count": {
+            "type": "integer"
+          },
+          "public_reactions_count": {
+            "type": "integer"
+          },
+          "collection_id": {
+            "type": ["integer", "null"]
+          },
+          "published_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "positive_reactions_count": {
+            "type": "integer"
+          },
+          "cover_image": {
+            "type": ["string", "null"]
+          },
+          "social_image": {
+            "type": "string"
+          },
+          "canonical_url": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "edited_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "crossposted_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_comment_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reading_time_minutes": {
+            "type": "integer"
+          },
+          "tag_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "twitter_username": {
+            "type": ["string", "null"]
+          },
+          "github_username": {
+            "type": ["string", "null"]
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "website_url": {
+            "type": ["string", "null"]
+          },
+          "profile_image": {
+            "type": "string"
+          },
+          "profile_image_90": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

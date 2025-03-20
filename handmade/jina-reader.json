@@ -1,0 +1,128 @@
+{
+  "$schema": "https://ref.actionschema.com/openapi.json",
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Jina AI Web Content Extractor",
+    "version": "1.0.0",
+    "description": "API for extracting content from web pages using various formats and selectors"
+  },
+  "servers": [
+    {
+      "url": "https://r.jina.ai"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "operationId": "extractWebContent",
+        "summary": "Extract web content",
+        "description": "Extracts content from a specified URL using various formatting options and selectors",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtractWebContentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractWebContentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Return-Format",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "default",
+                "markdown",
+                "html",
+                "text",
+                "screenshot",
+                "pageshot"
+              ],
+              "default": "default"
+            },
+            "description": "Specifies the return format of the extracted content"
+          },
+          {
+            "name": "X-Target-Selector",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "CSS selector to target specific elements"
+          },
+          {
+            "name": "X-Timeout",
+            "in": "header",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Timeout in seconds for the request"
+          },
+          {
+            "name": "X-Wait-For-Selector",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "CSS selector to wait for before processing the page"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExtractWebContentRequest": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL of the web page to extract content from"
+          }
+        },
+        "required": ["url"]
+      },
+      "ExtractWebContentResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The extracted content in the specified format"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

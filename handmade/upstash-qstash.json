@@ -1,0 +1,115 @@
+{
+  "$schema": "https://ref.actionschema.com/openapi.json",
+  "openapi": "3.1.0",
+  "info": {
+    "title": "QStash Batch Messaging API",
+    "version": "2.0.0",
+    "description": "API for sending multiple messages in a single request"
+  },
+  "servers": [
+    {
+      "url": "https://qstash.upstash.io"
+    }
+  ],
+  "paths": {
+    "/v2/batch": {
+      "post": {
+        "summary": "Send batch messages",
+        "description": "Send multiple messages in a single request",
+        "operationId": "sendBatchMessages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BatchMessage"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/MessageResponse"
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/MessageResponse"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchMessage": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string"
+          },
+          "queue": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": ["destination"]
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": ["messageId"]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

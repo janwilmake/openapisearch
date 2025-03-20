@@ -1,0 +1,4199 @@
+{
+  "$schema": "https://openapisearch.com/providers.schema.json",
+
+  "providers": {
+    "socialdata.tools": {
+      "openapiUrl": "https://docs.socialdata.tools/openapi.yaml"
+    },
+    "github": {
+      "isTrustedOauthLink": true,
+      "info": {
+        "description": "GitHub is where one hosts their code in a central location, to collaborate with others",
+        "x-links": {
+          "docsUrl": "https://docs.github.com/en/rest",
+          "createOauthAppUrl": "https://github.com/settings/apps/new",
+          "authorization_url": "https://github.com/login/oauth/authorize",
+          "token_url": "https://github.com/login/oauth/access_token",
+          "apiManagementUrl": "https://github.com/settings/tokens",
+          "scopesUrl": "https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps"
+        }
+      },
+      "auth_standard": "oauth2",
+      "auth_mode": "BEARER",
+      "openapiUrl": "https://github.com/github/rest-api-description/raw/refs/heads/main/descriptions-next/ghes-3.16/ghes-3.16.json",
+      "categories": ["dev-tools", "support", "ticketing"],
+      "scopes": {
+        "": "Grants read-only access to public information (including user profile info, repository info, and gists)",
+        "repo": "Grants full access to public and private repositories including read and write access to code, commit statuses, repository invitations, collaborators, deployment statuses, and repository webhooks. Also grants access to manage organization-owned resources including projects, invitations, team memberships and webhooks, and ability to manage projects owned by users.",
+        "repo:status": "Grants read/write access to commit statuses in public and private repositories. This scope is only necessary to grant other users or services access to private repository commit statuses without granting access to the code.",
+        "repo_deployment": "Grants access to deployment statuses for public and private repositories. This scope is only necessary to grant other users or services access to deployment statuses, without granting access to the code.",
+        "public_repo": "Limits access to public repositories. That includes read/write access to code, commit statuses, repository projects, collaborators, and deployment statuses for public repositories and organizations. Also required for starring public repositories.",
+        "repo:invite": "Grants accept/decline abilities for invitations to collaborate on a repository. This scope is only necessary to grant other users or services access to invites without granting access to the code.",
+        "security_events": "Grants read and write access to security events in the code scanning API. This scope is only necessary to grant other users or services access to security events without granting access to the code.",
+        "admin:repo_hook": "Grants read, write, ping, and delete access to repository hooks in public or private repositories.",
+        "write:repo_hook": "Grants read, write, and ping access to hooks in public or private repositories.",
+        "read:repo_hook": "Grants read and ping access to hooks in public or private repositories.",
+        "admin:org": "Fully manage the organization and its teams, projects, and memberships.",
+        "write:org": "Read and write access to organization membership and organization projects.",
+        "read:org": "Read-only access to organization membership, organization projects, and team membership.",
+        "admin:public_key": "Fully manage public keys.",
+        "write:public_key": "Create, list, and view details for public keys.",
+        "read:public_key": "List and view details for public keys.",
+        "admin:org_hook": "Grants read, write, ping, and delete access to organization hooks. OAuth tokens will only be able to perform these actions on organization hooks which were created by the OAuth app. Personal access tokens will only be able to perform these actions on organization hooks created by a user.",
+        "gist": "Grants write access to gists.",
+        "notifications": "Grants read access to a user's notifications, mark as read access to threads, watch and unwatch access to a repository, and read, write, and delete access to thread subscriptions.",
+        "user": "Grants read/write access to profile info only. Note that this scope includes user:email and user:follow.",
+        "read:user": "Grants access to read a user's profile data.",
+        "user:email": "Grants read access to a user's email addresses.",
+        "user:follow": "Grants access to follow or unfollow other users.",
+        "project": "Grants read/write access to user and organization projects.",
+        "read:project": "Grants read only access to user and organization projects.",
+        "delete_repo": "Grants access to delete adminable repositories.",
+        "write:packages": "Grants access to upload or publish a package in GitHub Packages.",
+        "read:packages": "Grants access to download or install packages from GitHub Packages.",
+        "delete:packages": "Grants access to delete packages from GitHub Packages.",
+        "admin:gpg_key": "Fully manage GPG keys.",
+        "write:gpg_key": "Create, list, and view details for GPG keys.",
+        "read:gpg_key": "List and view details for GPG keys.",
+        "codespace": "Grants the ability to create and manage codespaces. Codespaces can expose a GITHUB_TOKEN which may have a different set of scopes.",
+        "workflow": "Grants the ability to add and update GitHub Actions workflow files. Workflow files can be committed without this scope if the same file (with both the same path and contents) exists on another branch in the same repository. Workflow files can expose GITHUB_TOKEN which may have a different set of scopes."
+      }
+    },
+
+    "x": {
+      "categories": ["marketing", "social"],
+      "isTrustedOauthLink": true,
+      "openapiUrl": "https://api.twitter.com/2/openapi.json",
+      "auth_standard": "oauth2",
+      "auth_mode": "BEARER",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://developer.x.com/en/portal/projects-and-apps",
+          "scopesUrl": "https://developer.x.com/en/docs/authentication/guides/v2-authentication-mapping",
+          "createOauthAppUrl": "https://developer.x.com/en/portal/dashboard",
+          "authorization_url": "https://twitter.com/i/oauth2/authorize",
+          "token_url": "https://api.twitter.com/2/oauth2/token"
+        }
+      }
+    },
+
+    "brandwatch": {
+      "info": { "description": "Watch social media about your brand" },
+      "openapiUrl": "https://openapisearch.com/handmade/brandwatch.json"
+    },
+    "jina-reader": {
+      "info": {
+        "description": "Read webpages in markdown, html, or screenshot"
+      },
+      "openapiUrl": "https://openapisearch.com/handmade/jina-reader.json"
+    },
+
+    "irfc-cloud": {
+      "openapiUrl": "https://irfc.cloud/openapi.json",
+      "info": { "description": "AI-Powered Cloud Hosting" }
+    },
+
+    "upstash-redis": {
+      "info": { "description": "Control a Redis database over API" },
+      "openapiUrl": "https://openapisearch.com/handmade/upstash-redis.json"
+    },
+
+    "upstash-qstash": {
+      "info": { "description": "Scheduling and batching API calls" },
+      "openapiUrl": "https://openapisearch.com/handmade/upstash-qstash.json"
+    },
+
+    "upstash-vector": {
+      "info": { "description": "Control a Vector database over API" },
+      "openapiUrl": "https://vector.actionschema.com/openapi.json"
+    },
+
+    "digitalocean": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://cloud.digitalocean.com/v1/oauth/authorize",
+      "token_url": "https://cloud.digitalocean.com/v1/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.digitalocean.com"
+      },
+
+      "openapiUrl": "https://raw.githubusercontent.com/digitalocean/openapi/main/specification/DigitalOcean-public.v2.yaml"
+    },
+
+    "openapisearch": {
+      "info": {
+        "description": "Public API to find OpenAPIs on https://apis.guru"
+      },
+      "auth_mode": "PUBLIC",
+      "openapiUrl": "https://openapisearch.com/openapi.json"
+    },
+
+    "apisguru": {
+      "info": {
+        "description": "Public API to find OpenAPIs on https://apis.guru"
+      },
+      "auth_mode": "PUBLIC",
+      "openapiUrl": "https://api.apis.guru/v2/specs/apis.guru/2.2.0/openapi.json"
+    },
+
+    "hackernews": {
+      "info": {
+        "description": "Readonly API for posts, comments, and profiles from news.ycombinator.com"
+      },
+      "openapiUrl": "https://openapisearch.com/handmade/hackernews.json",
+      "auth_mode": "PUBLIC",
+      "categories": ["news"]
+    },
+
+    "groq": {
+      "categories": ["ai"],
+      "openapiUrl": "https://groq-openapi.vercel.app/openapi.json",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "Cloud AI Provider with multiple transformer LLMs and other modalities, with very fast inference",
+        "x-links": {
+          "apiManagementUrl": "https://console.groq.com/keys",
+          "docsUrl": "https://console.groq.com/docs/quickstart"
+        }
+      }
+    },
+
+    "podscan": {
+      "categories": ["podcasts"],
+      "info": {
+        "description": "Search through podcast transcripts, get alerts",
+        "x-links": {
+          "apiManagementUrl": "https://podscan.fm/user/api-tokens"
+        }
+      },
+      "auth_mode": "BEARER",
+
+      "openapiUrl": "https://podscan.fm/docs/api.json"
+    },
+
+    "notion-dbs": {
+      "categories": ["productivity"],
+      "info": {
+        "description": "Notion Databases API",
+        "x-links": {
+          "apiManagementUrl": "https://www.notion.so/profile/integrations"
+        }
+      },
+
+      "openapiUrl": "https://openapisearch.com/handmade/notion-dbs.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2"
+    },
+
+    "npm-registry": {
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://www.npmjs.com/settings/{username}/tokens/"
+        }
+      },
+      "auth_mode": "BEARER",
+
+      "openapiUrl": "https://cdn.jsdelivr.net/gh/pichillilorenzo/npm-registry-open-api@main/npm-registry-open-api.yaml"
+    },
+
+    "posthog-capture-api": {
+      "openapiUrl": "https://raw.githubusercontent.com/PostHog/posthog/master/openapi/capture.yaml",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://us.posthog.com/project/{projectId}/settings/user-api-keys"
+        },
+        "description": "Posthog is a Product analytics platform allowing companies to track and understand their users"
+      }
+    },
+
+    "google-analytics4": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analyticsadmin/v1beta/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analyticsadmin.googleapis.com"
+        },
+        "description": "The Google Analytics Admin API allows for programmatic access to the Google Analytics 4 (GA4) configuration data and is only compatible with GA4 properties"
+      }
+    },
+
+    "google-analytics3": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analytics/v3/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analytics.googleapis.com"
+        },
+        "description": "Views and manages your Google Analytics data (GA3)"
+      }
+    },
+
+    "stripe": {
+      "hasOauth2": true,
+      "categories": ["payment"],
+      "info": {
+        "description": "Create a paywall for your app or invoices",
+        "x-links": {
+          "apiManagementUrl": "https://dashboard.stripe.com/apikeys",
+          "authorization_url": "https://marketplace.stripe.com/oauth/v2/authorize",
+          "token_url": "https://api.stripe.com/v1/oauth/token"
+        }
+      },
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "openapiUrl": "https://api.apis.guru/v2/specs/stripe.com/2022-11-15/openapi.json"
+    },
+    "actionschema-chat": {
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "openapiUrl": "https://chat.actionschema.com/openapi.json",
+      "info": {
+        "description": "Chat completions with tools for multiple providers"
+      }
+    },
+    "actionschema-search": {
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "openapiUrl": "https://search.actionschema.com/openapi.json",
+      "info": { "description": "Find endpoints for your next app" }
+    },
+
+    "github-reader": {
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+
+      "info": {
+        "description": "This API allows users to fetch and unzip files from a specified GitHub repository branch, with options to filter results by file extensions and directories."
+      },
+      "openapiUrl": "https://github.actionschema.com/openapi.json"
+    },
+
+    "openapi-util": {
+      "openapiUrl": "https://openapi-util.actionschema.com/openapi.json",
+      "auth_mode": "BEARER",
+
+      "info": {
+        "description": "This API provides tools for working with OpenAPI specifications. It allows users to merge, prune, and summarize OpenAPIs, generate SDK configurations and full SDKs, and even create custom endpoints through AI assistance."
+      }
+    },
+
+    "actionschema-data": {
+      "openapiUrl": "https://data.actionschema.com/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment."
+      },
+      "scopes": {
+        "admin": "Access to managing all projects",
+        "user:project:{projectSlug}": "Access to use all databases in a project, with or without user separation.",
+        "user:project:{projectSlug}:read": "Access to read all databases in a project, and write to all user-separated databases.",
+        "admin:project:{projectSlug}": "Access to manage an entire project",
+        "admin:db:{databaseSlug}": "Access to manage a database"
+      }
+    },
+
+    "supabase": {
+      "openapiUrl": "https://api.supabase.com/api/v1-json",
+      "categories": ["coding", "hosting", "serverless"],
+      "auth_standard": "oauth2",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "Create hosted Postgres Databases with API",
+
+        "x-links": {
+          "token_url": "https://api.supabase.com/v1/oauth/token",
+          "authorization_url": "https://api.supabase.com/v1/oauth/authorize",
+          "apiManagementUrl": "https://supabase.com/dashboard/account/tokens",
+          "createOauthAppUrl": "https://supabase.com/dashboard",
+          "docsUrl": "https://supabase.com/docs",
+          "scopesUrl": "https://supabase.com/docs/guides/platform/oauth-apps/oauth-scopes",
+          "sourceUrl": "https://github.com/supabase/supabase"
+        }
+      }
+    },
+
+    "slack": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/slack.com/1.7.0/openapi.json",
+      "categories": ["productivity"],
+      "auth_standard": "oauth2",
+      "info": {
+        "description": "A very common app used for communication at work",
+        "x-links": {
+          "docsUrl": "https://api.slack.com/apis",
+          "authorization_url": "https://slack.com/oauth/v2/authorize",
+          "token_url": "https://slack.com/api/oauth.v2.access",
+          "createOauthAppUrl": "https://api.slack.com/apps?new_app=1",
+          "apiManagementUrl": "https://api.slack.com/apps",
+          "scopesUrl": "https://api.slack.com/scopes"
+        }
+      },
+
+      "scopes": {
+        "admin": "Administer a workspace",
+        "admin.analytics:read": "Access analytics data about the organization",
+        "admin.app_activities:read": "View execution logs within an organization",
+        "admin.apps:read": "View apps and app requests in a workspace",
+        "admin.apps:write": "Manage apps in a workspace",
+        "admin.barriers:read": "Read information barriers in the organization",
+        "admin.barriers:write": "Manage information barriers in the organization",
+        "admin.conversations:read": "View the channel's member list, topic, purpose and channel name",
+        "admin.conversations:write": "Start a new conversation, modify a conversation and modify channel details",
+        "admin.invites:read": "Gain information about invite requests in a Grid organization",
+        "admin.invites:write": "Approve or deny invite requests in a Grid organization",
+        "admin.roles:read": "List role assignments for your workspace",
+        "admin.roles:write": "Add and remove role assignments for your workspace",
+        "admin.teams:read": "Access information about a workspace",
+        "admin.teams:write": "Make changes to a workspace",
+        "admin.usergroups:read": "Access information about user groups",
+        "admin.usergroups:write": "Make changes to your usergroups",
+        "admin.users:read": "Access a workspace's profile information",
+        "admin.users:write": "Modify account information",
+        "admin.workflows:read": "View all workflows in a workspace",
+        "admin.workflows:write": "Manage workflows in a workspace",
+        "app_configurations:read": "Read app configuration info via App Manifest APIs",
+        "app_configurations:write": "Write app configuration info and create apps via App Manifest APIs",
+        "app_mentions:read": "View messages that directly mention @your_slack_app in conversations that the app is in",
+        "apps.requests:write": "Create or cancel an App Approval request on user's behalf",
+        "auditlogs:read": "View events from all workspaces, channels and users (Enterprise Grid only)",
+        "bookmarks:read": "List bookmarks",
+        "bookmarks:write": "Create, edit, and remove bookmarks",
+        "calls:read": "View information about ongoing and past calls",
+        "calls:write": "Start and manage calls in a workspace",
+        "canvases:read": "Your slack app will be able to access contents of canvases created inside Slack",
+        "canvases:write": "Your slack app will be able to create, edit and remove canvases",
+        "channels:history": "View messages and other content in public channels that your slack app has been added to",
+        "channels:join": "Join public channels in a workspace",
+        "channels:manage": "Manage public channels that your slack app has been added to and create new ones",
+        "channels:read": "View basic information about public channels in a workspace",
+        "channels:write": "Manage a user's public channels and create new ones on a user's behalf",
+        "channels:write.invites": "Invite members to public channels",
+        "channels:write.topic": "Set the description of public channels",
+        "chat:write": "Post messages in approved channels & conversations",
+        "chat:write.customize": "Send messages as @your_slack_app with a customized username and avatar",
+        "chat:write.public": "Send messages to channels @your_slack_app isn't a member of",
+        "chat:write:bot": "Send messages as your slack app",
+        "chat:write:user": "Send messages on a user's behalf",
+        "commands": "Add shortcuts and/or slash commands that people can use",
+        "conversations.connect:manage": "Allows your slack app to manage Slack Connect channels",
+        "conversations.connect:read": "Receive Slack Connect invite events sent to the channels your slack app is in",
+        "conversations.connect:write": "Create Slack Connect invitations for channels that your slack app has been added to, and accept invitations sent to your slack app",
+        "datastore:read": "View and see data from Slack App Datastore",
+        "datastore:write": "Write data to Slack App Datastore",
+        "dnd:read": "View Do Not Disturb settings for people in a workspace",
+        "dnd:write": "Edit a user's Do Not Disturb settings",
+        "email": "View a user's email address",
+        "emoji:read": "View custom emoji in a workspace",
+        "files:read": "View files shared in channels and conversations that your slack app has been added to",
+        "files:write": "Upload, edit, and delete files as your slack app",
+        "files:write:user": "Upload, edit, and delete files as your slack app",
+        "groups:history": "View messages and other content in private channels that your slack app has been added to",
+        "groups:read": "View basic information about private channels that your slack app has been added to",
+        "groups:write": "Manage private channels that your slack app has been added to and create new ones",
+        "groups:write.invites": "Invite members to private channels",
+        "groups:write.topic": "Set the description of private channels",
+        "hosting:read": "View and see information about Slack apps",
+        "hosting:write": "Manage and deploy Slack apps",
+        "identity.avatar": "View a user's Slack avatar",
+        "identity.basic": "View information about a user's identity",
+        "identity.email": "View a user's email address",
+        "identity.team": "View a user's Slack workspace name",
+        "im:history": "View messages and other content in direct messages that your slack app has been added to",
+        "im:read": "View basic information about direct messages that your slack app has been added to",
+        "im:write": "Start direct messages with people",
+        "incoming-webhook": "Create one-way webhooks to post messages to a specific channel",
+        "links.embed:write": "Embed video player URLs in messages and app surfaces",
+        "links:read": "View URLs in messages",
+        "links:write": "Show previews of URLs in messages",
+        "metadata.message:read": "Allows your slack app to read message metadata in channels that your slack app has been added to",
+        "mpim:history": "View messages and other content in group direct messages that your slack app has been added to",
+        "mpim:read": "View basic information about group direct messages that your slack app has been added to",
+        "mpim:write": "Start group direct messages with people",
+        "mpim:write.invites": "Invite members to group direct messages",
+        "mpim:write.topic": "Set the description in group direct messages",
+        "none": "Execute methods without needing a scope",
+        "openid": "View information about a user's identity",
+        "pins:read": "View pinned content in channels and conversations that your slack app has been added to",
+        "pins:write": "Add and remove pinned messages and files",
+        "profile": "View a user's Slack avatar and Slack workspace's basic information",
+        "reactions:read": "View emoji reactions and their associated content in channels and conversations that your slack app has been added to",
+        "reactions:write": "Add and edit emoji reactions",
+        "reminders:read": "View reminders created by your slack app",
+        "reminders:write": "Add, remove, or mark reminders as complete",
+        "remote_files:read": "View remote files added by the app in a workspace",
+        "remote_files:share": "Share remote files on a user's behalf",
+        "remote_files:write": "Add, edit, and delete remote files on a user's behalf",
+        "search:read": "Search a workspace's content",
+        "stars:read": "View messages and files that your slack app has starred",
+        "stars:write": "Add or remove stars",
+        "team.billing:read": "Allows your slack app to read the billing plan for workspaces your slack app has been installed to",
+        "team.preferences:read": "Allows your slack app to read the preferences for workspaces your slack app has been installed to",
+        "team:read": "View the name, email domain, and icon for workspaces your slack app is connected to",
+        "tokens.basic": "Execute methods without needing a scope",
+        "triggers:read": "Read new Platform triggers",
+        "triggers:write": "Create new Platform triggers",
+        "usergroups:read": "View user groups in a workspace",
+        "usergroups:write": "Create and manage user groups",
+        "users.profile:read": "View profile details about people in a workspace",
+        "users.profile:write": "Edit a user's profile information and status",
+        "users:read": "View people in a workspace",
+        "users:read.email": "View email addresses of people in a workspace",
+        "users:write": "Set presence for your slack app",
+        "workflow.steps:execute": "Add steps that people can use in Workflow Builder"
+      }
+    },
+
+    "vercel": {
+      "openapiUrl": "https://openapi.vercel.sh",
+      "categories": ["dev-tools"],
+      "auth_standard": "oauth2",
+      "info": {
+        "x-links": {
+          "docsUrl": "https://vercel.com/docs/rest-api",
+          "integrationsDocsUrl": "https://vercel.com/docs/rest-api/vercel-api-integrations",
+          "createOauthAppUrl": "https://vercel.com/code-from-anywheres-projects/~/integrations/create",
+          "authorization_url": "https://vercel.com/integrations/{slug}/new",
+          "token_url": "https://api.vercel.com/v2/oauth/access_token",
+          "scopesUrl": "https://vercel.com/docs/rest-api/vercel-api-integrations#scopes"
+        },
+        "description": "Vercel is a cloud hosting solution for full stack applications"
+      },
+      "scopes": {
+        "integration-configuration": "Interact with the installation of your integration",
+        "deployment": "Interact with deployments",
+        "deployment-check": "Verify deployments with Checks",
+        "edge-config": "Create and manage Edge Configs and their tokens",
+        "project": "Access project details and settings",
+        "project-env-vars": "Create and manage integration-owned project environment variables",
+        "global-project-env-vars": "Create and manage all account project environment variables",
+        "team": "Access team details",
+        "user": "Get information about the current user",
+        "log-drain": "Create and manage log drains to forward logs",
+        "domain": "Manage and interact with domains and certificates. Write permissions are required for both `project` and `domain` when updating the domain of a project."
+      }
+    },
+
+    "anthropic-message-api": {
+      "openapiUrl": "https://anthropic.actionschema.com/openapi.json",
+      "info": {
+        "description": "",
+        "x-links": {
+          "apiManagementUrl": "https://console.anthropic.com/settings/keys"
+        }
+      }
+    },
+
+    "val-town": {
+      "openapiUrl": "https://api.val.town/openapi.json",
+      "info": {
+        "description": "Host serverless APIs",
+        "x-links": { "apiManagementUrl": "https://www.val.town/settings/api" }
+      }
+    },
+
+    "openai": {
+      "openapiUrl": "https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "OpenAI is a large AI service provider providing state of the art models in various modalities.",
+        "x-links": {
+          "apiManagementUrl": "https://platform.openai.com/api-keys",
+          "authorization_url": "https://platform.openai.com/login",
+          "signupUrl": "https://platform.openai.com/signup",
+          "docsUrl": "https://platform.openai.com/docs/overview"
+        }
+      },
+      "categories": ["ai"]
+    },
+
+    "firecrawl": {
+      "info": {
+        "description": "API for interacting with Firecrawl services to perform web scraping and crawling tasks.",
+        "x-links": {
+          "apiManagementUrl": "https://www.firecrawl.dev/app/api-keys"
+        }
+      },
+      "auth_mode": "BEARER",
+      "openapiUrl": "https://raw.githubusercontent.com/mendableai/firecrawl/main/apps/api/openapi.json"
+    },
+
+    "playht": {
+      "auth_mode": "API_KEY",
+      "info": {
+        "x-links": { "apiManagementUrl": "https://play.ht/studio/api-access" },
+        "description": "The PlayHT's API API allows developers to Realtime Text to Speech streaming Stream audio bytes from text, Convert long form Text to Speech Generate audio from text, and Voice Cloning Instant Cloning."
+      },
+      "openapiUrl": "https://raw.githubusercontent.com/cielo24/playht-openapi/main/playht.yml"
+    },
+
+    "serper": {
+      "openapiUrl": "https://openapisearch.com/handmade/serper.json",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "The worlds fastest and cheapest google search api",
+        "x-links": { "apiManagementUrl": "https://serper.dev/api-key" }
+      }
+    },
+
+    "replicate": {
+      "categories": ["ai"],
+      "openapiUrl": "https://api.replicate.com/openapi.json",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://replicate.com/account/api-tokens"
+        }
+      }
+    },
+
+    "probo-nl": {
+      "info": { "description": "", "x-links": { "apiManagementUrl": "" } },
+      "openapiUrl": "https://proboapi.cdn.prismic.io/proboapi/26b9c2ed-b21f-45d6-b5cb-c639302d562b_2api.json"
+    },
+
+    "cloudflare": {
+      "openapiUrl": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json",
+      "info": {
+        "description": "Cloudflare provides content delivery network services, cloud cybersecurity, DDoS mitigation, wide area network services, Domain Name Service, and ICANN-accredited domain registration services",
+        "x-links": {
+          "docsUrl": "https://developers.cloudflare.com/api/",
+          "apiManagementUrl": "https://dash.cloudflare.com/profile/api-tokens"
+        }
+      }
+    },
+
+    "whatsapp-business": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/whatsapp.local/1.0/openapi.json",
+      "info": {
+        "description": "The WhatsApp Business Platform gives medium to large businesses the ability to connect with customers at scale. You can start WhatsApp conversations with your customers in minutes, send them care notifications or purchase updates, offer personalized services, and provide support in the channel that your customers prefer."
+      }
+    },
+
+    "shopify": {
+      "info": { "description": "Shopify Admin API" },
+      "openapiUrl": "https://raw.githubusercontent.com/allengrant/shopify_openapi/master/shopify_openapi.json",
+      "categories": ["e-commerce"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.myshopify.com/admin/oauth/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.myshopify.com/admin/oauth/access_token",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.myshopify.com",
+        "headers": {
+          "X-Shopify-Access-Token": "${accessToken}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/shopify"
+    },
+    "twilio-messaging": {
+      "openapiUrl": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_messaging_v1.json",
+      "auth_mode": "BASIC"
+    },
+
+    "huggingface": {
+      "categories": ["ai"],
+      "info": {
+        "description": "",
+        "x-links": {
+          "scopesUrl": "https://huggingface.co/docs/hub/oauth",
+          "apiManagementUrl": "https://huggingface.co/settings/tokens"
+        }
+      },
+      "openapiUrl": "https://raw.githubusercontent.com/huggingface/text-generation-inference/main/docs/openapi.json",
+      "$comment": "Another one: https://api.endpoints.huggingface.cloud/api-doc/openapi.json"
+    },
+
+    "doppio": {
+      "openapiUrl": "https://openapisearch.com/handmade/doppio.json",
+      "auth_mode": "BEARER",
+      "info": {}
+    },
+
+    "multion": {
+      "openapiUrl": "https://openapisearch.com/handmade/multion.json",
+      "auth_mode": "BEARER"
+    },
+
+    "browserless": {
+      "info": { "description": "Web browsing API" },
+      "openapiUrl": "https://docs.browserless.io/redocusaurus/plugin-redoc-0.yaml"
+    },
+    "bol-com-retailer": {
+      "openapiUrl": "https://api.bol.com/retailer/public/apispec/Retailer%20API%20-%20v9",
+      "info": { "description": "Dutch shopping platform" }
+    },
+
+    "actionschema-auth": {
+      "openapiUrl": "https://auth.actionschema.com/openapi.json",
+      "categories": ["auth"],
+      "info": {
+        "description": "ActionSchema Auth is a central place to manage auth for your agents",
+        "x-links": {
+          "authorization_url": "https://auth.actionschema.com/client/authorize",
+          "token_url": "https://auth.actionschema.com/client/access_token",
+          "createOauthAppUrl": "https://auth.actionschema.com/admin",
+          "docsUrl": "https://auth.actionschema.com/reference"
+        }
+      },
+      "auth_mode": "BEARER",
+      "scopes": {
+        "actionschema-auth:admin": "Full access to all providers, clients, and permissions",
+        "actionschema-auth:read:user": "Access to ActionSchema Auth UserID, as well as all user IDs of all providers the user logged into.",
+        "actionschema-auth:readonly": "Only read what services are available"
+      }
+    },
+    "statusbrew": {
+      "$comment": "Requires contact with the team to retrieve API access and they are very selective about it.",
+      "categories": ["social-media"],
+      "openapiUrl": "https://developer.statusbrew.com/api-statusbrew/openapi.yaml",
+      "info": {
+        "description": "Social media planning API for facebook, instagram, twitter, linkedin, google my business, pinterest, youtube, and tiktok.",
+        "x-links": { "docsUrl": "https://developer.statusbrew.com" }
+      }
+    },
+
+    "swagger-validator": {
+      "info": {
+        "description": "Validators for swagger 2.0 and 3.x specifications of OpenAPIs"
+      },
+      "openapiUrl": "https://validator.swagger.io/validator/openapi.json"
+    },
+
+    "google-mail": {
+      "info": { "description": "Manage GMail" },
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/gmail/v1/openapi.json"
+    },
+    "youtube-data": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/youtube/v3/openapi.json",
+      "info": {
+        "description": "The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels."
+      }
+    },
+    "google-sheets": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/sheets/v4/openapi.json",
+      "description": "Reads and writes Google Sheets."
+    },
+
+    "google-drive": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/drive/v3/openapi.json",
+      "description": "Manages files in Drive including uploading, downloading, searching, detecting changes, and updating "
+    },
+    "google-secret-manager": {
+      "description": "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/secretmanager/v1beta1/openapi.json"
+    },
+
+    "flyio": { "openapiUrl": "https://docs.machines.dev/spec/openapi3.json" },
+
+    "vapi": { "openapiUrl": "https://api.vapi.ai/api-json" },
+    "klippa": {
+      "openapiUrl": "https://dochorizon.klippa.com/api/open-api.yaml"
+    },
+    "uberduck": { "openapiUrl": "https://api.uberduck.ai/openapi.json" },
+
+    "twilio": {
+      "openapiUrl": "https://github.com/twilio/twilio-oai/tree/main/spec/json",
+      "sourceUrl": "https://github.com/twilio/twilio-oai",
+      "docsUrl": "https://www.twilio.com/docs"
+    },
+
+    "saltedge": {
+      "info": { "description": "Bank integrations" },
+      "openapiUrl": "https://docs.saltedge.com/assets/swagger-aisp-v5-services.json"
+    },
+
+    "google-search-console": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/searchconsole/v1/openapi.json"
+    },
+
+    "aws-cloudwatch-insights": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/application-insights/2018-11-25/openapi.json"
+    },
+
+    "aws-cloudfront": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/cloudfront/2020-05-31/openapi.json"
+    },
+
+    "aws-email": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/email/2010-12-01/openapi.json"
+    },
+
+    "aws-s3-control": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/s3control/2018-08-20/openapi.json"
+    },
+
+    "aws-s3": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/s3/2006-03-01/openapi.json"
+    },
+
+    "aws-sagemaker": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/sagemaker/2017-07-24/openapi.json"
+    },
+
+    "aws-sagemaker-edge": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/sagemaker-edge/2020-09-23/openapi.json"
+    },
+
+    "aws-sagemaker-featureStore": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/amazonaws.com/sagemaker-featurestore-runtime/2020-07-01/openapi.json"
+    },
+
+    "screenless": {
+      "scopes": {
+        "read:transcript": "Read access to all transcripts",
+        "read:recording": "Read access to all recordings",
+        "delete": "Delete access of recordings/transcripts and analysis of the admin",
+        "admin": "Manage everything including delete",
+        "analysis": "Access to submit analysis back to the screenless store"
+      }
+    },
+
+    "bunq": {
+      "openapiUrl": "https://raw.githubusercontent.com/bunq/doc/master/swagger.json",
+      "hasOauth2": true,
+      "token_url": "https://api.oauth.bunq.com/v1/token?grant_type=authorization_code",
+      "authorization_url": "https://oauth.bunq.com/auth",
+      "docsUrl": "https://doc.bunq.com/",
+      "categoryStack": ["banking"],
+      "isTrustedOauthLink": true,
+      "description": "Bunq is a Dutch bank that has a great developer experience"
+    },
+
+    "wakatime": {
+      "info": {
+        "description": "API for measuring and analysis your time coded from various code editors",
+
+        "x-links": {
+          "token_url": "https://wakatime.com/oauth/token",
+          "authorization_url": "https://wakatime.com/oauth/authorize",
+          "integrationsDocsUrl": "https://wakatime.com/developers#authentication",
+          "revoke_url": "https://wakatime.com/oauth/revoke",
+          "refresh_url": "https://wakatime.com/oauth/token",
+          "createOauthAppUrl": "https://wakatime.com/apps",
+          "scopesUrl": "https://wakatime.com/developers#authentication",
+          "signupUrl": "https://wakatime.com/signup",
+          "sourceUrl": "https://github.com/wakatime",
+          "docsUrl": "https://wakatime.com/developers",
+          "billingUrl": "https://wakatime.com/settings/billing"
+        }
+      },
+      "categories": ["code"],
+      "_openapiUrl": "TODO: make it myself. draft in handmade, including the 2 most important ones"
+    },
+
+    "hubspot": {
+      "categories": ["marketing", "support", "crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.hubspot.com/oauth/authorize",
+      "token_url": "https://api.hubapi.com/oauth/v1/token",
+      "connection_configuration": ["portalId"],
+      "post_connection_script": "hubspot-post-connection",
+      "webhook_routing_script": "hubspot-webhook-routing",
+      "proxy": {
+        "base_url": "https://api.hubapi.com",
+        "decompress": true,
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "paging.next.after",
+          "limit_name_in_request": "limit",
+          "cursor_name_in_request": "after",
+          "response_path": "results"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/hubspot",
+      "$comment": "https://api.hubspot.com/api-catalog-public/v1/apis"
+    },
+
+    "hootsuite": {
+      "$comment": "2.0 swagger",
+      "openapiUrl": "https://platform.hootsuite.com/docs/api/swagger.yaml"
+    },
+
+    "_description": "Taken from nango.dev. These are some of the integrations that still need to be done. Some useful information is already available here.",
+    "_TODO": "twilio until monday are my preferred ones to be added as quickly as possible",
+
+    "robocorp": {
+      "description": "Robocorp controlroom",
+      "openapiUrl": "https://robocorp.com/api/openapi.json"
+    },
+
+    "trello": {
+      "categories": ["productivity", "ticketing"],
+      "auth_mode": "OAUTH1",
+      "request_url": "https://trello.com/1/OAuthGetRequestToken",
+      "authorization_url": "https://trello.com/1/OAuthAuthorizeToken",
+      "token_url": "https://trello.com/1/OAuthGetAccessToken",
+      "signature_method": "HMAC-SHA1",
+      "scope_separator": ",",
+      "authorization_params": {
+        "expiration": "never"
+      },
+      "proxy": {
+        "base_url": "https://api.trello.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/trello"
+    },
+
+    "sendgrid": {
+      "categories": ["marketing"],
+      "auth_mode": "API_KEY",
+      "servers": [{ "url": "https://api.sendgrid.com" }],
+      "openapiUrl": "https://raw.githubusercontent.com/sendgrid/sendgrid-oai/main/oai.json"
+    },
+
+    "outlook": {
+      "categories": ["communication"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/outlook"
+    },
+
+    "spotify": {
+      "categories": ["other"],
+      "hasOauth2": true,
+      "authorization_url": "https://accounts.spotify.com/authorize",
+      "token_url": "https://accounts.spotify.com/api/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.spotify.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/spotify"
+    },
+
+    "monday": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.monday.com/oauth2/authorize",
+      "token_url": "https://auth.monday.com/oauth2/token",
+      "docs": "https://docs.nango.dev/integrations/all/monday"
+    },
+
+    "accelo": {
+      "categories": ["invoicing", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.api.accelo.com/oauth2/v0/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.api.accelo.com/oauth2/v0/token",
+      "scope_separator": ",",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.api.accelo.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/accelo"
+    },
+    "adobe": {
+      "categories": ["design"],
+      "hasOauth2": true,
+      "authorization_url": "https://ims-na1.adobelogin.com/ims/authorize/v2",
+      "token_url": "https://ims-na1.adobelogin.com/ims/token/v3",
+      "default_scopes": ["offline_access"],
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/adobe"
+    },
+    "affinity": {
+      "categories": ["crm"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.affinity.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/affinity"
+    },
+    "aircall": {
+      "categories": ["support"],
+      "hasOauth2": true,
+      "authorization_url": "https://dashboard.aircall.io/oauth/authorize",
+      "token_url": "https://api.aircall.io/v1/oauth/token",
+      "authorization_params": {
+        "response_type": "code",
+        "scope": "public_api"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/aircall"
+    },
+    "airtable": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://airtable.com/oauth2/v1/authorize",
+      "token_url": "https://airtable.com/oauth2/v1/token",
+      "authorization_method": "header",
+      "auth": {
+        "response_type": "code"
+      },
+      "proxy": {
+        "base_url": "https://api.airtable.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/airtable"
+    },
+    "autodesk": {
+      "categories": ["design"],
+      "hasOauth2": true,
+      "authorization_url": "https://developer.api.autodesk.com/authentication/v2/authorize",
+      "token_url": "https://developer.api.autodesk.com/authentication/v2/token",
+      "scope_separator": " ",
+      "disable_pkce": true,
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://developer.api.autodesk.com",
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/autodesk"
+    },
+    "blandai": {
+      "categories": ["support"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.bland.ai",
+        "headers": {
+          "Authorization": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/blandai"
+    },
+    "algolia": {
+      "categories": ["search"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://${connectionConfig.APP_ID}.algolia.net",
+        "headers": {
+          "X-Algolia-Application-Id": "${connectionConfig.APP_ID}",
+          "X-Algolia-API-Key": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/algolia"
+    },
+    "amazon": {
+      "categories": ["dev-tools", "e-commerce"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.amazon.com/ap/oa",
+      "token_url": "https://api.amazon.${connectionConfig.extension}/auth/o2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.amazon.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/amazon"
+    },
+    "anrok": {
+      "categories": ["legal"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.anrok.com",
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        },
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/anrok"
+    },
+    "aws": {
+      "categories": ["dev-tools", "e-commerce"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.auth.${connectionConfig.extension}.amazoncognito.com/oauth2/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.auth.${connectionConfig.extension}.amazoncognito.com/oauth2/token",
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "auth": {
+        "response_type": "code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "default_scopes": ["openid"],
+      "docs": "https://docs.nango.dev/integrations/all/aws"
+    },
+    "amplitude": {
+      "categories": ["analytics"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://amplitude.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/amplitude"
+    },
+    "peopledatalabs": {
+      "categories": ["analytics"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.peopledatalabs.com",
+        "query": {
+          "api_key": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/peopledatalabs"
+    },
+    "exa": {
+      "categories": ["analytics"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.exa.ai",
+        "headers": {
+          "x-api-key": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/exa"
+    },
+    "jotform": {
+      "categories": ["surveys"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.jotform.com",
+        "headers": {
+          "APIKEY": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/jotform"
+    },
+    "apollo": {
+      "categories": ["marketing"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://app.apollo.io/api",
+        "query": {
+          "api_key": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/apollo"
+    },
+    "apple-app-store": {
+      "auth_mode": "APP_STORE",
+      "token_url": "https://api.appstoreconnect.apple.com/v1/apps",
+      "authorization_params": {
+        "audience": "appstoreconnect-v1"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/apple-app-store"
+    },
+    "asana": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.asana.com/-/oauth_authorize",
+      "token_url": "https://app.asana.com/-/oauth_token",
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "auth": {
+        "response_type": "code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://app.asana.com",
+        "retry": {
+          "after": "Retry-After"
+        },
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "next_page.offset",
+          "cursor_name_in_request": "offset",
+          "response_path": "data",
+          "limit_name_in_request": "limit"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/asana"
+    },
+    "ashby": {
+      "categories": ["ats"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.ashbyhq.com",
+        "verification": {
+          "method": "POST",
+          "endpoint": "apiKey.info"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ashby"
+    },
+    "atlassian": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.atlassian.com/authorize",
+      "token_url": "https://auth.atlassian.com/oauth/token",
+      "default_scopes": ["offline_access"],
+      "authorization_params": {
+        "response_type": "code",
+        "audience": "api.atlassian.com",
+        "prompt": "consent"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.atlassian.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/atlassian"
+    },
+    "attio": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.attio.com/authorize",
+      "token_url": "https://app.attio.com/oauth/token",
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "auth": {
+        "response_type": "code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://app.attio.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/attio"
+    },
+    "auth0": {
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.auth0.com/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.auth0.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code",
+        "response_mode": "query"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/auth0"
+    },
+    "bamboohr": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.bamboohr.com/authorize.php",
+      "token_url": "https://${connectionConfig.subdomain}.bamboohr.com/token.php",
+      "authorization_params": {
+        "response_type": "code",
+        "request": "authorize"
+      },
+      "token_params": {
+        "grant_type": "authorization_code",
+        "request": "token"
+      },
+      "proxy": {
+        "base_url": "https://api.bamboohr.com/api/gateway.php/${connectionConfig.subdomain}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/bamboohr"
+    },
+    "bamboohr-basic": {
+      "categories": ["hr"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.bamboohr.com/api/gateway.php/${connectionConfig.subdomain}",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/v1/meta/fields"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/bamboohr"
+    },
+    "battlenet": {
+      "categories": ["gaming"],
+      "hasOauth2": true,
+      "authorization_url": "https://oauth.battle.${connectionConfig.extension}/authorize",
+      "token_url": "https://oauth.battle.${connectionConfig.extension}/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/battlenet"
+    },
+    "bitbucket": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://bitbucket.org/site/oauth2/authorize",
+      "token_url": "https://bitbucket.org/site/oauth2/access_token",
+      "proxy": {
+        "base_url": "https://api.bitbucket.org"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/bitbucket"
+    },
+    "bitdefender": {
+      "categories": ["other"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "${connectionConfig.ACCESS_URL}",
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/bitdefender"
+    },
+    "blackbaud": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.blackbaud.com/oauth/authorize",
+      "token_url": "https://oauth2.sky.blackbaud.com/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.sky.blackbaud.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/blackbaud"
+    },
+    "boldsign": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://account.boldsign.com/connect/authorize",
+      "token_url": "https://account.boldsign.com/connect/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.boldsign.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/boldsign"
+    },
+    "box": {
+      "categories": ["knowledge-base", "storage"],
+      "hasOauth2": true,
+      "authorization_url": "https://account.box.com/api/oauth2/authorize",
+      "token_url": "https://api.box.com/oauth2/token",
+      "proxy": {
+        "base_url": "https://api.box.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/box"
+    },
+    "braintree": {
+      "categories": ["payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.braintreegateway.com/oauth/connect",
+      "token_url": "https://api.braintreegateway.com/oauth/access_tokens",
+      "scope_separator": ",",
+      "authorization_method": "header",
+      "body_format": "json",
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "redirect_uri_metadata": ["merchantId"],
+      "docs": "https://docs.nango.dev/integrations/all/braintree"
+    },
+    "braintree-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://api.sandbox.braintreegateway.com/oauth/connect",
+      "token_url": "https://api.sandbox.braintreegateway.com/oauth/access_tokens",
+      "scope_separator": ",",
+      "authorization_method": "header",
+      "body_format": "json",
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "redirect_uri_metadata": ["merchantId"],
+      "docs": "https://docs.nango.dev/integrations/all/braintree"
+    },
+    "brex": {
+      "categories": ["banking"],
+      "hasOauth2": true,
+      "authorization_url": "https://accounts-api.brex.com/oauth2/default/v1/authorize",
+      "token_url": "https://accounts-api.brex.com/oauth2/default/v1/token",
+      "default_scopes": ["openid", "offline_access"],
+      "proxy": {
+        "base_url": "https://platform.brexapis.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/brex"
+    },
+    "brex-api-key": {
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        },
+        "base_url": "https://platform.brexapis.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/brex"
+    },
+    "brex-staging": {
+      "hasOauth2": true,
+      "authorization_url": "https://accounts-api.staging.brexapps.com/oauth2/default/v1/authorize",
+      "token_url": "https://accounts-api.staging.brexapps.com/oauth2/default/v1/token",
+      "proxy": {
+        "base_url": "https://platform.staging.brexapis.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/brex"
+    },
+    "calendly": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.calendly.com/oauth/authorize",
+      "token_url": "https://auth.calendly.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "proxy": {
+        "base_url": "https://api.calendly.com",
+        "paginate": {
+          "type": "link",
+          "link_path_in_response_body": "pagination.next_page"
+        }
+      },
+      "token_response_metadata": ["owner"],
+      "docs": "https://docs.nango.dev/integrations/all/calendly"
+    },
+    "checkr-partner": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://partners.checkr.com/authorize/${connectionConfig.client_id}",
+      "token_url": "https://api.checkr.com/oauth/tokens",
+      "disable_pkce": true,
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "retry": {
+          "at": "X-Ratelimit-Reset"
+        },
+        "base_url": "https://api.checkr.com"
+      },
+      "post_connection_script": "checkr-post-connection",
+      "docs": "https://docs.nango.dev/integrations/all/checkr"
+    },
+    "checkr-partner-staging": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://partners.checkrhq-staging.net/authorize/${connectionConfig.client_id}",
+      "token_url": "https://api.checkr-staging.com/oauth/tokens",
+      "disable_pkce": true,
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "retry": {
+          "at": "X-Ratelimit-Reset"
+        },
+        "base_url": "https://api.checkr-staging.com"
+      },
+      "post_connection_script": "checkr-post-connection",
+      "docs": "https://docs.nango.dev/integrations/all/checkr"
+    },
+    "chorus": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://chorus.ai"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/chorus"
+    },
+    "clari-copilot": {
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "X-Api-Key": "${apiKey}",
+          "X-Api-Password": "${connectionConfig.API_PASSWORD}"
+        },
+        "base_url": "https://rest-api.copilot.clari.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/clari-copilot"
+    },
+    "clickup": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.clickup.com/api",
+      "token_url": "https://api.clickup.com/api/v2/oauth/token",
+      "proxy": {
+        "base_url": "https://api.clickup.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/clickup"
+    },
+    "cloudentity": {
+      "auth_mode": "OAUTH2_CC",
+      "categories": ["other"],
+      "token_url": "https://${connectionConfig.tenantID}.${connectionConfig.regionID}.authz.cloudentity.io/${connectionConfig.tenantID}/${connectionConfig.workspaceID}/oauth2/token",
+      "scope_separator": " ",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "proxy": {
+        "base_url": "https://${connectionConfig.tenantID}.${connectionConfig.regionID}.authz.cloudentity.io/${connectionConfig.tenantID}/${connectionConfig.workspaceID}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/cloudentity"
+    },
+    "close": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.close.com/oauth2/authorize",
+      "token_url": "https://api.close.com/oauth2/token/",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "default_scopes": ["offline_access"],
+      "proxy": {
+        "base_url": "https://api.close.com/api",
+        "docs": "https://developer.close.com/"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/close"
+    },
+    "coda": {
+      "categories": ["knowledge-base", "productivity"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://coda.io/apis/v1",
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/coda"
+    },
+    "confluence": {
+      "categories": ["knowledge-base"],
+      "alias": "jira",
+      "docs": "https://docs.nango.dev/integrations/all/confluence"
+    },
+    "contentstack": {
+      "categories": ["cms"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.contentstack.com/apps/${connectionConfig.appId}/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.contentstack.com/apps-api/apps/token",
+      "docs": "https://docs.nango.dev/integrations/all/contentstack"
+    },
+    "datev": {
+      "categories": ["legal", "payroll", "hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.datev.de/openid/authorize",
+      "token_url": "https://api.datev.de/token",
+      "token_request_auth_method": "basic",
+      "scope_seprator": " ",
+      "default_scopes": ["openid"],
+      "authorization_params": {
+        "response_type": "code id_token",
+        "response_mode": "query",
+        "nonce": "AnotherRandomStringDatev"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.datev.de"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/datev"
+    },
+    "deel": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.letsdeel.com/oauth2/authorize",
+      "token_url": "https://auth.letsdeel.com/oauth2/tokens",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.letsdeel.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/deel"
+    },
+    "deel-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://auth-demo.letsdeel.com/oauth2/authorize",
+      "token_url": "https://auth-demo.letsdeel.com/oauth2/tokens",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api-staging.letsdeel.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/deel"
+    },
+    "dialpad": {
+      "categories": ["communication"],
+      "hasOauth2": true,
+      "authorization_url": "https://dialpad.com/oauth2/authorize",
+      "token_url": "https://dialpad.com/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://dialpad.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/dialpad"
+    },
+    "discord": {
+      "categories": ["gaming", "social"],
+      "hasOauth2": true,
+      "authorization_url": "https://discord.com/api/oauth2/authorize",
+      "token_url": "https://discord.com/api/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "proxy": {
+        "base_url": "https://discord.com",
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/discord"
+    },
+    "docusign": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://account.docusign.com/oauth/auth",
+      "token_url": "https://account.docusign.com/oauth/token",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://www.docusign.net"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/docusign"
+    },
+    "docusign-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://account-d.docusign.com/oauth/auth",
+      "token_url": "https://account-d.docusign.com/oauth/token",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://demo.docusign.net"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/docusign"
+    },
+    "dropbox": {
+      "categories": ["knowledge-base", "storage"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.dropbox.com/oauth2/authorize",
+      "token_url": "https://api.dropboxapi.com/oauth2/token",
+      "authorization_params": {
+        "token_access_type": "offline"
+      },
+      "proxy": {
+        "base_url": "https://api.dropboxapi.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/dropbox"
+    },
+    "egnyte": {
+      "categories": ["storage"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.egnyte.com/puboauth/token",
+      "token_url": "https://${connectionConfig.subdomain}.egnyte.com/puboauth/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.egnyte.com/pubapi"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/egnyte"
+    },
+    "entrata": {
+      "categories": ["other"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.entrata.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/entrata"
+    },
+    "envoy": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.envoy.com/a/auth/v0/authorize",
+      "token_url": "https://app.envoy.com/a/auth/v0/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.envoy.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/envoy"
+    },
+    "epic-games": {
+      "categories": ["gaming"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.epicgames.com/id/authorize",
+      "token_url": "https://api.epicgames.dev/epic/oauth/v1/token",
+      "authorization_method": "header",
+      "proxy": {
+        "base_url": "https://api.epicgames.dev"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/epic-games"
+    },
+    "evaluagent": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.region}.evaluagent.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/evaluagent"
+    },
+    "eventbrite": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.eventbrite.com/oauth/authorize",
+      "token_url": "https://www.eventbrite.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://www.eventbriteapi.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/eventbrite"
+    },
+    "exact-online": {
+      "categories": ["accounting", "hr", "productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://start.exactonline.${connectionConfig.extension}/api/oauth2/auth",
+      "token_url": "https://start.exactonline.${connectionConfig.extension}/api/oauth2/token",
+      "authorization_method": "header",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "token_expiration_buffer": 30,
+      "docs": "https://docs.nango.dev/integrations/all/exact-online"
+    },
+    "exist": {
+      "categories": ["other"],
+      "hasOauth2": true,
+      "authorization_url": "https://exist.io/oauth2/authorize",
+      "token_url": "https://exist.io/oauth2/access_token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://exist.io/",
+        "paginate": {
+          "type": "link",
+          "link_path_in_response_body": "next"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/exist"
+    },
+    "expensify": {
+      "categories": ["productivity"],
+      "auth_mode": "BASIC",
+      "docs": "https://docs.nango.dev/integrations/all/expensify"
+    },
+    "factorial": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.factorialhr.com/oauth/authorize",
+      "token_url": "https://api.factorialhr.com/oauth/token",
+      "disable_pkce": true,
+      "docs": "https://docs.nango.dev/integrations/all/factorial"
+    },
+    "facebook": {
+      "categories": ["marketing", "social"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.facebook.com/v15.0/dialog/oauth",
+      "token_url": "https://graph.facebook.com/v15.0/oauth/access_token",
+      "proxy": {
+        "base_url": "https://graph.facebook.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/facebook"
+    },
+    "figjam": {
+      "categories": ["design", "productivity"],
+      "alias": "figma",
+      "docs": "https://docs.nango.dev/integrations/all/figjam"
+    },
+    "figma": {
+      "categories": ["design", "productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.figma.com/oauth",
+      "token_url": "https://www.figma.com/api/oauth/token",
+      "refresh_url": "https://www.figma.com/api/oauth/refresh",
+      "disable_pkce": true,
+      "proxy": {
+        "base_url": "https://api.figma.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/figma"
+    },
+    "fireflies": {
+      "categories": ["analytics", "communication", "productivity"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.fireflies.ai",
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/fireflies"
+    },
+    "fitbit": {
+      "categories": ["sports"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.fitbit.com/oauth2/authorize",
+      "token_url": "https://api.fitbit.com/oauth2/token",
+      "authorization_method": "header",
+      "proxy": {
+        "base_url": "https://api.fitbit.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/fitbit"
+    },
+    "freshbooks": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.freshbooks.com/oauth/authorize",
+      "token_url": "https://api.freshbooks.com/auth/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "proxy": {
+        "base_url": "https://api.freshbooks.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/freshbooks"
+    },
+    "freshdesk": {
+      "categories": ["support"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.freshdesk.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/freshdesk"
+    },
+    "freshsales": {
+      "categories": ["crm"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.freshsales.io",
+        "headers": {
+          "Authorization": "Token token=${apiKey}"
+        },
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/freshsales"
+    },
+    "freshservice": {
+      "categories": ["support"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.freshservice.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/freshservice"
+    },
+    "front": {
+      "categories": ["support", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.frontapp.com/oauth/authorize",
+      "token_url": "https://app.frontapp.com/oauth/token",
+      "proxy": {
+        "base_url": "https://api2.frontapp.com",
+        "paginate": {
+          "type": "link",
+          "response_path": "_results",
+          "link_path_in_response_body": "_pagination.next"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/front"
+    },
+    "guru": {
+      "categories": ["knowledge-base"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.getguru.com/api/v1"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/guru"
+    },
+
+    "github-app": {
+      "categories": ["dev-tools", "ticketing"],
+      "alias": "github",
+      "auth_mode": "APP",
+      "authorization_url": "${connectionConfig.appPublicLink}/installations/new",
+      "token_url": "https://api.github.com/app/installations/${connectionConfig.installation_id}/access_tokens",
+      "webhook_routing_script": "github-app-webhook-routing",
+      "docs": "https://docs.nango.dev/integrations/all/github"
+    },
+    "github-app-oauth": {
+      "categories": ["dev-tools", "ticketing"],
+      "alias": "github",
+      "auth_mode": "CUSTOM",
+      "authorization_url": "${connectionConfig.appPublicLink}/installations/new",
+      "token_url": {
+        "OAUTH2": "https://github.com/login/oauth/access_token",
+        "APP": "https://api.github.com/app/installations/${connectionConfig.installation_id}/access_tokens"
+      },
+      "webhook_routing_script": "github-app-oauth-webhook-routing",
+      "post_connection_script": "github-app-oauth-post-connection",
+      "docs": "https://docs.nango.dev/integrations/all/github"
+    },
+    "gitlab": {
+      "categories": ["dev-tools", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://gitlab.com/oauth/authorize",
+      "token_url": "https://gitlab.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gitlab"
+    },
+    "gong": {
+      "categories": ["productivity"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.gong.io"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gong"
+    },
+    "gong-oauth": {
+      "hasOauth2": true,
+      "authorization_url": "https://app.gong.io/oauth2/authorize",
+      "token_url": "https://app.gong.io/oauth2/generate-customer-token",
+      "authorization_params": {
+        "response_type": "code",
+        "access_type": "offline"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "disable_pkce": true,
+      "token_request_auth_method": "basic",
+      "proxy": {
+        "base_url": "https://api.gong.io"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gong"
+    },
+    "google": {
+      "hasOauth2": true,
+      "authorization_url": "https://accounts.google.com/o/oauth2/v2/auth",
+      "token_url": "https://oauth2.googleapis.com/token",
+      "authorization_params": {
+        "response_type": "code",
+        "access_type": "offline",
+        "prompt": "consent"
+      },
+      "proxy": {
+        "base_url": "https://www.googleapis.com",
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "nextPageToken",
+          "limit_name_in_request": "maxSize",
+          "cursor_name_in_request": "pageToken",
+          "response_path": "items"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/google"
+    },
+    "google-calendar": {
+      "categories": ["productivity"],
+      "alias": "google",
+      "proxy": {
+        "base_url": "https://www.googleapis.com",
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "nextPageToken",
+          "limit_name_in_request": "maxSize",
+          "cursor_name_in_request": "pageToken",
+          "response_path": "items"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/google-calendar",
+      "description": "Manage your calendars in Google",
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/calendar/v3/openapi.json"
+    },
+    "google-docs": {
+      "categories": ["productivity"],
+      "alias": "google",
+      "proxy": {
+        "base_url": "https://docs.googleapis.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/google-docs",
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/docs/v1/openapi.json",
+      "description": "Reads and writes Google Docs documents"
+    },
+
+    "google-sheet": {
+      "categories": ["productivity"],
+      "alias": "google",
+      "proxy": {
+        "base_url": "https://sheets.googleapis.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/google-sheet"
+    },
+
+    "google-ads": {
+      "categories": ["marketing"],
+      "alias": "google",
+      "token_url": "https://www.googleapis.com/oauth2/v3/token",
+      "proxy": {
+        "base_url": "https://googleads.googleapis.com",
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "nextPageToken",
+          "limit_name_in_request": "pageSize",
+          "cursor_name_in_request": "pageToken",
+          "response_path": "results"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/google-ads"
+    },
+    "gorgias": {
+      "categories": ["e-commerce"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.gorgias.com/oauth/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.gorgias.com/oauth/token",
+      "token_request_auth_method": "basic",
+      "default_scopes": ["offline"],
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.gorgias.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gorgias"
+    },
+    "greenhouse": {
+      "categories": ["ats"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.greenhouse.io/oauth/authorize",
+      "token_url": "https://api.greenhouse.io/oauth/token",
+      "proxy": {
+        "base_url": "https://${connectionConfig.resource}.greenhouse.io",
+        "retry": {
+          "after": "Retry-After"
+        },
+        "paginate": {
+          "type": "link",
+          "limit_name_in_request": "per_page",
+          "link_rel_in_response_header": "next"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/greenhouse"
+    },
+    "greenhouse-basic": {
+      "categories": ["ats"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.resource}.greenhouse.io",
+        "retry": {
+          "after": "Retry-After"
+        },
+        "paginate": {
+          "type": "link",
+          "limit_name_in_request": "per_page",
+          "link_rel_in_response_header": "next"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/greenhouse"
+    },
+    "gumroad": {
+      "categories": ["design", "e-commerce", "payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://gumroad.com/oauth/authorize",
+      "token_url": "https://api.gumroad.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.gumroad.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gumroad"
+    },
+    "gusto": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.gusto.com/oauth/authorize",
+      "token_url": "https://api.gusto.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.gusto.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gusto"
+    },
+    "gusto-demo": {
+      "hasOauth2": true,
+      "authorization_url": "https://api.gusto-demo.com/oauth/authorize",
+      "token_url": "https://api.gusto-demo.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.gusto-demo.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/gusto"
+    },
+    "hackerrank-work": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://www.hackerrank.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/hackerrank-work"
+    },
+    "harvest": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://id.getharvest.com/oauth2/authorize",
+      "token_url": "https://id.getharvest.com/api/v2/oauth2/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "headers": {
+          "User-Agent": "${connectionConfig.appDetails}"
+        },
+        "retry": {
+          "after": "Retry-After"
+        },
+        "base_url": "https://api.harvestapp.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/harvest"
+    },
+    "health-gorilla": {
+      "hasOauth2": true,
+      "authorization_url": "https://api.healthgorilla.com/oauth/authorize",
+      "token_url": "https://api.healthgorilla.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://healthgorilla.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/healthgorilla"
+    },
+    "hibob-service-user": {
+      "categories": ["hr"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.hibob.com",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/v1/company/named-lists"
+        }
+      },
+      "docs": "https://apidocs.hibob.com/"
+    },
+    "highlevel": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://marketplace.gohighlevel.com/oauth/chooselocation",
+      "token_url": "https://services.leadconnectorhq.com/oauth/token",
+      "scope_separator": " ",
+      "proxy": {
+        "base_url": "https://services.leadconnectorhq.com"
+      },
+      "disable_pkce": true,
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/highlevel"
+    },
+    "highlevel-white-label": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://marketplace.leadconnectorhq.com/oauth/chooselocation",
+      "token_url": "https://services.leadconnectorhq.com/oauth/token",
+      "scope_separator": " ",
+      "proxy": {
+        "base_url": "https://services.leadconnectorhq.com"
+      },
+      "disable_pkce": true,
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/highlevel"
+    },
+
+    "insightly": {
+      "categories": ["crm"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.${connectionConfig.pod}.insightly.com",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/v3.1/Contacts"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/insightly"
+    },
+    "instantly": {
+      "categories": ["marketing", "communication"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.instantly.ai/api"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/instantly"
+    },
+    "instagram": {
+      "categories": ["marketing", "social"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.instagram.com/oauth/authorize",
+      "token_url": "https://api.instagram.com/oauth/access_token",
+      "proxy": {
+        "base_url": "https://graph.instagram.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/instagram"
+    },
+    "intercom": {
+      "categories": ["marketing", "support", "surveys", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.intercom.io/oauth",
+      "token_url": "https://api.intercom.io/auth/eagle/token",
+      "proxy": {
+        "base_url": "https://api.intercom.io"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/intercom"
+    },
+    "intuit": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://appcenter.intuit.com/connect/oauth2",
+      "token_url": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "proxy": {
+        "base_url": "https://quickbooks.api.intuit.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/intuit"
+    },
+    "jira": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.atlassian.com/authorize",
+      "token_url": "https://auth.atlassian.com/oauth/token",
+      "authorization_params": {
+        "audience": "api.atlassian.com",
+        "prompt": "consent"
+      },
+      "connection_configuration": ["cloudId", "accountId"],
+      "proxy": {
+        "base_url": "https://api.atlassian.com",
+        "paginate": {
+          "type": "link",
+          "link_rel_in_response_header": "next",
+          "limit_name_in_request": "limit",
+          "response_path": "results",
+          "link_path_in_response_body": "_links.next"
+        }
+      },
+      "post_connection_script": "jira-post-connection",
+      "webhook_routing_script": "jira-webhook-routing",
+      "docs": "https://docs.nango.dev/integrations/all/jira"
+    },
+    "jira-basic": {
+      "categories": ["productivity", "ticketing"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "retry": {
+          "after": "Retry-After"
+        },
+        "base_url": "https://${connectionConfig.subdomain}.atlassian.net",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/rest/api/3/events"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/jira"
+    },
+    "jira-data-center": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.endpointURL}/rest/oauth2/latest/authorize",
+      "authorization_params": {
+        "grant_type": "authorization_code"
+      },
+      "token_url": "https://${connectionConfig.endpointURL}/rest/oauth2/latest/token",
+      "connection_configuration": ["endpointURL"],
+      "docs": "https://docs.nango.dev/integrations/all/jira-data-center"
+    },
+    "helpscout-docs": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://docsapi.helpscout.net"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/helpscout"
+    },
+    "helpscout-mailbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://secure.helpscout.net/authentication/authorizeClientApplication",
+      "token_url": "https://api.helpscout.net/v2/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.helpscout.net"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/helpscout"
+    },
+    "keap": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://accounts.infusionsoft.com/app/oauth/authorize",
+      "token_url": "https://api.infusionsoft.com/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.infusionsoft.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/keap"
+    },
+    "klipfolio": {
+      "categories": ["productivity", "dev-tools"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://app.klipfolio.com",
+        "headers": {
+          "kf-api-key": "${apiKey}"
+        },
+        "verification": {
+          "method": "GET",
+          "endpoint": "/api/1.0/profile"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/klipfolio"
+    },
+    "klaviyo": {
+      "categories": ["marketing"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://a.klaviyo.com",
+        "headers": {
+          "Authorization": "Klaviyo-API-Key ${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/klaviyo"
+    },
+    "kustomer": {
+      "categories": ["crm"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://${connectionConfig.extension}.kustomerapp.com",
+        "retry": {
+          "after": "x-ratelimit-reset"
+        },
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/kustomer"
+    },
+    "lessonly": {
+      "categories": ["productivity"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.lessonly.com/api"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/lessonly"
+    },
+    "lever": {
+      "categories": ["ats"],
+      "hasOauth2": true,
+      "authorization_url": "https://auth.lever.co/authorize",
+      "token_url": "https://auth.lever.co/oauth/token",
+      "authorization_params": {
+        "response_type": "code",
+        "prompt": "consent",
+        "audience": "https://api.lever.co/v1"
+      },
+      "proxy": {
+        "base_url": "https://api.lever.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/lever"
+    },
+    "lever-basic": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.lever.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/lever"
+    },
+    "lever-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://sandbox-lever.auth0.com/authorize",
+      "token_url": "https://sandbox-lever.auth0.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code",
+        "prompt": "consent",
+        "audience": "https://api.sandbox.lever.co/v1/"
+      },
+      "proxy": {
+        "base_url": "https://api.sandbox.lever.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/lever"
+    },
+    "lever-basic-sandbox": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.sandbox.lever.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/lever"
+    },
+    "linear": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://linear.app/oauth/authorize",
+      "token_url": "https://api.linear.app/oauth/token",
+      "scope_separator": ",",
+      "authorization_params": {
+        "prompt": "consent"
+      },
+      "proxy": {
+        "base_url": "https://api.linear.app"
+      },
+      "disable_pkce": true,
+      "webhook_routing_script": "linear-webhook-routing",
+      "post_connection_script": "linear-post-connection",
+      "webhook_user_defined_secret": true,
+      "docs": "https://docs.nango.dev/integrations/all/linear"
+    },
+    "linkedin": {
+      "categories": ["ats", "social"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.linkedin.com/oauth/v2/authorization",
+      "token_url": "https://www.linkedin.com/oauth/v2/accessToken",
+      "disable_pkce": true,
+      "proxy": {
+        "base_url": "https://api.linkedin.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/linkedin"
+    },
+    "linkhut": {
+      "hasOauth2": true,
+      "authorization_url": "https://ln.ht/_/oauth/authorize",
+      "token_url": "https://api.ln.ht/v1/oauth/token",
+      "proxy": {
+        "base_url": "https://api.ln.ht"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/linkhut"
+    },
+    "mailgun": {
+      "categories": ["marketing"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.region}.mailgun.net",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/v4/domains"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/mailgun"
+    },
+    "mailchimp": {
+      "categories": ["marketing", "surveys"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.mailchimp.com/oauth2/authorize",
+      "token_url": "https://login.mailchimp.com/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/mailchimp"
+    },
+    "marketo": {
+      "auth_mode": "OAUTH2_CC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.endpointURL}"
+      },
+      "token_url": "https://${connectionConfig.identityURL}/oauth/token",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/marketo"
+    },
+    "medallia": {
+      "categories": ["crm", "support", "surveys"],
+      "auth_mode": "OAUTH2_CC",
+      "token_url": "https://${connectionConfig.reportingInstance}/oauth/${connectionConfig.tenantName}/token",
+      "token_request_auth_method": "basic",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "proxy": {
+        "retry": {
+          "after": "X-RateLimit-Reset"
+        },
+        "base_url": "https://${connectionConfig.gatewayUrl}.apis.medallia.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/medallia"
+    },
+    "microsoft": {
+      "hasOauth2": true,
+      "authorization_url": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "token_url": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "disable_pkce": true,
+      "default_scopes": ["offline_access"],
+      "authorization_params": {
+        "response_type": "code",
+        "response_mode": "query",
+        "prompt": "consent"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://graph.microsoft.com",
+        "retry": {
+          "after": "Retry-After"
+        },
+        "decompress": true
+      },
+      "docs": "https://docs.nango.dev/integrations/all/microsoft"
+    },
+    "microsoft-teams": {
+      "categories": ["productivity", "video"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/microsoft-teams"
+    },
+    "microsoft-tenant-specific": {
+      "categories": ["erp"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.microsoftonline.com/${connectionConfig.tenant}/oauth2/v2.0/authorize",
+      "token_url": "https://login.microsoftonline.com/${connectionConfig.tenant}/oauth2/v2.0/token",
+      "disable_pkce": true,
+      "default_scopes": ["offline_access"],
+      "authorization_params": {
+        "response_type": "code",
+        "response_mode": "query",
+        "prompt": "consent"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/microsoft-tenant-specific"
+    },
+    "microsoft-ads": {
+      "alias": "microsoft",
+      "categories": ["marketing"],
+      "default_scopes": [
+        "https://ads.microsoft.com/msads.manage",
+        "offline_access"
+      ],
+      "proxy": {
+        "base_url": "https://clientcenter.api.bingads.microsoft.com/Api"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token",
+        "scope": "https://ads.microsoft.com/msads.manage"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/microsoft-ads"
+    },
+    "microsoft-entra-id": {
+      "categories": ["other"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/microsoft-entra-id"
+    },
+    "microsoft-power-bi": {
+      "categories": ["productivity"],
+      "alias": "microsoft",
+      "proxy": {
+        "base_url": "https://api.powerbi.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/microsoft-power-bi"
+    },
+    "mixpanel": {
+      "categories": ["analytics"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://mixpanel.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/mixpanel"
+    },
+    "miro": {
+      "categories": ["design", "productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://miro.com/oauth/authorize",
+      "token_url": "https://api.miro.com/v1/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.miro.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/miro"
+    },
+
+    "mural": {
+      "categories": ["design"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.mural.co/api/public/v1/authorization/oauth2",
+      "token_url": "https://app.mural.co/api/public/v1/authorization/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://app.mural.co"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/mural"
+    },
+    "nationbuilder": {
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.accountId}.nationbuilder.com/oauth/authorize",
+      "token_url": "https://${connectionConfig.accountId}.nationbuilder.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "default_scopes": ["default"],
+      "docs": "https://docs.nango.dev/integrations/all/nationbuilder"
+    },
+    "netsuite": {
+      "categories": ["accounting", "erp"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.accountId}.app.netsuite.com/app/login/oauth2/authorize.nl",
+      "authorization_params": {
+        "prompt": "consent"
+      },
+      "token_url": "https://${connectionConfig.accountId}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token",
+      "default_scopes": ["rest_webservices"],
+      "proxy": {
+        "base_url": "https://${connectionConfig.accountId}.suitetalk.api.netsuite.com/services/rest/record/v1",
+        "retry": {
+          "after": "Retry-After"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/netsuite"
+    },
+    "netsuite-tba": {
+      "alias": "netsuite",
+      "auth_mode": "TBA",
+      "docs": "https://docs.nango.dev/integrations/all/netsuite"
+    },
+    "next-cloud-ocs": {
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.domain}/ocs/v1.php",
+        "headers": {
+          "OCS-APIRequest": "true"
+        }
+      },
+      "docs": "http://docs.nango.dev/integrations/all/next-cloud"
+    },
+    "notion": {
+      "categories": ["knowledge-base", "productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.notion.com/v1/oauth/authorize",
+      "token_url": "https://api.notion.com/v1/oauth/token",
+      "authorization_params": {
+        "response_type": "code",
+        "owner": "user"
+      },
+      "authorization_method": "header",
+      "body_format": "json",
+      "proxy": {
+        "retry": {
+          "after": "Retry-After"
+        },
+        "base_url": "https://api.notion.com",
+        "headers": {
+          "Notion-Version": "2022-06-28"
+        },
+        "paginate": {
+          "type": "cursor",
+          "cursor_path_in_response": "start_cursor",
+          "cursor_name_in_request": "start_cursor",
+          "limit_name_in_request": "page_size",
+          "response_path": "results"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/notion"
+    },
+    "okta": {
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.okta.com/oauth2/v1/authorize",
+      "token_url": "https://${connectionConfig.subdomain}.okta.com/oauth2/v1/token",
+      "authorization_params": {
+        "response_type": "code",
+        "response_mode": "query"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/okta"
+    },
+    "one-drive": {
+      "categories": ["knowledge-base", "storage"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/one-drive"
+    },
+    "one-note": {
+      "categories": ["productivity"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/one-note"
+    },
+    "ory": {
+      "categories": ["other"],
+      "auth_mode": "OAUTH2_CC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.projectSlug}.projects.oryapis.com"
+      },
+      "token_url": "https://${connectionConfig.projectSlug}.projects.oryapis.com/oauth2/token",
+      "scope_separator": " ",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ory"
+    },
+    "osu": {
+      "categories": ["gaming"],
+      "hasOauth2": true,
+      "authorization_url": "https://osu.ppy.sh/oauth/authorize",
+      "token_url": "https://osu.ppy.sh/oauth/token",
+      "default_scopes": ["identify"],
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://osu.ppy.sh"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/osu"
+    },
+    "oura": {
+      "categories": ["sports"],
+      "hasOauth2": true,
+      "authorization_url": "https://cloud.ouraring.com/oauth/authorize",
+      "token_url": "https://api.ouraring.com/oauth/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.ouraring.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/oura"
+    },
+
+    "outreach": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.outreach.io/oauth/authorize",
+      "token_url": "https://api.outreach.io/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.outreach.io"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/outreach"
+    },
+    "pagerduty": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.pagerduty.com/oauth/authorize",
+      "token_url": "https://app.pagerduty.com/oauth/token",
+      "proxy": {
+        "base_url": "https://api.pagerduty.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pagerduty"
+    },
+    "pandadoc": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.pandadoc.com/oauth2/authorize",
+      "token_url": "https://api.pandadoc.com/oauth2/access_token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.pandadoc.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pandadoc"
+    },
+    "payfit": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://oauth.payfit.com/authorize",
+      "token_url": "https://app.pagerduty.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/payfit"
+    },
+    "paypal": {
+      "categories": ["payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.paypal.com/signin/authorize",
+      "token_url": "https://api.paypal.com/v1/oauth2/token",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/paypal"
+    },
+    "paypal-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://www.sandbox.paypal.com/signin/authorize",
+      "token_url": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/paypal"
+    },
+    "pendo": {
+      "categories": ["analytics"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://app.pendo.io",
+        "headers": {
+          "x-pendo-integration-key": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pendo"
+    },
+    "pennylane": {
+      "categories": ["accounting", "banking", "invoicing", "payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.pennylane.com/oauth/authorize",
+      "token_url": "https://app.pennylane.com/oauth/token",
+      "proxy": {
+        "base_url": "https://app.pennylane.com"
+      },
+      "scope_separator": "+",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pennylane"
+    },
+    "personio": {
+      "categories": ["hr"],
+      "auth_mode": "OAUTH2_CC",
+      "proxy": {
+        "base_url": "https://api.personio.de/v1",
+        "headers": {
+          "x-personio-partner-id": "${connectionConfig.partnerId}",
+          "x-personio-app-id": "${connectionConfig.appId}"
+        }
+      },
+      "token_url": "https://api.personio.de/v1/auth",
+      "body_format": "json",
+      "docs": "https://docs.nango.dev/integrations/all/personio"
+    },
+    "personio-recruiting": {
+      "categories": ["hr"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.personio.de/v1",
+        "headers": {
+          "Authorization": "Bearer ${apiKey}",
+          "x-company-id": "${connectionConfig.companyId}",
+          "x-personio-partner-id": "${connectionConfig.partnerId}",
+          "x-personio-app-id": "${connectionConfig.appId}"
+        },
+        "verification": {
+          "method": "GET",
+          "endpoint": "/xml?language=en",
+          "base_url_override": "https://${connectionConfig.company}.jobs.personio.de",
+          "headers": {
+            "accept": "application/xml",
+            "content-type": "xml"
+          }
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/personio"
+    },
+    "pingboard": {
+      "categories": ["productivity"],
+      "auth_mode": "OAUTH2_CC",
+      "proxy": {
+        "base_url": "https://app.pingboard.com/api/v2"
+      },
+      "token_url": "https://app.pingboard.com/oauth/token",
+      "scope_separator": " ",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pingboard"
+    },
+    "pinterest": {
+      "categories": ["design", "marketing", "social", "video"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.pinterest.com/oauth",
+      "token_url": "https://api.pinterest.com/v5/oauth/token",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.pinterest.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pinterest"
+    },
+    "pipedrive": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://oauth.pipedrive.com/oauth/authorize",
+      "token_url": "https://oauth.pipedrive.com/oauth/token",
+      "token_response_metadata": ["api_domain"],
+      "proxy": {
+        "base_url": "${connectionConfig.api_domain}/api",
+        "decompress": true,
+        "paginate": {
+          "type": "offset",
+          "offset_name_in_request": "start",
+          "response_path": "data",
+          "limit_name_in_request": "limit"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pipedrive"
+    },
+    "pivotaltracker": {
+      "categories": ["productivity"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "X-TrackerToken": "${apiKey}"
+        },
+        "base_url": "https://www.pivotaltracker.com/services/v5",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/accounts"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/pivotaltracker"
+    },
+    "posthog": {
+      "categories": ["dev-tools"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        },
+        "base_url": "https://${connectionConfig.subdomain}.posthog.com",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/api/users/@me"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/posthog"
+    },
+    "productboard": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.productboard.com/oauth2/authorize",
+      "token_url": "https://app.productboard.com/oauth2/token",
+      "scope_seprator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "headers": {
+          "X-Version": "1"
+        },
+        "base_url": "https://api.productboard.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/productboard"
+    },
+    "qualtrics": {
+      "categories": ["surveys"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.qualtrics.com/oauth2/auth",
+      "token_url": "https://${connectionConfig.subdomain}.qualtrics.com/oauth2/token",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.qualtrics.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/qualtrics"
+    },
+    "quickbooks": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://appcenter.intuit.com/connect/oauth2",
+      "token_url": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "redirect_uri_metadata": ["realmId"],
+      "proxy": {
+        "base_url": "https://quickbooks.api.intuit.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/quickbooks"
+    },
+    "ramp": {
+      "categories": ["banking"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.ramp.com/v1/authorize",
+      "token_url": "https://api.ramp.com/developer/v1/token",
+      "authorization_method": "header",
+      "proxy": {
+        "base_url": "https://api.ramp.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ramp"
+    },
+    "ramp-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://demo.ramp.com/v1/authorize",
+      "token_url": "https://demo-api.ramp.com/developer/v1/token",
+      "authorization_method": "header",
+      "proxy": {
+        "base_url": "https://demo-api.ramp.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ramp"
+    },
+    "reddit": {
+      "categories": ["social"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.reddit.com/api/v1/authorize",
+      "token_url": "https://www.reddit.com/api/v1/access_token",
+      "authorization_method": "header",
+      "authorization_params": {
+        "duration": "permanent"
+      },
+      "proxy": {
+        "base_url": "https://oauth.reddit.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/reddit"
+    },
+    "refiner": {
+      "categories": ["surveys"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        },
+        "base_url": "https://api.refiner.io/v1"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/refiner"
+    },
+    "ring-central": {
+      "categories": ["support"],
+      "hasOauth2": true,
+      "authorization_url": "https://platform.ringcentral.com/restapi/oauth/authorize",
+      "token_url": "https://platform.ringcentral.com/restapi/oauth/token",
+      "authorization_method": "header",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://platform.ringcentral.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ring-central"
+    },
+    "ring-central-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://platform.devtest.ringcentral.com/restapi/oauth/authorize",
+      "token_url": "https://platform.devtest.ringcentral.com/restapi/oauth/token",
+      "authorization_method": "header",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://platform.devtest.ringcentral.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/ring-central"
+    },
+    "segment": {
+      "categories": ["analytics", "marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://id.segmentapis.com/oauth2/auth",
+      "token_url": "https://id.segmentapis.com/oauth2/token",
+      "token_request_auth_method": "basic",
+      "proxy": {
+        "base_url": "https://api.segment.io"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/segment"
+    },
+    "sage": {
+      "categories": ["accounting", "erp"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.sageone.com/oauth2/auth/central",
+      "token_url": "https://oauth.accounting.sage.com/token",
+      "authorization_params": {
+        "filter": "apiv3.1"
+      },
+      "proxy": {
+        "base_url": "https://api.accounting.sage.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/sage"
+    },
+    "salesforce": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.salesforce.com/services/oauth2/authorize",
+      "token_url": "https://login.salesforce.com/services/oauth2/token",
+      "authorization_params": {
+        "prompt": "consent"
+      },
+      "default_scopes": ["offline_access"],
+      "token_response_metadata": ["instance_url"],
+      "proxy": {
+        "base_url": "${connectionConfig.instance_url}"
+      },
+      "webhook_routing_script": "salesforce-webhook-routing",
+      "post_connection_script": "salesforce-post-connection",
+      "docs": "https://docs.nango.dev/integrations/all/salesforce"
+    },
+    "salesforce-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://test.salesforce.com/services/oauth2/authorize",
+      "token_url": "https://test.salesforce.com/services/oauth2/token",
+      "default_scopes": ["offline_access"],
+      "token_response_metadata": ["instance_url"],
+      "proxy": {
+        "base_url": "${connectionConfig.instance_url}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/salesforce"
+    },
+    "salesloft": {
+      "categories": ["marketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://accounts.salesloft.com/oauth/authorize",
+      "token_url": "https://accounts.salesloft.com/oauth/token",
+      "proxy": {
+        "base_url": "https://api.salesloft.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/salesloft"
+    },
+
+    "servicem8": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://go.servicem8.com/oauth/authorize",
+      "token_url": "https://go.servicem8.com/oauth/access_token",
+      "proxy": {
+        "base_url": "https://api.servicem8.com"
+      },
+      "scope_seprator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/servicem8"
+    },
+    "signnow": {
+      "categories": ["legal"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.signnow.com/authorize",
+      "token_url": "https://api.signnow.com/oauth2/token",
+      "disable_pkce": true,
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/signnow"
+    },
+    "signnow-sandbox": {
+      "categories": null,
+      "hasOauth2": true,
+      "authorization_url": "https://app-eval.signnow.com/authorize",
+      "token_url": "https://api-eval.signnow.com/oauth2/token",
+      "disable_pkce": true,
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/signnow"
+    },
+    "servicenow": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.service-now.com/oauth_auth.do",
+      "token_url": "https://${connectionConfig.subdomain}.service-now.com/oauth_token.do",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/servicenow"
+    },
+    "sharepoint-online": {
+      "categories": ["storage", "communication"],
+      "alias": "microsoft",
+      "docs": "https://docs.nango.dev/integrations/all/sharepoint-online"
+    },
+
+    "shortcut": {
+      "categories": ["dev-tools", "productivity"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.app.shortcut.com",
+        "headers": {
+          "Shortcut-Token": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/shortcut"
+    },
+
+    "smartrecruiters-api-key": {
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://api.smartrecruiters.com",
+        "headers": {
+          "X-SmartToken": "${apiKey}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/smartrecruiters"
+    },
+    "smartsheet": {
+      "hasOauth2": true,
+      "authorization_url": "https://app.smartsheet.com/b/authorize",
+      "token_url": "https://api.smartsheet.com/2.0/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://api.smartsheet.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/smartsheet"
+    },
+    "smugmug": {
+      "auth_mode": "OAUTH1",
+      "request_url": "https://api.smugmug.com/services/oauth/1.0a/getRequestToken",
+      "authorization_url": "https://api.smugmug.com/services/oauth/1.0a/authorize",
+      "token_url": "https://api.smugmug.com/services/oauth/1.0a/getAccessToken",
+      "scope_separator": ",",
+      "signature_method": "PLAINTEXT",
+      "proxy": {
+        "base_url": "https://www.smugmug.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/smugmug"
+    },
+    "snowflake": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.snowflake_account_url}/oauth/authorize",
+      "token_url": "https://${connectionConfig.snowflake_account_url}/oauth/token-request",
+      "token_request_auth_method": "basic",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://{connectionConfig.snowflake_account_url}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/snowflake"
+    },
+    "splitwise": {
+      "categories": ["payment", "social"],
+      "hasOauth2": true,
+      "authorization_url": "https://secure.splitwise.com/oauth/authorize",
+      "token_url": "https://secure.splitwise.com/oauth/token",
+      "proxy": {
+        "base_url": "https://secure.splitwise.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/splitwise"
+    },
+
+    "spotify-oauth2-cc": {
+      "categories": ["other"],
+      "auth_mode": "OAUTH2_CC",
+      "token_url": "https://accounts.spotify.com/api/token",
+      "token_request_auth_method": "basic",
+      "scope_separator": " ",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "proxy": {
+        "base_url": "https://api.spotify.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/spotify"
+    },
+    "squarespace": {
+      "categories": ["dev-tools", "design"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.squarespace.com/api/1/login/oauth/provider/authorize",
+      "token_url": "https://login.squarespace.com/api/1/login/oauth/provider/tokens",
+      "token_request_auth_method": "basic",
+      "scope_separator": ",",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.squarespace.com",
+        "headers": {
+          "User-Agent": "${connectionConfig.customappDescription}"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/squarespace"
+    },
+    "squareup": {
+      "categories": ["payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://connect.squareup.com/oauth2/authorize",
+      "token_url": "https://connect.squareup.com/oauth2/token",
+      "disable_pkce": true,
+      "decode_url": true,
+      "authorization_params": {
+        "response_type": "code",
+        "session": false
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://connect.squareup.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/squareup"
+    },
+    "squareup-sandbox": {
+      "hasOauth2": true,
+      "authorization_url": "https://connect.squareupsandbox.com/oauth2/authorize",
+      "token_url": "https://connect.squareupsandbox.com/oauth2/token",
+      "disable_pkce": true,
+      "authorization_params": {
+        "response_type": "code",
+        "session": false
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://connect.squareupsandbox.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/squareup"
+    },
+    "stackexchange": {
+      "categories": ["knowledge-base", "support"],
+      "hasOauth2": true,
+      "authorization_url": "https://stackoverflow.com/oauth",
+      "token_url": "https://stackoverflow.com/oauth/access_token/json",
+      "default_scopes": ["no_expiry"],
+      "proxy": {
+        "base_url": "https://api.stackexchange.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/stackexchange"
+    },
+    "strava": {
+      "categories": ["social", "sports"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.strava.com/oauth/mobile/authorize",
+      "token_url": "https://www.strava.com/api/v3/oauth/token",
+      "scope_separator": ",",
+      "authorization_params": {
+        "response_type": "code",
+        "approval_prompt": "auto"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://www.strava.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/strava"
+    },
+    "strava-web": {
+      "categories": ["social", "sports"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.strava.com/oauth/authorize",
+      "token_url": "https://www.strava.com/api/v3/oauth/token",
+      "scope_separator": ",",
+      "authorization_params": {
+        "response_type": "code",
+        "approval_prompt": "force"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://www.strava.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/strava-web"
+    },
+
+    "survey-monkey": {
+      "categories": ["surveys"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.surveymonkey.com/oauth/authorize",
+      "token_url": "https://api.surveymonkey.com/oauth/token",
+      "disable_pkce": true,
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://api.surveymonkey.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/survey-monkey"
+    },
+    "teamtailor": {
+      "categories": ["ats"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "base_url": "https://${connectionConfig.extension}.teamtailor.com",
+        "retry": {
+          "after": "X-Rate-Limit-Reset"
+        },
+        "headers": {
+          "Authorization": "Token token=${apiKey}",
+          "X-Api-Version": "20210218"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/teamtailor"
+    },
+    "teamwork": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.teamwork.com/launchpad/login",
+      "token_url": "https://www.teamwork.com/launchpad/v1/token.json",
+      "token_response_metadata": ["installation.apiEndPoint"],
+      "proxy": {
+        "base_url": "${connectionConfig.installation.apiEndPoint}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/teamwork"
+    },
+    "tiktok-accounts": {
+      "categories": ["social"],
+      "hasOauth2": true,
+      "authorization_url": "https://www.tiktok.com/v2/auth/authorize/",
+      "token_url": "https://business-api.tiktok.com/open_api/v1.3/tt_user/oauth2/token/",
+      "refresh_url": "https://business-api.tiktok.com/open_api/v1.3/tt_user/oauth2/refresh_token/",
+      "proxy": {
+        "base_url": "https://business-api.tiktok.com/open_api/v1.3/"
+      },
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "authorization_url_replacements": {
+        "client_id": "client_key"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "scope_separator": ",",
+      "docs": "https://docs.nango.dev/integrations/all/tiktok-accounts"
+    },
+    "tiktok-ads": {
+      "categories": ["social"],
+      "hasOauth2": true,
+      "authorization_url": "https://business-api.tiktok.com/portal/auth",
+      "token_url": "https://business-api.tiktok.com/open_api/v1.3/oauth2/access_token/",
+      "proxy": {
+        "base_url": "https://business-api.tiktok.com/open_api/v1.3/"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "authorization_url_replacements": {
+        "client_id": "app_id"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/tiktok-ads"
+    },
+    "timely": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.timelyapp.com/1.1/oauth/authorize",
+      "token_url": "https://api.timelyapp.com/1.1/oauth/token",
+      "disable_pkce": true,
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://api.timelyapp.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/timely"
+    },
+    "tremendous": {
+      "categories": ["payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.tremendous.com/oauth/authorize",
+      "token_url": "https://api.tremendous.com/oauth/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.tremendous.com/api/v2"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/tremendous"
+    },
+    "tremendous-sandbox": {
+      "categories": ["payment"],
+      "hasOauth2": true,
+      "authorization_url": "https://testflight.tremendous.com/oauth/authorize",
+      "token_url": "https://testflight.tremendous.com/oauth/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://testflight.tremendous.com/api/v2"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/tremendous"
+    },
+
+    "todoist": {
+      "categories": ["productivity", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://todoist.com/oauth/authorize",
+      "token_url": "https://todoist.com/oauth/access_token",
+      "scope_separator": ",",
+      "proxy": {
+        "base_url": "https://api.todoist.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/todoist"
+    },
+    "twitch": {
+      "categories": ["gaming", "social", "sports", "video"],
+      "hasOauth2": true,
+      "authorization_url": "https://id.twitch.tv/oauth2/authorize",
+      "token_url": "https://id.twitch.tv/oauth2/token",
+      "authorization_params": {
+        "force_verify": false,
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.twitch.tv"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/twitch"
+    },
+    "twitter": {
+      "categories": ["marketing", "social"],
+      "auth_mode": "OAUTH1",
+      "request_url": "https://api.twitter.com/oauth/request_token",
+      "authorization_url": "https://api.twitter.com/oauth/authorize",
+      "token_url": "https://api.twitter.com/oauth/access_token",
+      "signature_method": "HMAC-SHA1",
+      "request_params": {
+        "x_auth_access_type": "write"
+      },
+      "proxy": {
+        "base_url": "https://api.twitter.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/twitter"
+    },
+
+    "twitter-oauth2-cc": {
+      "categories": ["marketing", "social"],
+      "auth_mode": "OAUTH2_CC",
+      "token_url": "https://api.twitter.com/oauth2/token",
+      "token_request_auth_method": "basic",
+      "scope_separator": " ",
+      "token_params": {
+        "grant_type": "client_credentials"
+      },
+      "proxy": {
+        "base_url": "https://api.twitter.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/twitter"
+    },
+    "twinfield": {
+      "hasOauth2": true,
+      "authorization_url": "https://login.twinfield.com/auth/authentication/connect/authorize",
+      "token_url": "https://login.twinfield.com/auth/authentication/connect/token",
+      "authorization_params": {
+        "response_type": "code",
+        "nonce": "AnotherRandomStringTwinfield"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "scope_seprator": " ",
+      "default_scopes": [
+        "openid",
+        "twf.user",
+        "twf.organisation",
+        "twf.organisationUser",
+        "offline_access"
+      ],
+      "disable_pkce": true,
+      "docs": "https://docs.nango.dev/integrations/all/twinfield"
+    },
+    "typeform": {
+      "categories": ["surveys"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.typeform.com/oauth/authorize",
+      "token_url": "https://api.typeform.com/oauth/token",
+      "disable_pkce": true,
+      "default_scopes": ["offline"],
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.typeform.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/typeform"
+    },
+    "uber": {
+      "hasOauth2": true,
+      "authorization_url": "https://login.uber.com/oauth/v2/authorize",
+      "token_url": "https://login.uber.com/oauth/v2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.uber.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/uber"
+    },
+    "unanet": {
+      "categories": ["crm", "erp", "accounting"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "headers": {
+          "x-compass-firm-id": "${connectionConfig.firmId}",
+          "x-compass-api-key": "${connectionConfig.apiKey}"
+        },
+        "base_url": "https://compass.cosential.com",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/api/projects"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/unanet"
+    },
+    "unauthenticated": {
+      "auth_mode": "NONE",
+      "docs": "https://docs.nango.dev/integrations/overview"
+    },
+    "vimeo": {
+      "categories": ["video"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.vimeo.com/oauth/authorize",
+      "token_url": "https://api.vimeo.com/oauth/access_token",
+      "token_request_auth_method": "basic",
+      "scope_seprator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://api.vimeo.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/vimeo"
+    },
+    "vimeo-basic": {
+      "categories": ["video"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://api.vimeo.com",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/vimeo"
+    },
+
+    "wave-accounting": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.waveapps.com/oauth2/authorize",
+      "token_url": "https://api.waveapps.com/oauth2/token/",
+      "proxy": {
+        "base_url": "https://gql.waveapps.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/wave-accounting"
+    },
+    "wealthbox": {
+      "categories": ["crm"],
+      "hasOauth2": true,
+      "authorization_url": "https://app.crmworkspace.com/oauth/authorize",
+      "token_url": "https://app.crmworkspace.com/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.crmworkspace.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/wealthbox"
+    },
+    "whoop": {
+      "categories": ["sports"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.prod.whoop.com/oauth/oauth2/auth",
+      "token_url": "https://api.prod.whoop.com/oauth/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "proxy": {
+        "base_url": "https://api.prod.whoop.com/",
+        "retry": {
+          "after": "x-ratelimit-reset"
+        },
+        "paginate": {
+          "type": "cursor",
+          "offset_name_in_request": "nextToken",
+          "offset_name_in_response": "next_token",
+          "limit_name_in_request": "limit"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/whoop"
+    },
+    "wildix-pbx": {
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.wildixin.com/authorization/oauth2",
+      "token_url": "https://${connectionConfig.subdomain}.wildixin.com/authorization/oauth2Token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "redirect_uri_metadata": ["subdomain"],
+      "docs": "https://docs.nango.dev/integrations/all/wildix-pbx",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.wildixin.com"
+      }
+    },
+    "wordpress": {
+      "categories": ["dev-tools", "design", "cms"],
+      "hasOauth2": true,
+      "authorization_url": "https://public-api.wordpress.com/oauth2/authorize",
+      "token_url": "https://public-api.wordpress.com/oauth2/token",
+      "scope_separator": " ",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "proxy": {
+        "base_url": "https://public-api.wordpress.com/rest/v1"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/wordpress"
+    },
+    "woocommerce": {
+      "categories": ["e-commerce", "dev-tools", "design"],
+      "auth_mode": "BASIC",
+      "proxy": {
+        "base_url": "https://${connectionConfig.storeURL}",
+        "verification": {
+          "method": "GET",
+          "endpoint": "/wp-json/wc/v3/customers"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/woocommerce"
+    },
+    "workable": {
+      "categories": ["ats"],
+      "auth_mode": "API_KEY",
+      "proxy": {
+        "headers": {
+          "Authorization": "Bearer ${apiKey}"
+        },
+        "base_url": "https://${connectionConfig.subdomain}.workable.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/workable"
+    },
+    "wrike": {
+      "categories": ["productivity"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.wrike.com/oauth2/authorize/v4",
+      "token_url": "https://login.wrike.com/oauth2/token",
+      "scope_separator": ",",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "token_response_metadata": ["host"],
+      "proxy": {
+        "base_url": "https://${connectionConfig.host}/api/v4"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/wrike"
+    },
+    "xero": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://login.xero.com/identity/connect/authorize",
+      "token_url": "https://identity.xero.com/connect/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "default_scopes": ["offline_access"],
+      "proxy": {
+        "base_url": "https://api.xero.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/xero"
+    },
+    "yahoo": {
+      "categories": ["social"],
+      "hasOauth2": true,
+      "authorization_url": "https://api.login.yahoo.com/oauth2/request_auth",
+      "token_url": "https://api.login.yahoo.com/oauth2/get_token",
+      "docs": "https://docs.nango.dev/integrations/all/yahoo"
+    },
+    "yandex": {
+      "categories": ["social"],
+      "hasOauth2": true,
+      "authorization_url": "https://oauth.yandex.com/authorize",
+      "token_url": "https://oauth.yandex.com/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://translate.yandex.net"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/yandex"
+    },
+    "youtube": {
+      "alias": "google",
+      "categories": ["video"],
+      "docs": "https://docs.nango.dev/integrations/all/youtube"
+    },
+    "zapier-nla": {
+      "hasOauth2": true,
+      "authorization_url": "https://nla.zapier.com/oauth/authorize/",
+      "token_url": "https://nla.zapier.com/oauth/token/",
+      "proxy": {
+        "base_url": "https://nla.zapier.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/zapier-nla"
+    },
+    "zendesk": {
+      "categories": ["support", "ticketing"],
+      "hasOauth2": true,
+      "authorization_url": "https://${connectionConfig.subdomain}.zendesk.com/oauth/authorizations/new",
+      "token_url": "https://${connectionConfig.subdomain}.zendesk.com/oauth/tokens",
+      "proxy": {
+        "base_url": "https://${connectionConfig.subdomain}.zendesk.com",
+        "retry": {
+          "after": "Retry-After"
+        },
+        "paginate": {
+          "type": "link",
+          "limit_name_in_request": "per_page",
+          "link_path_in_response_body": "next_page"
+        }
+      },
+      "docs": "https://docs.nango.dev/integrations/all/zendesk"
+    },
+    "zenefits": {
+      "categories": ["hr"],
+      "hasOauth2": true,
+      "authorization_url": "https://secure.zenefits.com/oauth2/platform-authorize",
+      "token_url": "https://secure.zenefits.com/oauth2/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.zenefits.com"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/zenefits"
+    },
+    "zoho": {
+      "categories": ["accounting"],
+      "hasOauth2": true,
+      "authorization_url": "https://accounts.zoho.${connectionConfig.extension}/oauth/v2/auth",
+      "token_url": "https://accounts.zoho.${connectionConfig.extension}/oauth/v2/token",
+      "authorization_params": {
+        "prompt": "consent",
+        "access_type": "offline"
+      },
+      "proxy": {
+        "base_url": "https://www.zohoapis.${connectionConfig.extension}",
+        "paginate": {
+          "type": "offset",
+          "response_path": "data",
+          "offset_name_in_request": "page",
+          "limit_name_in_request": "per_page"
+        }
+      }
+    },
+    "zoho-books": {
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-books"
+    },
+    "zoho-crm": {
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-crm"
+    },
+    "zoho-desk": {
+      "categories": ["support", "ticketing"],
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-desk"
+    },
+    "zoho-inventory": {
+      "categories": ["e-commerce"],
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-inventory"
+    },
+    "zoho-invoice": {
+      "categories": ["invoicing"],
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-invoice"
+    },
+    "zoho-mail": {
+      "categories": ["productivity", "communication"],
+      "alias": "zoho",
+      "proxy": {
+        "base_url": "https://mail.zoho.${connectionConfig.extension}"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/zoho-mail"
+    },
+    "zoho-bigin": {
+      "alias": "zoho",
+      "docs": "https://docs.nango.dev/integrations/all/zoho-bigin"
+    },
+    "zoom": {
+      "categories": ["video"],
+      "hasOauth2": true,
+      "authorization_url": "https://zoom.us/oauth/authorize",
+      "token_url": "https://zoom.us/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.zoom.us/v2"
+      },
+      "docs": "https://docs.nango.dev/integrations/all/zoom"
+    }
+  }
+}

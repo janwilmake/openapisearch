@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OpenAPI Search API",
+    "description": "API for retrieving OpenAPI metadata and URLs",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://openapisearch.com",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/metaview": {
+      "get": {
+        "summary": "Get metadata view",
+        "description": "Retrieves a metadata view object with optional format specification",
+        "parameters": [
+          {
+            "name": "accept",
+            "in": "query",
+            "description": "Response format preference",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["text/markdown", "text/html", "application/json"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "openapiUrl": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  }
+                }
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/url/{id}": {
+      "get": {
+        "summary": "Get OpenAPI URL by ID",
+        "description": "Retrieves the OpenAPI URL for a given provider slug",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Provider slug identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved URL",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Provider slug not found"
+          }
+        }
+      }
+    }
+  }
+}
