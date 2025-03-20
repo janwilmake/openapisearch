@@ -1,0 +1,9 @@
+name = "openapisearch"
+main = "main.ts"
+dev.port = 3000
+compatibility_date = "2025-03-13"
+assets.directory = "./"
+routes = [
+  { pattern = "openapisearch.com", custom_domain = true },
+  { pattern = "www.openapisearch.com", custom_domain = true }
+]

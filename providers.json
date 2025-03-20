@@ -77,6 +77,17 @@
       }
     },
 
+    "cloudflare": {
+      "openapiUrl": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json",
+      "info": {
+        "description": "Cloudflare provides content delivery network services, cloud cybersecurity, DDoS mitigation, wide area network services, Domain Name Service, and ICANN-accredited domain registration services",
+        "x-links": {
+          "docsUrl": "https://developers.cloudflare.com/api/",
+          "apiManagementUrl": "https://dash.cloudflare.com/profile/api-tokens"
+        }
+      }
+    },
+
     "brandwatch": {
       "info": { "description": "Watch social media about your brand" },
       "openapiUrl": "https://openapisearch.com/handmade/brandwatch.json"
@@ -86,11 +97,6 @@
         "description": "Read webpages in markdown, html, or screenshot"
       },
       "openapiUrl": "https://openapisearch.com/handmade/jina-reader.json"
-    },
-
-    "irfc-cloud": {
-      "openapiUrl": "https://irfc.cloud/openapi.json",
-      "info": { "description": "AI-Powered Cloud Hosting" }
     },
 
     "upstash-redis": {
@@ -559,17 +565,6 @@
     "probo-nl": {
       "info": { "description": "", "x-links": { "apiManagementUrl": "" } },
       "openapiUrl": "https://proboapi.cdn.prismic.io/proboapi/26b9c2ed-b21f-45d6-b5cb-c639302d562b_2api.json"
-    },
-
-    "cloudflare": {
-      "openapiUrl": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json",
-      "info": {
-        "description": "Cloudflare provides content delivery network services, cloud cybersecurity, DDoS mitigation, wide area network services, Domain Name Service, and ICANN-accredited domain registration services",
-        "x-links": {
-          "docsUrl": "https://developers.cloudflare.com/api/",
-          "apiManagementUrl": "https://dash.cloudflare.com/profile/api-tokens"
-        }
-      }
     },
 
     "whatsapp-business": {

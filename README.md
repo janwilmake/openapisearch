@@ -12,8 +12,7 @@ The vision of https://openapisearch.com is to make OpenAPIs truly open by making
 
 Targeted improvements compared to https://apis.guru:
 
-- Semantic search
-- Related APIs
+- Easy navigation for agents
 - Programmatic Registry
 - Improved Website
 

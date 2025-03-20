@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "OpenAPI Search API",
-    "description": "API for retrieving OpenAPI metadata and URLs",
+    "description": "OpenAPI-Search combines multiple OpenAPIs in a fast, organized, and searchable interface.\n\nOpenAPIs are effectively closed if there isn't an accessible way to find and use them. Big commercial API directories such as https://rapidapi.com are currently dominating the search results and the # of APIs indexed, leading many developers to a non-open API gateway. Open Source is far behind.\n\nThe best OpenAPI directory as of yet is https://apis.guru but this doesn't even reach 10% of the amount of listed APIs and there is many room for improvement.\n\nThe vision of https://openapisearch.com is to make OpenAPIs truly open by making it accessible (easy to find what you're looking for) and improving listing quality.\n\n# Goals\n\nTargeted improvements compared to https://apis.guru:\n\n- Easy navigation for agents\n- Programmatic Registry\n- Improved Website\n\nWishlist:\n\n- E2E Testing of OpenAPIs\n- AI Crawler for API Discovery\n- AI Crawler to augment OpenAPI Metadata\n  - Adds authentication + scope info\n  - Adds useful links\n  - Adds reviews\n  - Adds pricing info, ratelimit info, etc\n\n## Non-goals\n\n- Create a docs reference website like [readme.com](https://readme.com) (there are many) - for this we're using stoplight now.\n- Add weird custom logic that is non-standard to the OpenAPI. Instead, I aim to create a layer on top of openapis to improve the implementation of the standard. I'll use [actionschema](https://actionschema.com) for this.",
     "version": "1.0.0"
   },
   "servers": [
@@ -12,43 +12,14 @@
     }
   ],
   "paths": {
-    "/api/metaview": {
+    "/index.md": {
       "get": {
-        "summary": "Get metadata view",
-        "description": "Retrieves a metadata view object with optional format specification",
-        "parameters": [
-          {
-            "name": "accept",
-            "in": "query",
-            "description": "Response format preference",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": ["text/markdown", "text/html", "application/json"]
-            }
-          }
-        ],
+        "summary": "Get list of OpenAPI providers",
+        "description": "Retrieves a markdown file containing IDs of OpenAPIs and their descriptions",
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Successfully retrieved markdown index",
             "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object",
-                    "properties": {
-                      "description": {
-                        "type": "string"
-                      },
-                      "openapiUrl": {
-                        "type": "string",
-                        "format": "uri"
-                      }
-                    }
-                  }
-                }
-              },
               "text/markdown": {
                 "schema": {
                   "type": "string"
@@ -59,15 +30,15 @@
         }
       }
     },
-    "/url/{id}": {
+    "/redirect/{id}": {
       "get": {
-        "summary": "Get OpenAPI URL by ID",
-        "description": "Retrieves the OpenAPI URL for a given provider slug",
+        "summary": "Redirect to OpenAPI specification",
+        "description": "Redirects to the OpenAPI specification for a given provider ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Provider slug identifier",
+            "description": "Provider identifier",
             "required": true,
             "schema": {
               "type": "string"
@@ -75,10 +46,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully retrieved URL",
-            "content": {
-              "text/plain": {
+          "302": {
+            "description": "Redirect to OpenAPI specification",
+            "headers": {
+              "Location": {
+                "description": "URL of the OpenAPI specification",
                 "schema": {
                   "type": "string",
                   "format": "uri"
@@ -87,7 +59,23 @@
             }
           },
           "404": {
-            "description": "Provider slug not found"
+            "description": "Provider ID not found"
+          }
+        }
+      }
+    },
+    "/providers.json": {
+      "get": {
+        "summary": "Get provider information",
+        "description": "Retrieves a JSON containing accumulated registered OpenAPI providers and augmentations of their OpenAPIs for useful information for automation",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved provider information",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "providers.schema.json" }
+              }
+            }
           }
         }
       }
