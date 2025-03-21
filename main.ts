@@ -1,3 +1,4 @@
+import { parse } from "yaml";
 import primary from "./providers.json";
 import homepage from "./homepage.html";
 /**
@@ -68,13 +69,53 @@ export default {
       const providerSlug = chunks[2];
       const metaviewObject = getMetaviewObject();
       const openapiUrl = metaviewObject[providerSlug]?.openapiUrl;
-      if (!openapiUrl) {
+      if (openapiUrl) {
+        return new Response(openapiUrl, {
+          status: 307,
+          headers: { Location: openapiUrl },
+        });
+      }
+
+      // If there's no OpenAPI URL in the metaview, it can still exist, just need to check first.
+      const hasTld = providerSlug.split(".").length > 1;
+      const hasPath = providerSlug.includes("__");
+      const normalizedPathname =
+        hasTld && hasPath
+          ? `https://${providerSlug.replaceAll("__", "/")}`
+          : hasTld
+          ? `https://${providerSlug}/openapi.json`
+          : `https://${providerSlug}.com/openapi.json`;
+
+      try {
+        const response = await fetch(normalizedPathname, {
+          headers: { "content-type": "application/json" },
+        });
+        if (!response.ok) {
+          return new Response("Not found", { status: 404 });
+        }
+
+        const text = await response.text();
+        //parse as json or yaml
+        try {
+          JSON.parse(text);
+          return new Response(normalizedPathname, {
+            status: 307,
+            headers: { Location: normalizedPathname },
+          });
+        } catch (e) {
+          try {
+            parse(text);
+            return new Response(normalizedPathname, {
+              status: 307,
+              headers: { Location: normalizedPathname },
+            });
+          } catch (e) {
+            return new Response("Not found", { status: 404 });
+          }
+        }
+      } catch (e) {
         return new Response("Not found", { status: 404 });
       }
-      return new Response(openapiUrl, {
-        status: 307,
-        headers: { Location: openapiUrl },
-      });
     }
 
     // Return 404 for any other routes

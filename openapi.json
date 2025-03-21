@@ -33,12 +33,12 @@
     "/redirect/{id}": {
       "get": {
         "summary": "Redirect to OpenAPI specification",
-        "description": "Redirects to the OpenAPI specification for a given provider ID",
+        "description": "Redirects to the OpenAPI specification for a given provider ID.\n\nProviderID can be one of:\n - a key from providers.json\n- a slug where an openapi can be found at https://{slug}.com/openapi.json\n- a slug including TLD where the OpenAPI can be found at https://{slug}/openapi.json\n- If the OpenAPI is at a different path, you can provide paths as double underscore (__), e.g. `/redirect/docs.socialdata.tools__openapi.yaml` would lead to https://docs.socialdata.tools/openapi.yaml",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Provider identifier",
+            "description": "Provider identifier.",
             "required": true,
             "schema": {
               "type": "string"
