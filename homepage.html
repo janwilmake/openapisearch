@@ -213,6 +213,36 @@
         .file-html {
             color: var(--function-color);
         }
+
+        /* Search input styles */
+        .search-input {
+            background-color: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
     </style>
 </head>
 
@@ -400,26 +430,64 @@
 
                     </div>
 
-                    <!-- Terminal Display -->
-                    <div class="terminal shadow-vscode">
-                        <div class="terminal-prompt">curl https://openapisearch.com/providers.json</div>
-                        <pre class="terminal-output">{
-  "providers": {
-    "notion": {
-        "openapiUrl": "https://api.notion.com/v1/openapi.json"
-    },
-    "wakatime": {
-        "openapiUrl": "https://openapi.wakatime.com/openapi.json"
-    },
-    ...
-  }
-}</pre>
+                    <div class="mb-8">
+                        <a href="https://github.com/janwilmake/slop-mcp" target="_blank"
+                            class="vscode-btn inline-flex items-center" style="background-color: var(--accent-color);">
+                            Try the MCP
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
                     </div>
+
 
                     <p class="pt-8">Powered by</p>
                     <div class="flex flex-row gap-6 pt-2">
                         <img src="openapi.png" class="h-[150px]"></img>
                         <img src="slop.png" width="150" height="150"></img>
+                    </div>
+                </section>
+
+                <!-- API Listing Section with Search Bar -->
+                <section class="mb-12">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-semibold">
+                            <span style="color: var(--comment-color);">// Available APIs</span>
+                        </h2>
+                        <a href="/index.md" class="vscode-btn-secondary text-sm">
+                            View All APIs
+                        </a>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="mb-6">
+                        <div class="search-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 search-icon" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <input type="text" id="api-search" class="search-input" placeholder="Search APIs..." />
+                        </div>
+                    </div>
+
+                    <!-- API Cards -->
+                    <div id="api-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Loading state -->
+                        <div class="col-span-full flex justify-center py-8">
+                            <svg class="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" style="color: var(--accent-color);">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
                     </div>
                 </section>
 
@@ -475,32 +543,7 @@
                     </div>
                 </section>
 
-                <!-- API Listing Section -->
-                <section class="mb-12">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-semibold">
-                            <span style="color: var(--comment-color);">// Available APIs</span>
-                        </h2>
-                        <a href="/index.md" class="vscode-btn-secondary text-sm">
-                            View All APIs
-                        </a>
-                    </div>
 
-                    <!-- API Cards -->
-                    <div id="api-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Loading state -->
-                        <div class="col-span-full flex justify-center py-8">
-                            <svg class="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" style="color: var(--accent-color);">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                </path>
-                            </svg>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>
@@ -583,7 +626,27 @@
             }
         });
 
-        // Fetch and display API providers
+        // Fuzzy search implementation
+        function fuzzyMatch(pattern, str) {
+            pattern = pattern.toLowerCase();
+            str = str.toLowerCase();
+
+            let patternIdx = 0;
+            let strIdx = 0;
+
+            while (patternIdx < pattern.length && strIdx < str.length) {
+                if (pattern[patternIdx] === str[strIdx]) {
+                    patternIdx++;
+                }
+                strIdx++;
+            }
+
+            return patternIdx === pattern.length;
+        }
+
+        // Fetch and display API providers with search functionality
+        let allProviders = [];
+
         async function fetchProviders() {
             try {
                 const response = await fetch('/providers.json');
@@ -592,79 +655,100 @@
                 }
 
                 const providers = await response.json();
-                const container = document.getElementById('api-container');
+                allProviders = Object.entries(providers.providers);
 
-                // Clear loading spinner
-                container.innerHTML = '';
+                displayProviders(''); // Display all providers initially
 
-                // Get first 6 providers to display (or all if less than 6)
-                const providerEntries = Object.entries(providers.providers);
-                const displayProviders = providerEntries.slice(0, 20);
-
-                if (displayProviders.length === 0) {
-                    container.innerHTML = '<div class="col-span-full text-center py-8">No providers available at the moment.</div>';
-                    return;
-                }
-
-                // Create cards for each provider
-                displayProviders.forEach(([id, provider]) => {
-                    const card = document.createElement('div');
-                    card.className = 'vscode-card overflow-hidden';
-
-                    const title = provider.title || id;
-                    const description = provider.info?.description || 'No description available';
-
-                    card.innerHTML = `
-                            <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
-                                <h3 class="font-semibold">${title}</h3>
-                            </div>
-                            <div class="p-4">
-                                <p class="mb-4 text-sm">${description}</p>
-                                <div class="flex flex-row gap-3">
-                                    <a href="/redirect/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                                    View OpenAPI
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-
-                                <a href="https://oapis.org/slop/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                                    View SLOP
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-                                </div>
-                            </div>
-                        `;
-
-                    container.appendChild(card);
+                // Add event listener to search input
+                document.getElementById('api-search').addEventListener('input', (e) => {
+                    displayProviders(e.target.value);
                 });
-
-                // Add a "View More" card if there are more providers
-                if (providerEntries.length > 20) {
-                    const viewMoreCard = document.createElement('div');
-                    viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
-                    viewMoreCard.innerHTML = `
-                            <span class="text-2xl mb-2" style="color: var(--accent-color);">+${providerEntries.length - 20}</span>
-                            <p class="mb-4 text-sm">more APIs available</p>
-                            <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                                View All
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                        `;
-                    container.appendChild(viewMoreCard);
-                }
 
             } catch (error) {
                 console.error('Error fetching providers:', error);
                 document.getElementById('api-container').innerHTML = `
-                        <div class="col-span-full text-center py-8">
-                            Failed to load providers. Please try again later.
+                    <div class="col-span-full text-center py-8">
+                        Failed to load providers. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        function displayProviders(searchQuery) {
+            const container = document.getElementById('api-container');
+            container.innerHTML = '';
+
+            // Filter providers based on search query
+            let filteredProviders = allProviders;
+
+            if (searchQuery) {
+                filteredProviders = allProviders.filter(([id, provider]) => {
+                    const title = provider.title || id;
+                    return fuzzyMatch(searchQuery, title);
+                });
+            }
+
+            // Limit to max 20 results
+            const displayProviders = filteredProviders.slice(0, 20);
+
+            if (displayProviders.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        No APIs found matching "${searchQuery}".
+                    </div>
+                `;
+                return;
+            }
+
+            // Create cards for each provider
+            displayProviders.forEach(([id, provider]) => {
+                const card = document.createElement('div');
+                card.className = 'vscode-card overflow-hidden';
+
+                const title = provider.title || id;
+                const description = provider.info?.description || 'No description available';
+
+                card.innerHTML = `
+                    <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
+                        <h3 class="font-semibold">${title}</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="mb-4 text-sm">${description}</p>
+                        <div class="flex flex-row gap-3">
+                            <a href="/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                                Details
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <a href="https://oapis.org/slop/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                                View SLOP
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
                         </div>
-                    `;
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            // Show "View All" button if filtered and we have more available
+            if (searchQuery && filteredProviders.length > 20) {
+                const viewMoreCard = document.createElement('div');
+                viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
+                viewMoreCard.innerHTML = `
+                    <span class="text-2xl mb-2" style="color: var(--accent-color);">+${filteredProviders.length - 20}</span>
+                    <p class="mb-4 text-sm">more APIs available</p>
+                    <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                        View All
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                `;
+                container.appendChild(viewMoreCard);
             }
         }
 
