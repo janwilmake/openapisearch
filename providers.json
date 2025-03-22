@@ -90,23 +90,23 @@
 
     "brandwatch": {
       "info": { "description": "Watch social media about your brand" },
-      "openapiUrl": "https://openapisearch.com/handmade/brandwatch.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/brandwatch.json"
     },
     "jina-reader": {
       "info": {
         "description": "Read webpages in markdown, html, or screenshot"
       },
-      "openapiUrl": "https://openapisearch.com/handmade/jina-reader.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/jina-reader.json"
     },
 
     "upstash-redis": {
       "info": { "description": "Control a Redis database over API" },
-      "openapiUrl": "https://openapisearch.com/handmade/upstash-redis.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-redis.json"
     },
 
     "upstash-qstash": {
       "info": { "description": "Scheduling and batching API calls" },
-      "openapiUrl": "https://openapisearch.com/handmade/upstash-qstash.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-qstash.json"
     },
 
     "upstash-vector": {
@@ -155,7 +155,7 @@
       "info": {
         "description": "Readonly API for posts, comments, and profiles from news.ycombinator.com"
       },
-      "openapiUrl": "https://openapisearch.com/handmade/hackernews.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/hackernews.json",
       "auth_mode": "PUBLIC",
       "categories": ["news"]
     },
@@ -195,7 +195,7 @@
         }
       },
 
-      "openapiUrl": "https://openapisearch.com/handmade/notion-dbs.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/notion-dbs.json",
       "auth_mode": "BEARER",
       "auth_standard": "oauth2"
     },
@@ -544,7 +544,7 @@
     },
 
     "serper": {
-      "openapiUrl": "https://openapisearch.com/handmade/serper.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/serper.json",
       "auth_mode": "BEARER",
       "info": {
         "description": "The worlds fastest and cheapest google search api",
@@ -608,13 +608,13 @@
     },
 
     "doppio": {
-      "openapiUrl": "https://openapisearch.com/handmade/doppio.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/doppio.json",
       "auth_mode": "BEARER",
       "info": {}
     },
 
     "multion": {
-      "openapiUrl": "https://openapisearch.com/handmade/multion.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/multion.json",
       "auth_mode": "BEARER"
     },
 

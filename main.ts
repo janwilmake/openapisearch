@@ -93,9 +93,11 @@ export default {
         : `https://${providerSlug}.com/openapi.json`;
 
       try {
-        const response = await fetch(finalOpenapiUrl, {
-          headers: { "content-type": "application/json" },
-        });
+        const response = await fetch(
+          new Request(finalOpenapiUrl, {
+            headers: { "content-type": "application/json" },
+          }),
+        );
         if (!response.ok) {
           return new Response("Not found", { status: 404 });
         }
@@ -128,18 +130,41 @@ export default {
     } else if (url.pathname.split("/").length === 2) {
       // For the /{providerId} endpoint
       const providerId = url.pathname.slice(1);
-
+      const description = `Easy LLM Context for any API. OpenAPI Search makes APIs Accessible for AI Codegen and tool use!`;
+      const title = `LLM Context for ${providerId} API`;
       // HTML template for the landing page
       const landingPageTemplate = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${providerId} API - OpenAPI and SLOP Comparison</title>
-  <meta property="og:image" content="https://og.openapisearch.com/${providerId}">
-  <meta property="og:title" content="Navigate the ${providerId} API without Error">
-  <meta property="og:description" content="Compare OpenAPI and SLOP formats for the ${providerId} API">
+
+
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+<meta name="description" content="${description}" />
+<meta name="robots" content="index, follow" />
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://openapisearch.com" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${title}" />
+<meta property="og:description" content="${description}" />
+<meta property="og:image" content="https://og.openapisearch.com/${providerId}" />
+<meta property="og:image:alt" content="${description}"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain" content="openapisearch.com" />
+<meta property="twitter:url" content="https://openapisearch.com" />
+<meta name="twitter:title" content="${title}" />
+<meta name="twitter:description" content="${description}" />
+<meta name="twitter:image" content="https://og.openapisearch.com/${providerId}" />
+
+
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -297,7 +322,7 @@ export default {
     async function fetchSpecifications() {
       try {
         // Fetch OpenAPI
-        const openApiResponse = await fetch('https://openapisearch.com/redirect/${providerId}');
+        const openApiResponse = await fetch('https://openapisearch.com/openapi/${providerId}');
         const openApiText = await openApiResponse.text();
         document.getElementById('openapi-code').value = openApiText;
         
