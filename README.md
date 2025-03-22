@@ -8,7 +8,7 @@ The vision of https://openapisearch.com is to make OpenAPIs truly open by making
 
 ![](explorer.drawio.png)
 
-Related work: https://github.com/janwilmake/oapis and https://github.com/janwilmake/oapis.npm
+Related work: https://github.com/janwilmake/oapis and https://github.com/janwilmake/oapis.npm and https://github.com/janwilmake/openapi-mcp-server
 
 # Goals
 
