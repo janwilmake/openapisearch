@@ -94,6 +94,28 @@
             </div>
         </div>
 
+        <!-- New Route Explorer Section -->
+        <div class="mt-6 rounded-lg overflow-hidden shadow-md bg-blue-50">
+            <div class="p-4 bg-blue-600 text-white">
+                <h2 class="m-0 text-lg">Try a Route</h2>
+            </div>
+            <div class="p-4">
+                <div class="flex flex-col gap-3">
+                    <p class="text-sm text-gray-700">Enter an operationId or route path to explore details:</p>
+                    <input type="text" id="route-input" placeholder="Enter operationId or route (e.g. repos/get)"
+                        class="w-full p-3 border border-gray-300 rounded-md font-mono text-sm" />
+                    <div class="text-sm text-gray-600">
+                        URL: <span id="route-url" class="font-mono">https://oapis.org/openapi/{{providerId}}/</span>
+                    </div>
+                    <div class="flex justify-end">
+                        <button id="explore-route"
+                            class="bg-blue-600 text-white border-none rounded px-4 py-2 cursor-pointer text-sm transition duration-200 hover:bg-blue-800">Explore
+                            Route</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="mt-10 text-center p-5 bg-indigo-100 rounded-lg">
             <h2 class="text-xl">Looking for More APIs?</h2>
             <p class="mt-2">Discover and explore other OpenAPI specifications to enhance your LLM integrations.</p>
@@ -122,22 +144,24 @@
             });
         }
 
-        // Fetch the specifications
+        // Fetch the specifications in parallel
         async function fetchSpecifications() {
             try {
-                // Fetch OpenAPI
-                const openApiResponse = await fetch('https://openapisearch.com/openapi/{{providerId}}');
+                // Fetch both specifications in parallel
+                const [openApiResponse, slopResponse] = await Promise.all([
+                    fetch('https://openapisearch.com/openapi/{{providerId}}'),
+                    fetch('https://oapis.org/slop/{{providerId}}')
+                ]);
+
+                // Process OpenAPI
                 const openApiText = await openApiResponse.text();
                 document.getElementById('openapi-code').value = openApiText;
-
                 const openApiTokens = calculateTokens(openApiText);
                 document.getElementById('openapi-token-count').textContent = openApiTokens.toLocaleString() + ' tokens';
 
-                // Fetch SLOP
-                const slopResponse = await fetch('https://oapis.org/slop/{{providerId}}');
+                // Process SLOP
                 const slopText = await slopResponse.text();
                 document.getElementById('slop-code').value = slopText;
-
                 const slopTokens = calculateTokens(slopText);
                 document.getElementById('slop-token-count').textContent = slopTokens.toLocaleString() + ' tokens';
 
@@ -164,8 +188,38 @@
             }
         }
 
+        // Route explorer functionality
+        function setupRouteExplorer() {
+            const routeInput = document.getElementById('route-input');
+            const routeUrl = document.getElementById('route-url');
+            const exploreButton = document.getElementById('explore-route');
+            const providerId = '{{providerId}}';
+
+            // Update URL as user types
+            routeInput.addEventListener('input', () => {
+                routeUrl.textContent = `https://oapis.org/openapi/${providerId}/${routeInput.value}`;
+            });
+
+            // Handle explore button click
+            exploreButton.addEventListener('click', () => {
+                if (routeInput.value.trim()) {
+                    window.open(`https://oapis.org/openapi/${providerId}/${routeInput.value}`, '_blank');
+                }
+            });
+
+            // Handle enter key press
+            routeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && routeInput.value.trim()) {
+                    window.open(`https://oapis.org/summary/${providerId}/${routeInput.value}`, '_blank');
+                }
+            });
+        }
+
         // Initialize on page load
-        window.addEventListener('DOMContentLoaded', fetchSpecifications);
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchSpecifications();
+            setupRouteExplorer();
+        });
     </script>
 </body>
 
