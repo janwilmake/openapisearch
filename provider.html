@@ -28,158 +28,81 @@
     <meta name="twitter:description" content="{{description}}" />
     <meta name="twitter:image" content="https://og.openapisearch.com/{{providerId}}" />
 
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background: #4f46e5;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            border-radius: 12px 12px 0 0;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .api-section {
-            flex: 1;
-            min-width: 300px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .openapi-section {
-            background-color: #fff9e7;
-        }
-
-        .slop-section {
-            background-color: #ecfdf5;
-        }
-
-        .section-header {
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .openapi-header {
-            color: #b45309;
-        }
-
-        .slop-header {
-            color: #047857;
-        }
-
-        .section-header h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .token-count {
-            background-color: rgba(0, 0, 0, 0.1);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .code-container {
-            position: relative;
-            background: rgba(0, 0, 0, 0.04);
-            border-radius: 0 0 8px 8px;
-        }
-
-        .code-area {
-            width: 100%;
-            height: 400px;
-            padding: 15px;
-            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.5;
-            border: none;
-            background: transparent;
-            resize: none;
-            box-sizing: border-box;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #4f46e5;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .copy-btn:hover {
-            background: #3730a3;
-        }
-
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #6b7280;
-            font-size: 14px;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class="container">
-        <header>
-            <h1>Allow LLMs to Navigate the {{providerId}} API without Error</h1>
+<body class="bg-gray-50 m-0 p-5 font-sans">
+    <div class="max-w-7xl mx-auto p-5">
+        <a href="/"
+            class="inline-flex items-center text-indigo-600 no-underline font-medium mb-4 transition duration-200 hover:text-indigo-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+            </svg>
+            Back to All APIs
+        </a>
+
+        <header class="bg-indigo-600 p-5 text-center text-white rounded-t-lg relative">
+            <h1 class="m-0 text-2xl">Allow LLMs to Navigate the {{providerId}} API without Error</h1>
         </header>
 
-        <div class="content">
-            <div class="api-section openapi-section">
-                <div class="section-header openapi-header">
-                    <h2>OpenAPI</h2>
-                    <span class="token-count" id="openapi-token-count">Loading...</span>
+        <div class="flex flex-wrap gap-5">
+            <div class="flex-1 min-w-[300px] rounded-lg overflow-hidden shadow-md bg-yellow-50">
+                <div class="p-4 flex justify-between items-center text-yellow-800">
+                    <h2 class="m-0 text-lg">OpenAPI</h2>
+                    <span id="openapi-token-count"
+                        class="bg-yellow-200 bg-opacity-50 px-2 py-1 rounded text-sm">Loading...</span>
                 </div>
-                <div class="code-container">
-                    <textarea class="code-area" id="openapi-code" readonly>Loading OpenAPI specification...</textarea>
-                    <button class="copy-btn" id="copy-openapi">Copy</button>
+                <div class="relative bg-yellow-100 bg-opacity-20 rounded-b-lg">
+                    <textarea id="openapi-code" readonly
+                        class="w-full h-[400px] p-4 font-mono text-sm leading-relaxed border-none bg-transparent resize-none box-border">Loading OpenAPI specification...</textarea>
+                    <button id="copy-openapi"
+                        class="absolute top-2.5 right-2.5 bg-indigo-600 text-white border-none rounded px-3 py-2 cursor-pointer text-xs transition duration-200 hover:bg-indigo-800">Copy</button>
+                </div>
+                <div class="flex flex-row gap-4 items-center justify-center">
+                    <div class="flex justify-center mt-4">
+                        <a href="/openapi/{{providerId}}"
+                            class="bg-indigo-600 text-white border-none rounded px-3 py-2 cursor-pointer text-sm transition duration-200 hover:bg-indigo-800"
+                            target="_blank">View OpenAPI</a>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <a href="/redirect/{{providerId}}"
+                            class="bg-indigo-600 text-white border-none rounded px-3 py-2 cursor-pointer text-sm transition duration-200 hover:bg-indigo-800"
+                            target="_blank">View Original</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="api-section slop-section">
-                <div class="section-header slop-header">
-                    <h2>SLOP</h2>
-                    <span class="token-count" id="slop-token-count">Loading...</span>
+            <div class="flex-1 min-w-[300px] rounded-lg overflow-hidden shadow-md bg-green-50">
+                <div class="p-4 flex justify-between items-center text-green-800">
+                    <h2 class="m-0 text-lg">SLOP</h2>
+                    <span id="slop-token-count"
+                        class="bg-green-200 bg-opacity-50 px-2 py-1 rounded text-sm">Loading...</span>
                 </div>
-                <div class="code-container">
-                    <textarea class="code-area" id="slop-code" readonly>Loading SLOP specification...</textarea>
-                    <button class="copy-btn" id="copy-slop">Copy</button>
+                <div class="relative bg-green-100 bg-opacity-20 rounded-b-lg">
+                    <textarea id="slop-code" readonly
+                        class="w-full h-[400px] p-4 font-mono text-sm leading-relaxed border-none bg-transparent resize-none box-border">Loading SLOP specification...</textarea>
+                    <button id="copy-slop"
+                        class="absolute top-2.5 right-2.5 bg-indigo-600 text-white border-none rounded px-3 py-2 cursor-pointer text-xs transition duration-200 hover:bg-indigo-800">Copy</button>
+                </div>
+                <div class="flex justify-center mt-4 mb-4">
+                    <a href="https://oapis.org/slop/{{providerId}}"
+                        class="bg-indigo-600 text-white border-none rounded px-3 py-2 cursor-pointer text-sm transition duration-200 hover:bg-indigo-800"
+                        target="_blank">Open SLOP Externally</a>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
+        <div class="mt-10 text-center p-5 bg-indigo-100 rounded-lg">
+            <h2 class="text-xl">Looking for More APIs?</h2>
+            <p class="mt-2">Discover and explore other OpenAPI specifications to enhance your LLM integrations.</p>
+            <a href="/"
+                class="inline-block bg-indigo-600 text-white px-5 py-2.5 rounded-md no-underline font-medium mt-2.5 transition duration-200 hover:bg-indigo-800">Explore
+                Other OpenAPIs</a>
+        </div>
+
+        <div class="mt-8 text-center text-gray-500 text-sm">
             <p>Compare token counts and formats between OpenAPI and SLOP</p>
         </div>
     </div>

@@ -23,6 +23,7 @@ const OPENAPI_PATHS = [
   "/openapi.yml",
 
   // Well-known paths
+  "/.well-known/openapi",
   "/.well-known/openapi.json",
   "/.well-known/openapi.yaml",
   "/.well-known/openapi.yml",
