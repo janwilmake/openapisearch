@@ -60,6 +60,19 @@
       }
     },
 
+    "podscan": {
+      "categories": ["podcasts"],
+      "info": {
+        "description": "Search through podcast transcripts, get alerts",
+        "x-links": {
+          "apiManagementUrl": "https://podscan.fm/user/api-tokens"
+        }
+      },
+      "auth_mode": "BEARER",
+
+      "openapiUrl": "https://podscan.fm/docs/api.json"
+    },
+
     "x": {
       "categories": ["marketing", "social"],
       "isTrustedOauthLink": true,
@@ -67,6 +80,7 @@
       "auth_standard": "oauth2",
       "auth_mode": "BEARER",
       "info": {
+        "description": "Official Twitter/X API",
         "x-links": {
           "apiManagementUrl": "https://developer.x.com/en/portal/projects-and-apps",
           "scopesUrl": "https://developer.x.com/en/docs/authentication/guides/v2-authentication-mapping",
@@ -88,118 +102,6 @@
       }
     },
 
-    "brandwatch": {
-      "info": { "description": "Watch social media about your brand" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/brandwatch.json"
-    },
-    "jina-reader": {
-      "info": {
-        "description": "Read webpages in markdown, html, or screenshot"
-      },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/jina-reader.json"
-    },
-
-    "upstash-redis": {
-      "info": { "description": "Control a Redis database over API" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-redis.json"
-    },
-
-    "upstash-qstash": {
-      "info": { "description": "Scheduling and batching API calls" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-qstash.json"
-    },
-
-    "upstash-vector": {
-      "info": { "description": "Control a Vector database over API" },
-      "openapiUrl": "https://vector.actionschema.com/openapi.json"
-    },
-
-    "digitalocean": {
-      "categories": ["dev-tools"],
-      "hasOauth2": true,
-      "authorization_url": "https://cloud.digitalocean.com/v1/oauth/authorize",
-      "token_url": "https://cloud.digitalocean.com/v1/oauth/token",
-      "authorization_params": {
-        "response_type": "code"
-      },
-      "token_params": {
-        "grant_type": "authorization_code"
-      },
-      "refresh_params": {
-        "grant_type": "refresh_token"
-      },
-      "proxy": {
-        "base_url": "https://api.digitalocean.com"
-      },
-
-      "openapiUrl": "https://raw.githubusercontent.com/digitalocean/openapi/main/specification/DigitalOcean-public.v2.yaml"
-    },
-
-    "openapisearch": {
-      "info": {
-        "description": "Public API to find OpenAPIs on https://apis.guru"
-      },
-      "auth_mode": "PUBLIC",
-      "openapiUrl": "https://openapisearch.com/openapi.json"
-    },
-
-    "apisguru": {
-      "info": {
-        "description": "Public API to find OpenAPIs on https://apis.guru"
-      },
-      "auth_mode": "PUBLIC",
-      "openapiUrl": "https://api.apis.guru/v2/specs/apis.guru/2.2.0/openapi.json"
-    },
-
-    "hackernews": {
-      "info": {
-        "description": "Readonly API for posts, comments, and profiles from news.ycombinator.com"
-      },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/hackernews.json",
-      "auth_mode": "PUBLIC",
-      "categories": ["news"]
-    },
-
-    "groq": {
-      "categories": ["ai"],
-      "openapiUrl": "https://groq-openapi.vercel.app/openapi.json",
-      "auth_mode": "BEARER",
-      "info": {
-        "description": "Cloud AI Provider with multiple transformer LLMs and other modalities, with very fast inference",
-        "x-links": {
-          "apiManagementUrl": "https://console.groq.com/keys",
-          "docsUrl": "https://console.groq.com/docs/quickstart"
-        }
-      }
-    },
-
-    "podscan": {
-      "categories": ["podcasts"],
-      "info": {
-        "description": "Search through podcast transcripts, get alerts",
-        "x-links": {
-          "apiManagementUrl": "https://podscan.fm/user/api-tokens"
-        }
-      },
-      "auth_mode": "BEARER",
-
-      "openapiUrl": "https://podscan.fm/docs/api.json"
-    },
-
-    "notion-dbs": {
-      "categories": ["productivity"],
-      "info": {
-        "description": "Notion Databases API",
-        "x-links": {
-          "apiManagementUrl": "https://www.notion.so/profile/integrations"
-        }
-      },
-
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/notion-dbs.json",
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2"
-    },
-
     "npm-registry": {
       "info": {
         "x-links": {
@@ -209,105 +111,6 @@
       "auth_mode": "BEARER",
 
       "openapiUrl": "https://cdn.jsdelivr.net/gh/pichillilorenzo/npm-registry-open-api@main/npm-registry-open-api.yaml"
-    },
-
-    "posthog-capture-api": {
-      "openapiUrl": "https://raw.githubusercontent.com/PostHog/posthog/master/openapi/capture.yaml",
-      "info": {
-        "x-links": {
-          "apiManagementUrl": "https://us.posthog.com/project/{projectId}/settings/user-api-keys"
-        },
-        "description": "Posthog is a Product analytics platform allowing companies to track and understand their users"
-      }
-    },
-
-    "google-analytics4": {
-      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analyticsadmin/v1beta/openapi.json",
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "info": {
-        "x-links": {
-          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analyticsadmin.googleapis.com"
-        },
-        "description": "The Google Analytics Admin API allows for programmatic access to the Google Analytics 4 (GA4) configuration data and is only compatible with GA4 properties"
-      }
-    },
-
-    "google-analytics3": {
-      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analytics/v3/openapi.json",
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "info": {
-        "x-links": {
-          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analytics.googleapis.com"
-        },
-        "description": "Views and manages your Google Analytics data (GA3)"
-      }
-    },
-
-    "stripe": {
-      "hasOauth2": true,
-      "categories": ["payment"],
-      "info": {
-        "description": "Create a paywall for your app or invoices",
-        "x-links": {
-          "apiManagementUrl": "https://dashboard.stripe.com/apikeys",
-          "authorization_url": "https://marketplace.stripe.com/oauth/v2/authorize",
-          "token_url": "https://api.stripe.com/v1/oauth/token"
-        }
-      },
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "openapiUrl": "https://api.apis.guru/v2/specs/stripe.com/2022-11-15/openapi.json"
-    },
-    "actionschema-chat": {
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "openapiUrl": "https://chat.actionschema.com/openapi.json",
-      "info": {
-        "description": "Chat completions with tools for multiple providers"
-      }
-    },
-    "actionschema-search": {
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "openapiUrl": "https://search.actionschema.com/openapi.json",
-      "info": { "description": "Find endpoints for your next app" }
-    },
-
-    "github-reader": {
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-
-      "info": {
-        "description": "This API allows users to fetch and unzip files from a specified GitHub repository branch, with options to filter results by file extensions and directories."
-      },
-      "openapiUrl": "https://github.actionschema.com/openapi.json"
-    },
-
-    "openapi-util": {
-      "openapiUrl": "https://openapi-util.actionschema.com/openapi.json",
-      "auth_mode": "BEARER",
-
-      "info": {
-        "description": "This API provides tools for working with OpenAPI specifications. It allows users to merge, prune, and summarize OpenAPIs, generate SDK configurations and full SDKs, and even create custom endpoints through AI assistance."
-      }
-    },
-
-    "actionschema-data": {
-      "openapiUrl": "https://data.actionschema.com/openapi.json",
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "info": {
-        "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment."
-      },
-      "scopes": {
-        "admin": "Access to managing all projects",
-        "user:project:{projectSlug}": "Access to use all databases in a project, with or without user separation.",
-        "user:project:{projectSlug}:read": "Access to read all databases in a project, and write to all user-separated databases.",
-        "admin:project:{projectSlug}": "Access to manage an entire project",
-        "admin:db:{databaseSlug}": "Access to manage a database"
-      }
     },
 
     "supabase": {
@@ -328,6 +131,31 @@
           "sourceUrl": "https://github.com/supabase/supabase"
         }
       }
+    },
+
+    "hackernews": {
+      "info": {
+        "description": "Readonly API for posts, comments, and profiles from news.ycombinator.com"
+      },
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/hackernews.json",
+      "auth_mode": "PUBLIC",
+      "categories": ["news"]
+    },
+
+    "stripe": {
+      "hasOauth2": true,
+      "categories": ["payment"],
+      "info": {
+        "description": "Create a paywall for your app or invoices",
+        "x-links": {
+          "apiManagementUrl": "https://dashboard.stripe.com/apikeys",
+          "authorization_url": "https://marketplace.stripe.com/oauth/v2/authorize",
+          "token_url": "https://api.stripe.com/v1/oauth/token"
+        }
+      },
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "openapiUrl": "https://api.apis.guru/v2/specs/stripe.com/2022-11-15/openapi.json"
     },
 
     "slack": {
@@ -490,16 +318,6 @@
       }
     },
 
-    "anthropic-message-api": {
-      "openapiUrl": "https://anthropic.actionschema.com/openapi.json",
-      "info": {
-        "description": "",
-        "x-links": {
-          "apiManagementUrl": "https://console.anthropic.com/settings/keys"
-        }
-      }
-    },
-
     "val-town": {
       "openapiUrl": "https://api.val.town/openapi.json",
       "info": {
@@ -558,6 +376,149 @@
       "info": {
         "x-links": {
           "apiManagementUrl": "https://replicate.com/account/api-tokens"
+        }
+      }
+    },
+
+    "brandwatch": {
+      "info": { "description": "Watch social media about your brand" },
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/brandwatch.json"
+    },
+
+    "jina-reader": {
+      "info": {
+        "description": "Read webpages in markdown, html, or screenshot"
+      },
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/jina-reader.json"
+    },
+
+    "upstash-redis": {
+      "info": { "description": "Control a Redis database over API" },
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-redis.json"
+    },
+
+    "upstash-qstash": {
+      "info": { "description": "Scheduling and batching API calls" },
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-qstash.json"
+    },
+
+    "upstash-vector": {
+      "info": { "description": "Control a Vector database over API" },
+      "openapiUrl": "https://vector.actionschema.com/openapi.json"
+    },
+
+    "digitalocean": {
+      "categories": ["dev-tools"],
+      "hasOauth2": true,
+      "authorization_url": "https://cloud.digitalocean.com/v1/oauth/authorize",
+      "token_url": "https://cloud.digitalocean.com/v1/oauth/token",
+      "authorization_params": {
+        "response_type": "code"
+      },
+      "token_params": {
+        "grant_type": "authorization_code"
+      },
+      "refresh_params": {
+        "grant_type": "refresh_token"
+      },
+      "proxy": {
+        "base_url": "https://api.digitalocean.com"
+      },
+
+      "openapiUrl": "https://raw.githubusercontent.com/digitalocean/openapi/main/specification/DigitalOcean-public.v2.yaml"
+    },
+
+    "apisguru": {
+      "info": {
+        "description": "Public API to find OpenAPIs on https://apis.guru"
+      },
+      "auth_mode": "PUBLIC",
+      "openapiUrl": "https://api.apis.guru/v2/specs/apis.guru/2.2.0/openapi.json"
+    },
+
+    "groq": {
+      "categories": ["ai"],
+      "openapiUrl": "https://groq-openapi.vercel.app/openapi.json",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "Cloud AI Provider with multiple transformer LLMs and other modalities, with very fast inference",
+        "x-links": {
+          "apiManagementUrl": "https://console.groq.com/keys",
+          "docsUrl": "https://console.groq.com/docs/quickstart"
+        }
+      }
+    },
+
+    "notion-dbs": {
+      "categories": ["productivity"],
+      "info": {
+        "description": "Notion Databases API",
+        "x-links": {
+          "apiManagementUrl": "https://www.notion.so/profile/integrations"
+        }
+      },
+
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/notion-dbs.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2"
+    },
+
+    "posthog-capture-api": {
+      "openapiUrl": "https://raw.githubusercontent.com/PostHog/posthog/master/openapi/capture.yaml",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://us.posthog.com/project/{projectId}/settings/user-api-keys"
+        },
+        "description": "Posthog is a Product analytics platform allowing companies to track and understand their users"
+      }
+    },
+
+    "google-analytics4": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analyticsadmin/v1beta/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analyticsadmin.googleapis.com"
+        },
+        "description": "The Google Analytics Admin API allows for programmatic access to the Google Analytics 4 (GA4) configuration data and is only compatible with GA4 properties"
+      }
+    },
+
+    "google-analytics3": {
+      "openapiUrl": "https://api.apis.guru/v2/specs/googleapis.com/analytics/v3/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "x-links": {
+          "apiManagementUrl": "https://console.cloud.google.com/marketplace/product/google/analytics.googleapis.com"
+        },
+        "description": "Views and manages your Google Analytics data (GA3)"
+      }
+    },
+
+    "actionschema-data": {
+      "openapiUrl": "https://data.actionschema.com/openapi.json",
+      "auth_mode": "BEARER",
+      "auth_standard": "oauth2",
+      "info": {
+        "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment."
+      },
+      "scopes": {
+        "admin": "Access to managing all projects",
+        "user:project:{projectSlug}": "Access to use all databases in a project, with or without user separation.",
+        "user:project:{projectSlug}:read": "Access to read all databases in a project, and write to all user-separated databases.",
+        "admin:project:{projectSlug}": "Access to manage an entire project",
+        "admin:db:{databaseSlug}": "Access to manage a database"
+      }
+    },
+
+    "anthropic-message-api": {
+      "openapiUrl": "https://anthropic.actionschema.com/openapi.json",
+      "info": {
+        "description": "",
+        "x-links": {
+          "apiManagementUrl": "https://console.anthropic.com/settings/keys"
         }
       }
     },
