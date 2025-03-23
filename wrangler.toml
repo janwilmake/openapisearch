@@ -7,3 +7,7 @@ routes = [
   { pattern = "openapisearch.com", custom_domain = true },
   { pattern = "www.openapisearch.com", custom_domain = true }
 ]
+
+[[kv_namespaces]]
+binding = "OPENAPI_LOCATIONS"
+id = "2e7b10d8ab164f77baf32e9a40f1357c"
