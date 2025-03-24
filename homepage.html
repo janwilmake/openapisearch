@@ -696,8 +696,8 @@
 
         async function fetchProviders() {
             try {
-                // TODO: Make this auto-prefil
-                const response = await fetch(`https://uithub.com/janwilmake/openapisearch-providers/tree/main/providers.json`);
+                // TODO: Make this auto-prefil from https://uithub.com/{owner}/openapisearch-providers/tree/main/providers.json
+                const response = await fetch(`/providers.json`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch providers');
                 }
