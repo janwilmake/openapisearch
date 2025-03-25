@@ -37,18 +37,3 @@ Targeted improvements compared to https://apis.guru:
 
 - **2025-03-20** - I did lots of work in this area and left it all behind after moving to cloudflare. It's time to take some of this work and redo it with a new vision, taking in all learnings from the last months. My current intuition is as follows; 1) Don't focus on quantity, focus on quality of a few great OpenAPIs. Make it very easy to build with a particular OpenAPI, for example. 2) People want to see their own OpenAPIs, and aren't interested in 99% of all other OpenAPIs.
 - **2025-03-23** - https://x.com/janwilmake/status/1903879996592242987
-
-# TODO (low hanging)
-
-Tweet 1: OpenAPI Search Improvements
-
-- allow setting multiple operationIds into the API to return a single OpenAPI for it.
-- on the landing, improve clarity that any openapi will work
-- allow people to determine the providerID based on the openapi.json location (if explorable, just domain! if not, give tips for improvement)
-- figure out if i can add hostname logo to og-image (forgithub has it too)
-
-Tweet 2: Forgithub Badges
-
-- Have an API for forgithub
-- Use it to render a form where you can select the ones you like and get a markdown snippet for it with a link to edit the markdown (and easily make PR)
-- Have this as API and apply this on some top repos daily, manually, seeing the response.
