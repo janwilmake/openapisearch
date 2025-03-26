@@ -2,9 +2,6 @@
   "$schema": "https://openapisearch.com/providers.schema.json",
 
   "providers": {
-    "socialdata.tools": {
-      "openapiUrl": "https://docs.socialdata.tools/openapi.yaml"
-    },
     "github": {
       "isTrustedOauthLink": true,
       "info": {
@@ -20,7 +17,7 @@
       },
       "auth_standard": "oauth2",
       "auth_mode": "BEARER",
-      "openapiUrl": "https://github.com/github/rest-api-description/raw/refs/heads/main/descriptions-next/ghes-3.16/ghes-3.16.json",
+      "openapiUrl": "https://github.com/github/rest-api-description/raw/refs/heads/main/descriptions/api.github.com/api.github.com.json",
       "categories": ["dev-tools", "support", "ticketing"],
       "scopes": {
         "": "Grants read-only access to public information (including user profile info, repository info, and gists)",
@@ -60,7 +57,11 @@
       }
     },
 
-    "podscan": {
+    "socialdata.tools": {
+      "openapiUrl": "https://docs.socialdata.tools/openapi.yaml"
+    },
+
+    "podscan.fm": {
       "categories": ["podcasts"],
       "info": {
         "description": "Search through podcast transcripts, get alerts",
@@ -69,7 +70,6 @@
         }
       },
       "auth_mode": "BEARER",
-
       "openapiUrl": "https://podscan.fm/docs/api.json"
     },
 
@@ -109,7 +109,6 @@
         }
       },
       "auth_mode": "BEARER",
-
       "openapiUrl": "https://cdn.jsdelivr.net/gh/pichillilorenzo/npm-registry-open-api@main/npm-registry-open-api.yaml"
     },
 
