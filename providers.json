@@ -497,22 +497,6 @@
       }
     },
 
-    "actionschema-data": {
-      "openapiUrl": "https://data.actionschema.com/openapi.json",
-      "auth_mode": "BEARER",
-      "auth_standard": "oauth2",
-      "info": {
-        "description": "This API provides functionality for managing databases and projects within a data service. Here's a brief summary: It allows users to create, update, list, and remove databases and projects. Each database has a schema and can be configured with vector indexes for specific columns. The API also provides endpoints to retrieve OpenAPI specifications and JSON schemas for databases and projects. Overall, it offers a comprehensive set of tools for database management and schema handling within a multi-project environment."
-      },
-      "scopes": {
-        "admin": "Access to managing all projects",
-        "user:project:{projectSlug}": "Access to use all databases in a project, with or without user separation.",
-        "user:project:{projectSlug}:read": "Access to read all databases in a project, and write to all user-separated databases.",
-        "admin:project:{projectSlug}": "Access to manage an entire project",
-        "admin:db:{databaseSlug}": "Access to manage a database"
-      }
-    },
-
     "anthropic-message-api": {
       "openapiUrl": "https://anthropic.actionschema.com/openapi.json",
       "info": {
@@ -588,25 +572,6 @@
       "info": { "description": "Dutch shopping platform" }
     },
 
-    "actionschema-auth": {
-      "openapiUrl": "https://auth.actionschema.com/openapi.json",
-      "categories": ["auth"],
-      "info": {
-        "description": "ActionSchema Auth is a central place to manage auth for your agents",
-        "x-links": {
-          "authorization_url": "https://auth.actionschema.com/client/authorize",
-          "token_url": "https://auth.actionschema.com/client/access_token",
-          "createOauthAppUrl": "https://auth.actionschema.com/admin",
-          "docsUrl": "https://auth.actionschema.com/reference"
-        }
-      },
-      "auth_mode": "BEARER",
-      "scopes": {
-        "actionschema-auth:admin": "Full access to all providers, clients, and permissions",
-        "actionschema-auth:read:user": "Access to ActionSchema Auth UserID, as well as all user IDs of all providers the user logged into.",
-        "actionschema-auth:readonly": "Only read what services are available"
-      }
-    },
     "statusbrew": {
       "$comment": "Requires contact with the team to retrieve API access and they are very selective about it.",
       "categories": ["social-media"],

@@ -327,10 +327,10 @@
             container.innerHTML = '';
 
             // Filter providers based on search query
-            let filteredProviders = allProviders;
+            let filteredProviders = allProviders.filter(([id, provider]) => !!provider.openapiUrl)
 
             if (searchQuery) {
-                filteredProviders = allProviders.filter(([id, provider]) => {
+                filteredProviders = filteredProviders.filter(([id, provider]) => {
                     const title = provider.title || id;
                     return fuzzyMatch(searchQuery, title);
                 });
@@ -382,21 +382,21 @@
             });
 
             // Show "View All" button if filtered and we have more available
-            if (searchQuery && filteredProviders.length > 20) {
-                const viewMoreCard = document.createElement('div');
-                viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
-                viewMoreCard.innerHTML = `
-                    <span class="text-2xl mb-2" style="color: var(--accent-color);">+${filteredProviders.length - 20}</span>
-                    <p class="mb-4 text-sm">more APIs available</p>
-                    <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                        View All
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                `;
-                container.appendChild(viewMoreCard);
-            }
+            // if (searchQuery && filteredProviders.length > 20) {
+            //     const viewMoreCard = document.createElement('div');
+            //     viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
+            //     viewMoreCard.innerHTML = `
+            //         <span class="text-2xl mb-2" style="color: var(--accent-color);">+${filteredProviders.length - 20}</span>
+            //         <p class="mb-4 text-sm">more APIs available</p>
+            //         <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+            //             View All
+            //             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            //                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            //             </svg>
+            //         </a>
+            //     `;
+            //     container.appendChild(viewMoreCard);
+            // }
         }
 
         // Load providers when the page loads
