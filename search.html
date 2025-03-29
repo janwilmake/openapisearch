@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAPI Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        light: {
+                            'bg': '#ffffff',
+                            'sidebar': '#f5f5f5',
+                            'editor': '#ffffff',
+                            'accent': '#0066cc',
+                            'accent-hover': '#0055aa',
+                            'border': '#e0e0e0',
+                            'surface': '#f9f9f9',
+                            'highlight': '#e6f0fa',
+                            'text': '#333333'
+                        },
+                        dark: {
+                            'bg': '#1e1e1e',
+                            'sidebar': '#252526',
+                            'editor': '#1e1e1e',
+                            'accent': '#007acc',
+                            'accent-hover': '#0098ff',
+                            'border': '#3c3c3c',
+                            'surface': '#2d2d2d',
+                            'highlight': '#264f78',
+                            'text': '#cccccc'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            /* Default light theme variables */
+            --bg-color: #ffffff;
+            --sidebar-color: #f5f5f5;
+            --editor-color: #ffffff;
+            --accent-color: #0066cc;
+            --accent-hover-color: #0055aa;
+            --border-color: #e0e0e0;
+            --surface-color: #f9f9f9;
+            --highlight-color: #e6f0fa;
+            --text-color: #333333;
+        }
+
+        .dark {
+            /* Dark theme variables */
+            --bg-color: #1e1e1e;
+            --sidebar-color: #252526;
+            --editor-color: #1e1e1e;
+            --accent-color: #007acc;
+            --accent-hover-color: #0098ff;
+            --border-color: #3c3c3c;
+            --surface-color: #2d2d2d;
+            --highlight-color: #264f78;
+            --text-color: #cccccc;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .theme-transition {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .vscode-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .vscode-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-input {
+            background-color: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="theme-transition">
+    <header class="py-4 px-4 border-b border-opacity-50"
+        style="border-color: var(--border-color); background-color: var(--bg-color);">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="color: var(--accent-color);">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <a href="/"><span class="ml-2 font-semibold">OpenAPI Search</span></a>
+            </div>
+            <button id="theme-toggle" class="p-1 rounded hover:bg-opacity-20 theme-toggle-btn"
+                style="background-color: var(--surface-color);">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 moon-icon" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sun-icon hidden" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- API Listing Section with Search Bar -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-semibold">Available APIs</h2>
+                <a href="/index.md" class="px-4 py-2 bg-surface-color text-sm rounded"
+                    style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color);">
+                    View All APIs
+                </a>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <div class="search-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 search-icon" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <input type="text" id="api-search" class="search-input" placeholder="Search APIs..." />
+                </div>
+            </div>
+
+            <!-- API Cards -->
+            <div id="api-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loading state -->
+                <div class="col-span-full flex justify-center py-8">
+                    <svg class="animate-spin h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        style="color: var(--accent-color);">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-4 px-4 text-sm border-t"
+        style="border-color: var(--border-color); background-color: var(--sidebar-color);">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/janwilmake/openapisearch" target="_blank" class="hover:opacity-80"
+                    style="color: var(--accent-color);">
+                    <svg class="h-4 w-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    GitHub
+                </a>
+                <span>OpenAPI Search v1.0.0</span>
+            </div>
+            <div>
+                <span>© 2025 OpenAPI Search</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const moonIcon = document.querySelector('.moon-icon');
+        const sunIcon = document.querySelector('.sun-icon');
+        const htmlElement = document.documentElement;
+
+        // Function to set theme based on preference
+        function setTheme(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                htmlElement.classList.remove('dark');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+        }
+
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            // Use saved preference if available
+            setTheme(savedTheme === 'dark');
+        } else {
+            // Otherwise use system preference
+            setTheme(prefersDark);
+        }
+
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            const isDark = htmlElement.classList.toggle('dark');
+
+            // Update icons
+            if (isDark) {
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+
+            // Save preference
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            // Only apply system preference if user hasn't set their own preference
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+
+        // Fuzzy search implementation
+        function fuzzyMatch(pattern, str) {
+            pattern = pattern.toLowerCase();
+            str = str.toLowerCase();
+
+            let patternIdx = 0;
+            let strIdx = 0;
+
+            while (patternIdx < pattern.length && strIdx < str.length) {
+                if (pattern[patternIdx] === str[strIdx]) {
+                    patternIdx++;
+                }
+                strIdx++;
+            }
+
+            return patternIdx === pattern.length;
+        }
+
+        // Fetch and display API providers with search functionality
+        let allProviders = [];
+
+        async function fetchProviders() {
+            try {
+                const response = await fetch(`/providers.json`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch providers');
+                }
+
+                const providers = await response.json();
+                allProviders = Object.entries(providers.providers);
+
+                displayProviders(''); // Display all providers initially
+
+                // Add event listener to search input
+                document.getElementById('api-search').addEventListener('input', (e) => {
+                    displayProviders(e.target.value);
+                });
+
+            } catch (error) {
+                console.error('Error fetching providers:', error);
+                document.getElementById('api-container').innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        Failed to load providers. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        function displayProviders(searchQuery) {
+            const container = document.getElementById('api-container');
+            container.innerHTML = '';
+
+            // Filter providers based on search query
+            let filteredProviders = allProviders;
+
+            if (searchQuery) {
+                filteredProviders = allProviders.filter(([id, provider]) => {
+                    const title = provider.title || id;
+                    return fuzzyMatch(searchQuery, title);
+                });
+            }
+
+            const displayProviders = filteredProviders
+
+            if (displayProviders.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        No APIs found matching "${searchQuery}".
+                    </div>
+                `;
+                return;
+            }
+
+            // Create cards for each provider
+            displayProviders.forEach(([id, provider]) => {
+                const card = document.createElement('div');
+                card.className = 'vscode-card overflow-hidden';
+
+                const title = provider.title || id;
+                const description = provider.info?.description || 'No description available';
+
+                card.innerHTML = `
+                    <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
+                        <h3 class="font-semibold">${title}</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="mb-4 text-sm">${description}</p>
+                        <div class="flex flex-row gap-3">
+                            <a href="/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                                Details
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                            <a href="https://oapis.org/slop/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                                View SLOP
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            // Show "View All" button if filtered and we have more available
+            if (searchQuery && filteredProviders.length > 20) {
+                const viewMoreCard = document.createElement('div');
+                viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
+                viewMoreCard.innerHTML = `
+                    <span class="text-2xl mb-2" style="color: var(--accent-color);">+${filteredProviders.length - 20}</span>
+                    <p class="mb-4 text-sm">more APIs available</p>
+                    <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                        View All
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                `;
+                container.appendChild(viewMoreCard);
+            }
+        }
+
+        // Load providers when the page loads
+        document.addEventListener('DOMContentLoaded', fetchProviders);
+    </script>
+</body>
+
+</html>

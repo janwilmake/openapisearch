@@ -84,6 +84,7 @@
         "x-links": {
           "apiManagementUrl": "https://developer.x.com/en/portal/projects-and-apps",
           "scopesUrl": "https://developer.x.com/en/docs/authentication/guides/v2-authentication-mapping",
+          "scopesUrl2": "https://docs.x.com/resources/fundamentals/authentication/oauth-2-0/authorization-code#scopes",
           "createOauthAppUrl": "https://developer.x.com/en/portal/dashboard",
           "authorization_url": "https://twitter.com/i/oauth2/authorize",
           "token_url": "https://api.twitter.com/2/oauth2/token"
