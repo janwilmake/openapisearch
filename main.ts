@@ -3,7 +3,229 @@ import primary from "./providers.json";
 import homepage from "./homepage.html";
 //@ts-ignore
 import provider from "./provider.html";
-import { checkURL, Env, findCachedOpenapiUrl } from "./findCachedOpenapiUrl";
+
+/// <reference types="@cloudflare/workers-types" />
+
+/**
+ * OpenAPI Finder - Cloudflare Worker
+ *
+ * This worker takes a hostname in the pathname (e.g., npm.oapis.org) and
+ * searches for valid OpenAPI specifications, redirecting to the first one found.
+ * It also caches successful locations in KV for faster future lookups.
+ */
+
+// Define interface for environment variables
+export interface Env {
+  OPENAPI_LOCATIONS: KVNamespace;
+}
+
+// List of common paths to check for OpenAPI specifications
+const OPENAPI_PATHS = [
+  // Root paths
+  "/openapi.json",
+  "/openapi.yaml",
+  "/openapi.yml",
+
+  // Well-known paths
+  "/.well-known/openapi",
+  "/.well-known/openapi.json",
+  "/.well-known/openapi.yaml",
+  "/.well-known/openapi.yml",
+  "/.well-known/api-description.json",
+  "/.well-known/api-description.yaml",
+  "/.well-known/api-description.yml",
+
+  // API paths
+  "/api/openapi.json",
+  "/api/openapi.yaml",
+  "/api/openapi.yml",
+  "/api/v1/openapi.json",
+  "/api/v1/openapi.yaml",
+  "/api/v1/openapi.yml",
+
+  // Documentation paths
+  "/docs/openapi.json",
+  "/docs/openapi.yaml",
+  "/docs/openapi.yml",
+  "/api-docs/openapi.json",
+  "/api-docs/openapi.yaml",
+  "/api-docs/openapi.yml",
+  "/swagger/openapi.json",
+  "/swagger/openapi.yaml",
+  "/swagger/openapi.yml",
+
+  // Version-specific paths
+  "/v3/openapi.json",
+  "/v3/openapi.yaml",
+  "/v3/openapi.yml",
+  "/v2/openapi.json",
+  "/v2/openapi.yaml",
+  "/v2/openapi.yml",
+  "/v1/openapi.json",
+  "/v1/openapi.yaml",
+  "/v1/openapi.yml",
+
+  // Common naming variations
+  "/swagger.json",
+  "/swagger.yaml",
+  "/swagger.yml",
+  "/api-specification.json",
+  "/api-specification.yaml",
+  "/api-specification.yml",
+];
+
+// Maximum size to read for validation (100KB)
+const MAX_VALIDATION_SIZE = 100 * 1024;
+
+/**
+ * Efficiently checks if the content is an OpenAPI specification by examining only the first part
+ * Uses regex to find OpenAPI identifiers without parsing the entire file
+ */
+function isOpenAPISpecByPartialCheck(content: string): {
+  valid: boolean;
+  contentType?: string;
+} {
+  // Check for JSON format OpenAPI identifier
+  const jsonOpenapiRegex = /"openapi"\s*:\s*"[^"]+"/i;
+  const jsonSwaggerRegex = /"swagger"\s*:\s*"[^"]+"/i;
+
+  // Check for YAML format OpenAPI identifier
+  const yamlOpenapiRegex = /openapi\s*:\s*["']?[\d\.]+["']?/i;
+  const yamlSwaggerRegex = /swagger\s*:\s*["']?[\d\.]+["']?/i;
+
+  // Check if content contains any of the OpenAPI identifiers
+  if (jsonOpenapiRegex.test(content) || jsonSwaggerRegex.test(content)) {
+    return { valid: true, contentType: "application/json" };
+  } else if (yamlOpenapiRegex.test(content) || yamlSwaggerRegex.test(content)) {
+    return { valid: true, contentType: "text/yaml" };
+  }
+
+  return { valid: false };
+}
+
+/**
+ * Check if a URL returns an OpenAPI specification using partial validation
+ * Only examines the first 100KB of the file
+ */
+export async function checkURL(url: string): Promise<{
+  isValid: boolean;
+  redirectUrl?: string;
+  text?: string;
+  contentType?: string;
+}> {
+  try {
+    // Fetch the response with no-cors mode to ensure we can access the content
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return { isValid: false };
+    }
+
+    // Use a ReadableStream to process only the beginning of the file
+    const reader = response.body?.getReader();
+    if (!reader) {
+      return { isValid: false };
+    }
+
+    let bytesRead = 0;
+    let contentChunks: Uint8Array<ArrayBufferLike>[] = [];
+    let done = false;
+    let firstChunk = "";
+
+    // Read up to MAX_VALIDATION_SIZE bytes for validation
+    while (!done && bytesRead < MAX_VALIDATION_SIZE) {
+      const result = await reader.read();
+      done = result.done;
+
+      if (result.value) {
+        bytesRead += result.value.length;
+        contentChunks.push(result.value);
+
+        // If this is our first chunk, decode it for validation
+        if (contentChunks.length === 1) {
+          const decoder = new TextDecoder();
+          firstChunk = decoder.decode(result.value, { stream: true });
+        }
+      }
+    }
+
+    // Cancel the read stream - we don't need more data for validation
+    reader.cancel();
+
+    // Check if the first chunk contains OpenAPI identifiers
+    const { valid, contentType } = isOpenAPISpecByPartialCheck(firstChunk);
+
+    if (valid) {
+      // If valid and we need the full text, fetch it again
+      let fullText;
+      // We'll fetch the full content only when needed
+      try {
+        const fullResponse = await fetch(url);
+        fullText = await fullResponse.text();
+      } catch (e) {
+        console.error(`Error fetching full content from ${url}:`, e);
+        // If we can't get the full text, just use what we have
+        const decoder = new TextDecoder();
+        fullText = contentChunks
+          .map((chunk) => decoder.decode(chunk, { stream: true }))
+          .join("");
+      }
+
+      return {
+        isValid: true,
+        redirectUrl: url,
+        text: fullText,
+        contentType,
+      };
+    }
+
+    return { isValid: false };
+  } catch (e) {
+    console.error(`Error checking URL ${url}:`, e);
+    return { isValid: false };
+  }
+}
+
+export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
+  // Check if we have a cached location for this hostname
+  const cachedLocation = await env.OPENAPI_LOCATIONS.get(hostname);
+  if (cachedLocation) {
+    console.log({ cachedLocation });
+    // Verify the cached location still works
+    const { isValid, redirectUrl, text, contentType } = await checkURL(
+      cachedLocation,
+    );
+    if (isValid && redirectUrl) {
+      return { redirectUrl, text, contentType };
+    }
+    // If not valid anymore, remove from cache
+    await env.OPENAPI_LOCATIONS.delete(hostname);
+  }
+
+  // Try all potential OpenAPI paths
+  for (const path of OPENAPI_PATHS) {
+    const targetUrl = `https://${hostname}${path}`;
+
+    console.log(`Checking: ${targetUrl}`);
+
+    const { isValid, redirectUrl, text, contentType } = await checkURL(
+      targetUrl,
+    );
+
+    if (isValid && redirectUrl) {
+      // Cache this successful location
+      await env.OPENAPI_LOCATIONS.put(hostname, redirectUrl, {
+        expirationTtl: 86400 * 30,
+      });
+
+      // Redirect to the found OpenAPI spec
+      return { redirectUrl, text, contentType };
+    }
+  }
+
+  // If we get here, we couldn't find a valid OpenAPI spec
+  return null;
+};
 
 // Set CORS headers for all responses
 const corsHeaders = {
@@ -65,9 +287,8 @@ export const getMetaview = async (request: Request) => {
  * Gets a valid openapi url based on the pathname in several ways
  *
  * 1) checks hardcoded
- * 2) checks github repo
- * 3) checks provided URL
- * 4) explores a provided hostname
+ * 2) checks provided URL
+ * 3) explores a provided hostname
  */
 const getValidOpenapiUrl = async (request: Request, env: Env) => {
   const url = new URL(request.url);
@@ -86,25 +307,6 @@ const getValidOpenapiUrl = async (request: Request, env: Env) => {
     }
   }
 
-  if (providerSlug.match(/github\.com\/([^\/]+)\/([^\/]+)/)) {
-    const [, owner, repo] = providerSlug.split("/");
-
-    const githubOpenapiResponse = await fetch(
-      `https://openapi.zipobject.com/github.com/${owner}/${repo}`,
-    );
-    const isValid = githubOpenapiResponse.ok;
-
-    if (!isValid) {
-      return;
-    }
-
-    const redirectUrl = githubOpenapiResponse.url;
-    const contentType = githubOpenapiResponse.headers.get("content-type");
-    const text = await githubOpenapiResponse.text();
-
-    return { redirectUrl, text, contentType };
-  }
-
   const asUrl = providerSlug.includes("__")
     ? providerSlug.replaceAll("__", "/")
     : providerSlug.includes("/")
@@ -114,6 +316,7 @@ const getValidOpenapiUrl = async (request: Request, env: Env) => {
     : undefined;
 
   if (asUrl) {
+    // it's already an URL
     try {
       new URL(asUrl);
 
@@ -125,9 +328,8 @@ const getValidOpenapiUrl = async (request: Request, env: Env) => {
     } catch {}
   }
 
-  const noTld = providerSlug.split(".").length === 0;
+  const noTld = providerSlug.split(".").length === 1;
   const hostname = noTld ? providerSlug + ".com" : providerSlug;
-
   const found = await findCachedOpenapiUrl(env, hostname);
   if (found) {
     const { redirectUrl, text, contentType } = found;
@@ -191,15 +393,19 @@ export default {
         headers: { "Content-Type": contentType, ...corsHeaders },
       });
     }
+    const segments = url.pathname.split("/").slice(1);
 
-    if (url.pathname.split("/").length === 2) {
+    if (segments.length === 1) {
       // For the /{providerId} endpoint
       const providerId = url.pathname.slice(1);
 
       // HTML template for the landing page
       const renderedPage = provider
         .replace(/\{\{providerId\}\}/g, providerId)
-        .replace(/\{\{title\}\}/g, `LLM Context for ${providerId} API`)
+        .replace(
+          /\{\{title\}\}/g,
+          `LLM Context for ${decodeURIComponent(providerId)} API`,
+        )
         .replace(
           /\{\{description\}\}/g,
           `Easy LLM Context for any API. OpenAPI Search makes APIs Accessible for AI Codegen and tool use!`,
@@ -212,6 +418,9 @@ export default {
     }
 
     // Return 404 for any other routes
-    return new Response("Not found", { status: 404 });
+    return new Response(
+      "This is not a valid openapi path or providerId. Please go to the landingpage and fill in your OpenAPI there.",
+      { status: 404 },
+    );
   },
 };
