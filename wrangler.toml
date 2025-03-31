@@ -11,3 +11,7 @@ routes = [
 [[kv_namespaces]]
 binding = "OPENAPI_LOCATIONS"
 id = "2e7b10d8ab164f77baf32e9a40f1357c"
+
+[[kv_namespaces]]
+binding = "LOGO_KV"
+id = "7413924ac1394bb19a3e6b7b7b41cb93"

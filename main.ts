@@ -3,6 +3,7 @@ import primary from "./providers.json";
 import homepage from "./homepage.html";
 //@ts-ignore
 import provider from "./provider.html";
+import logo from "./logo";
 
 /// <reference types="@cloudflare/workers-types" />
 
@@ -76,7 +77,6 @@ const OPENAPI_PATHS = [
 
 // Maximum size to read for validation (100KB)
 const MAX_VALIDATION_SIZE = 100 * 1024;
-
 /**
  * Efficiently checks if the content is an OpenAPI specification by examining only the first part
  * Uses regex to find OpenAPI identifiers without parsing the entire file
@@ -85,24 +85,42 @@ function isOpenAPISpecByPartialCheck(content: string): {
   valid: boolean;
   contentType?: string;
 } {
-  // Check for JSON format OpenAPI identifier
+  // Check for JSON format OpenAPI identifiers
   const jsonOpenapiRegex = /"openapi"\s*:\s*"[^"]+"/i;
   const jsonSwaggerRegex = /"swagger"\s*:\s*"[^"]+"/i;
+  const jsonPathsRegex = /"paths"\s*:\s*\{/i;
+  const jsonComponentsRegex = /"components"\s*:\s*\{/i;
 
-  // Check for YAML format OpenAPI identifier
+  // Check for YAML format OpenAPI identifiers
   const yamlOpenapiRegex = /openapi\s*:\s*["']?[\d\.]+["']?/i;
   const yamlSwaggerRegex = /swagger\s*:\s*["']?[\d\.]+["']?/i;
+  const yamlPathsRegex = /paths\s*:/i;
+  const yamlComponentsRegex = /components\s*:/i;
 
-  // Check if content contains any of the OpenAPI identifiers
-  if (jsonOpenapiRegex.test(content) || jsonSwaggerRegex.test(content)) {
+  // Check if content contains primary OpenAPI identifiers (openapi or swagger)
+  const hasJsonPrimaryIdentifier =
+    jsonOpenapiRegex.test(content) || jsonSwaggerRegex.test(content);
+  const hasYamlPrimaryIdentifier =
+    yamlOpenapiRegex.test(content) || yamlSwaggerRegex.test(content);
+
+  // Check if content contains secondary OpenAPI identifiers (paths or components)
+  const hasJsonSecondaryIdentifier =
+    jsonPathsRegex.test(content) || jsonComponentsRegex.test(content);
+  const hasYamlSecondaryIdentifier =
+    yamlPathsRegex.test(content) || yamlComponentsRegex.test(content);
+
+  // If it has primary identifiers or both secondary identifiers, consider it valid
+  if (
+    hasJsonPrimaryIdentifier ||
+    (hasJsonSecondaryIdentifier && content.trim().startsWith("{"))
+  ) {
     return { valid: true, contentType: "application/json" };
-  } else if (yamlOpenapiRegex.test(content) || yamlSwaggerRegex.test(content)) {
+  } else if (hasYamlPrimaryIdentifier || hasYamlSecondaryIdentifier) {
     return { valid: true, contentType: "text/yaml" };
   }
 
   return { valid: false };
 }
-
 /**
  * Check if a URL returns an OpenAPI specification using partial validation
  * Only examines the first 100KB of the file
@@ -355,6 +373,10 @@ export default {
     // Route requests based on the path
     const isRedirect = path.startsWith("/redirect/");
 
+    if (path.startsWith("/logo/")) {
+      return logo.fetch(request, env);
+    }
+
     if (path === "/" || path.startsWith("/index.")) {
       if (accept?.includes("text/html") && path !== "/index.md") {
         return new Response(homepage, {
@@ -402,6 +424,7 @@ export default {
       // HTML template for the landing page
       const renderedPage = provider
         .replace(/\{\{providerId\}\}/g, providerId)
+        .replace(/\{\{name\}\}/g, providerId)
         .replace(
           /\{\{title\}\}/g,
           `LLM Context for ${decodeURIComponent(providerId)} API`,

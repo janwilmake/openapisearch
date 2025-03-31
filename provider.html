@@ -47,7 +47,7 @@
         </a>
 
         <header class="bg-indigo-600 p-5 text-center text-white rounded-t-lg relative">
-            <h1 class="m-0 text-2xl">Allow LLMs to Navigate the {{providerId}} API without Error</h1>
+            <h1 class="m-0 text-2xl">Allow LLMs to Navigate the {{name}} API without Error</h1>
         </header>
 
         <div class="flex flex-wrap gap-5">
@@ -147,48 +147,71 @@
             });
         }
 
-        // Fetch the specifications in parallel
+        // Fetch the specifications in parallel with improved error handling
         async function fetchSpecifications() {
-            try {
-                // Fetch both specifications in parallel
-                const [openApiResponse, slopResponse] = await Promise.all([
-                    fetch('https://openapisearch.com/openapi/{{providerId}}'),
-                    fetch('https://oapis.org/slop/{{providerId}}')
-                ]);
+            const openApiCodeElement = document.getElementById('openapi-code');
+            const slopCodeElement = document.getElementById('slop-code');
+            const openApiTokenCountElement = document.getElementById('openapi-token-count');
+            const slopTokenCountElement = document.getElementById('slop-token-count');
 
-                // Process OpenAPI
-                const openApiText = await openApiResponse.text();
-                document.getElementById('openapi-code').value = openApiText;
-                const openApiTokens = calculateTokens(openApiText);
-                document.getElementById('openapi-token-count').textContent = openApiTokens.toLocaleString() + ' tokens';
+            // Setup copy buttons
+            document.getElementById('copy-openapi').addEventListener('click', () => {
+                copyToClipboard(openApiCodeElement.value);
+                document.getElementById('copy-openapi').textContent = 'Copied!';
+                setTimeout(() => {
+                    document.getElementById('copy-openapi').textContent = 'Copy';
+                }, 2000);
+            });
 
-                // Process SLOP
-                const slopText = await slopResponse.text();
-                document.getElementById('slop-code').value = slopText;
-                const slopTokens = calculateTokens(slopText);
-                document.getElementById('slop-token-count').textContent = slopTokens.toLocaleString() + ' tokens';
+            document.getElementById('copy-slop').addEventListener('click', () => {
+                copyToClipboard(slopCodeElement.value);
+                document.getElementById('copy-slop').textContent = 'Copied!';
+                setTimeout(() => {
+                    document.getElementById('copy-slop').textContent = 'Copy';
+                }, 2000);
+            });
 
-                // Setup copy buttons
-                document.getElementById('copy-openapi').addEventListener('click', () => {
-                    copyToClipboard(openApiText);
-                    document.getElementById('copy-openapi').textContent = 'Copied!';
-                    setTimeout(() => {
-                        document.getElementById('copy-openapi').textContent = 'Copy';
-                    }, 2000);
+            // Fetch OpenAPI specification independently
+            fetch('https://openapisearch.com/openapi/{{providerId}}')
+                .then(response => {
+                    return response.text().then(text => {
+                        if (!response.ok) {
+                            return `Error ${response.status} - ${text || 'Failed to fetch OpenAPI specification'}`;
+                        }
+                        return text;
+                    });
+                })
+                .then(text => {
+                    openApiCodeElement.value = text;
+                    const openApiTokens = calculateTokens(text);
+                    openApiTokenCountElement.textContent = openApiTokens.toLocaleString() + ' tokens';
+                })
+                .catch(error => {
+                    console.error('Error fetching OpenAPI specification:', error);
+                    openApiCodeElement.value = `Error - ${error.message || 'Failed to fetch OpenAPI specification'}`;
+                    openApiTokenCountElement.textContent = '0 tokens';
                 });
 
-                document.getElementById('copy-slop').addEventListener('click', () => {
-                    copyToClipboard(slopText);
-                    document.getElementById('copy-slop').textContent = 'Copied!';
-                    setTimeout(() => {
-                        document.getElementById('copy-slop').textContent = 'Copy';
-                    }, 2000);
+            // Fetch SLOP specification independently
+            fetch('https://oapis.org/slop/{{providerId}}')
+                .then(response => {
+                    return response.text().then(text => {
+                        if (!response.ok) {
+                            return `Error ${response.status} - ${text || 'Failed to fetch SLOP specification'}`;
+                        }
+                        return text;
+                    });
+                })
+                .then(text => {
+                    slopCodeElement.value = text;
+                    const slopTokens = calculateTokens(text);
+                    slopTokenCountElement.textContent = slopTokens.toLocaleString() + ' tokens';
+                })
+                .catch(error => {
+                    console.error('Error fetching SLOP specification:', error);
+                    slopCodeElement.value = `Error - ${error.message || 'Failed to fetch SLOP specification'}`;
+                    slopTokenCountElement.textContent = '0 tokens';
                 });
-            } catch (error) {
-                console.error('Error fetching specifications:', error);
-                document.getElementById('openapi-code').value = 'Error loading OpenAPI specification';
-                document.getElementById('slop-code').value = 'Error loading SLOP specification';
-            }
         }
 
         // Route explorer functionality
@@ -213,7 +236,7 @@
             // Handle enter key press
             routeInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && routeInput.value.trim()) {
-                    window.open(`https://oapis.org/summary/${providerId}/${routeInput.value}`, '_blank');
+                    window.open(`https://oapis.org/openapi/${providerId}/${routeInput.value}`, '_blank');
                 }
             });
         }

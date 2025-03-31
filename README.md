@@ -38,3 +38,8 @@ Targeted improvements compared to https://apis.guru:
 - **2025-03-20** - I did lots of work in this area and left it all behind after moving to cloudflare. It's time to take some of this work and redo it with a new vision, taking in all learnings from the last months. My current intuition is as follows; 1) Don't focus on quantity, focus on quality of a few great OpenAPIs. Make it very easy to build with a particular OpenAPI, for example. 2) People want to see their own OpenAPIs, and aren't interested in 99% of all other OpenAPIs.
 - **2025-03-23** - https://xymake.com/janwilmake/status/1903879996592242987.html
 - **2025-03-29** - improved landingpage - https://xymake.com/janwilmake/status/1905974796426629437.html
+
+# TODO
+
+- Figure out what todo when no openapi was found.
+- Figure out what to do making big files such as https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/refs/heads/master/openapi/v1.0/openapi.yaml better
