@@ -308,7 +308,7 @@ export const getMetaview = async (request: Request) => {
  * 2) checks provided URL
  * 3) explores a provided hostname
  */
-const getValidOpenapiUrl = async (request: Request, env: Env) => {
+export const getValidOpenapiUrl = async (request: Request, env: Env) => {
   const url = new URL(request.url);
   const providerSlug = url.pathname.split("/").slice(2).join("/");
   const metaviewObject = getMetaviewObject();

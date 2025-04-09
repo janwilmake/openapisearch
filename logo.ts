@@ -1,3 +1,5 @@
+import { getValidOpenapiUrl } from "./main";
+
 export interface Env {
   LOGO_KV: KVNamespace;
 }
@@ -12,25 +14,21 @@ export default {
       return new Response("Not found", { status: 404 });
     }
 
-    // Extract the encoded OpenAPI URL
-    const openapiUrlEncoded = path.slice("/logo/".length);
-    const openapiUrl = decodeURIComponent(openapiUrlEncoded);
+    const finalOpenapiUrl = await getValidOpenapiUrl(request, env as any);
+
+    const openapiUrl = finalOpenapiUrl?.redirectUrl;
 
     if (!openapiUrl) {
       return new Response("OpenAPI URL is required", { status: 400 });
     }
-
+    const kvKey = "v5/" + openapiUrl;
+    console.log({ openapiUrl });
     try {
       // Check if we have a cached logo URL
-      const cachedLogo = await env.LOGO_KV.get(openapiUrl);
+      const cachedLogo = await env.LOGO_KV.get(kvKey);
       if (cachedLogo) {
         // Return the cached image data
-        return new Response(cachedLogo, {
-          headers: {
-            "Content-Type": "image/png",
-            "Cache-Control": "public, max-age=86400",
-          },
-        });
+        return fetch(cachedLogo);
       }
 
       // Fetch the OpenAPI spec
@@ -38,7 +36,7 @@ export default {
       if (!openapiResponse.ok) {
         return new Response(
           `Failed to fetch OpenAPI spec: ${openapiResponse.status}`,
-          { status: 502 },
+          { status: openapiResponse.status },
         );
       }
 
@@ -53,8 +51,8 @@ export default {
         // If JSON parsing fails, try to parse as YAML
         try {
           // Import yaml parser dynamically
-          const jsYaml = await import("js-yaml");
-          openapiData = jsYaml.load(openapiText);
+          const jsYaml = await import("yaml");
+          openapiData = jsYaml.parse(openapiText);
         } catch (yamlError) {
           return new Response("Failed to parse OpenAPI spec as JSON or YAML", {
             status: 400,
@@ -98,11 +96,11 @@ export default {
         return new Response("Failed to fetch logo", { status: 502 });
       }
 
+      // Store the logo in KV for future requests
+      await env.LOGO_KV.put(kvKey, logoUrl);
+
       // Get the logo data
       const logoData = await logoResponse.arrayBuffer();
-
-      // Store the logo in KV for future requests
-      await env.LOGO_KV.put(openapiUrl, logoData, { expirationTtl: 86400 }); // Cache for 24 hours
 
       // Return the logo
       return new Response(logoData, {
