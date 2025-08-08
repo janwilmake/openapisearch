@@ -42,13 +42,10 @@
                     colors: {
                         light: {
                             'bg': '#ffffff',
-                            'sidebar': '#f5f5f5',
-                            'editor': '#ffffff',
                             'accent': '#0066cc',
                             'accent-hover': '#0055aa',
                             'border': '#e0e0e0',
                             'surface': '#f9f9f9',
-                            'highlight': '#e6f0fa',
                             'text': '#333333',
                             'comment': '#5c9a4f',
                             'keyword': '#0066b8',
@@ -58,13 +55,10 @@
                         },
                         dark: {
                             'bg': '#1e1e1e',
-                            'sidebar': '#252526',
-                            'editor': '#1e1e1e',
                             'accent': '#007acc',
                             'accent-hover': '#0098ff',
                             'border': '#3c3c3c',
                             'surface': '#2d2d2d',
-                            'highlight': '#264f78',
                             'text': '#cccccc',
                             'comment': '#608b4e',
                             'keyword': '#569cd6',
@@ -75,9 +69,6 @@
                     },
                     fontFamily: {
                         'mono': ['Consolas', 'Monaco', '"Andale Mono"', '"Ubuntu Mono"', 'monospace']
-                    },
-                    boxShadow: {
-                        'vscode': '0 2px 8px rgba(0, 0, 0, 0.5)'
                     }
                 }
             }
@@ -87,13 +78,10 @@
         :root {
             /* Default light theme variables */
             --bg-color: #ffffff;
-            --sidebar-color: #f5f5f5;
-            --editor-color: #ffffff;
             --accent-color: #0066cc;
             --accent-hover-color: #0055aa;
             --border-color: #e0e0e0;
             --surface-color: #f9f9f9;
-            --highlight-color: #e6f0fa;
             --text-color: #333333;
             --comment-color: #5c9a4f;
             --keyword-color: #0066b8;
@@ -105,13 +93,10 @@
         .dark {
             /* Dark theme variables */
             --bg-color: #1e1e1e;
-            --sidebar-color: #252526;
-            --editor-color: #1e1e1e;
             --accent-color: #007acc;
             --accent-hover-color: #0098ff;
             --border-color: #3c3c3c;
             --surface-color: #2d2d2d;
-            --highlight-color: #264f78;
             --text-color: #cccccc;
             --comment-color: #608b4e;
             --keyword-color: #569cd6;
@@ -124,580 +109,281 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .theme-transition {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
-        .terminal {
-            background-color: var(--sidebar-color);
-            color: var(--text-color);
-            font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
-            padding: 1rem;
-            border-radius: 4px;
-        }
-
-        .terminal-prompt::before {
-            content: '> ';
-            color: var(--accent-color);
-        }
-
-        .terminal-output {
-            margin-left: 1rem;
-        }
-
-        .activity-bar {
-            background-color: var(--sidebar-color);
-            border-right: 1px solid var(--border-color);
-        }
-
-        .sidebar {
-            background-color: var(--sidebar-color);
-            border-right: 1px solid var(--border-color);
-        }
-
-        .editor {
-            background-color: var(--editor-color);
-        }
-
-        .status-bar {
-            background-color: var(--sidebar-color);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .vscode-btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 2px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            min-width: 150px;
-            transition: background-color 0.2s ease;
-        }
-
-        .vscode-btn:hover {
-            background-color: var(--accent-hover-color);
-        }
-
-        .vscode-btn-secondary {
-            background-color: var(--surface-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .vscode-btn-secondary:hover {
-            background-color: var(--highlight-color);
-        }
-
         .vscode-card {
             background-color: var(--surface-color);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .vscode-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color);
         }
 
-        /* Explorer tree view styles */
-        .tree-item {
-            padding: 0.25rem 0.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+        .dark .vscode-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .tree-item:hover {
-            background-color: var(--highlight-color);
+        .card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
         }
 
-        .tree-item svg {
-            margin-right: 0.5rem;
-            color: var(--text-color);
+        .card-link:hover {
+            color: inherit;
         }
 
-        .tree-item.active {
-            background-color: var(--highlight-color);
-        }
-
-        /* File icon colors */
-        .file-json {
-            color: var(--keyword-color);
-        }
-
-        .file-md {
-            color: var(--string-color);
-        }
-
-        .file-html {
-            color: var(--function-color);
-        }
-
-        /* URL input styles */
         .url-input {
             background-color: var(--surface-color);
             color: var(--text-color);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
             width: 100%;
+            font-size: 1.1rem;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .url-input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.25);
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
             outline: none;
+        }
+
+        .load-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .load-btn:hover {
+            background-color: var(--accent-hover-color);
+            transform: translateY(-1px);
+        }
+
+        .load-btn:active {
+            transform: translateY(0);
         }
 
         .url-form {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
+            align-items: stretch;
         }
 
-        /* Mobile sidebar styles */
-        .sidebar-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 40;
-            transition: opacity 0.3s ease;
+        .small-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
 
-        .sidebar-mobile {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            height: 100vh;
-            z-index: 50;
-            transition: left 0.3s ease;
-        }
-
-        .sidebar-mobile.open {
-            left: 0;
-        }
-
-        .mobile-menu-btn {
-            display: none;
+        .small-link:hover {
+            color: var(--accent-hover-color);
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .sidebar-desktop {
-                display: none;
-            }
-
-            body {
-                overflow: auto;
-            }
-
             .url-form {
                 flex-direction: column;
-                gap: 0.75rem;
+                gap: 1rem;
             }
 
-            .vscode-btn {
-                min-width: auto;
-                justify-content: center;
-                width: 100%;
+            .action-cards {
+                grid-template-columns: 1fr !important;
             }
 
-            .main-buttons {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .main-buttons .vscode-btn {
-                width: 100%;
-                justify-content: center;
+            .feature-cards {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
 </head>
 
-<body class="flex flex-col h-screen theme-transition">
-    <!-- VS Code-inspired Header -->
-    <header class="flex items-center py-1 px-4 border-b border-opacity-50"
-        style="border-color: var(--border-color); background-color: var(--bg-color);">
-        <div class="flex items-center">
-            <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="mobile-menu-btn p-1 mr-2 rounded hover:bg-opacity-20"
-                style="background-color: var(--surface-color); background-opacity: 0.2;">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                        clip-rule="evenodd" />
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-opacity-50 py-4" style="border-color: var(--border-color);">
+        <div class="max-w-4xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="color: var(--accent-color);">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
-            </button>
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                style="color: var(--accent-color);">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-            <span class="ml-2 font-semibold">OpenAPI Search</span>
-        </div>
-        <div class="ml-auto flex items-center space-x-4">
-            <button id="theme-toggle" class="p-1 rounded hover:bg-opacity-20 theme-toggle-btn"
-                style="background-color: var(--surface-color); background-opacity: 0.2;">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 moon-icon" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sun-icon hidden" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-            </button>
-            <a href="https://github.com/janwilmake/openapisearch" target="_blank"
-                class="p-1 rounded hover:bg-opacity-20"
-                style="background-color: var(--surface-color); background-opacity: 0.2;">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                        clip-rule="evenodd" />
-                </svg>
-            </a>
+                <span class="ml-3 text-xl font-bold">OpenAPI Search</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-opacity-20 theme-toggle-btn"
+                    style="background-color: var(--surface-color);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 moon-icon" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sun-icon hidden" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <a href="https://github.com/janwilmake/openapisearch" target="_blank"
+                    class="p-2 rounded-lg hover:bg-opacity-20" style="background-color: var(--surface-color);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- Mobile sidebar backdrop -->
-    <div id="sidebar-backdrop" class="sidebar-backdrop hidden"></div>
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="max-w-4xl mx-auto px-6 py-12">
 
-    <div class="flex-1 flex overflow-hidden">
-        <!-- Desktop Sidebar -->
-        <aside class="w-64 activity-bar sidebar-desktop sticky top-0 h-full overflow-y-auto">
-            <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
-                <h2 class="font-semibold">EXPLORER</h2>
-            </div>
-            <div class="sidebar-content p-2">
-                <div class="mb-2">
-                    <div class="flex items-center py-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>API RESOURCES</span>
-                    </div>
-                    <div class="ml-4">
-                        <a href="/README.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>README.md</span>
-                        </a>
-                        <a href="/openapi.json" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>openapi.json</span>
-                        </a>
-                        <a href="/providers.json" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>providers.json</span>
-                        </a>
-                        <a href="/index.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-md" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>index.md</span>
-                        </a>
-                    </div>
-                </div>
+            <!-- Hero Section -->
+            <section class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-bold mb-8">
+                    <span style="color: var(--variable-color);">Let your LLM understand</span><br>
+                    <span style="color: var(--keyword-color);">ANY</span>
+                    <span style="color: var(--variable-color);">API</span>
+                </h1>
+                <p class="text-xl mb-12 max-w-2xl mx-auto" style="color: var(--text-color);">
+                    OpenAPI Search makes APIs accessible to LLMs with a clever prompting system.
+                </p>
 
-                <div class="mb-2">
-                    <div class="flex items-center py-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>FOR HUMANS</span>
-                    </div>
-                    <div class="ml-4">
-                        <a href="/openapi" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>openapi</span>
-                        </a>
-                        <a href="https://github.com/janwilmake/handmade-openapis" target="_blank" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>handmade</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Mobile Sidebar -->
-        <aside id="mobile-sidebar" class="w-64 activity-bar sidebar-mobile">
-            <div class="p-4 border-b border-opacity-50 flex items-center justify-between"
-                style="border-color: var(--border-color);">
-                <h2 class="font-semibold">EXPLORER</h2>
-                <button id="close-sidebar" class="p-1 rounded hover:bg-opacity-20"
-                    style="background-color: var(--surface-color); background-opacity: 0.2;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-            <div class="sidebar-content p-2">
-                <!-- Same content as desktop sidebar -->
-                <div class="mb-2">
-                    <div class="flex items-center py-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>API RESOURCES</span>
-                    </div>
-                    <div class="ml-4">
-                        <a href="/README.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>README.md</span>
-                        </a>
-                        <a href="/openapi.json" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>openapi.json</span>
-                        </a>
-                        <a href="/providers.json" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>providers.json</span>
-                        </a>
-                        <a href="/index.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-md" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>index.md</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="flex items-center py-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>BLOG</span>
-                    </div>
-                    <div class="ml-4">
-                        <a href="/blog/agent-readiness.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-md" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>agent-readiness.md</span>
-                        </a>
-                        <a href="/blog/openapi-discovery.md" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-md" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>openapi-discovery.md</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="mb-2">
-                    <div class="flex items-center py-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>FOR HUMANS</span>
-                    </div>
-                    <div class="ml-4">
-                        <a href="/openapi" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>openapi</span>
-                        </a>
-                        <a href="/handmade" class="tree-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <span>handmade</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content Area (Editor) -->
-        <main class="flex-1 editor overflow-y-auto">
-            <div class="max-w-5xl mx-auto px-4 py-8">
-
-                <!-- Hero Section -->
-                <section class="mb-12">
-                    <div class="mb-8">
-                        <h1 class="text-4xl md:text-5xl font-bold mb-6">
-                            <span style="color: var(--variable-color);">Let your LLM understand</span>
-                            <span style="color: var(--keyword-color);">ANY</span>
-                            <span style="color: var(--variable-color);">API</span>
-                        </h1>
-                        <p class="text-lg mb-8">
-                            OpenAPI Search makes APIs accessible to LLMs with a clever prompting system.
-                        </p>
-
-                    </div>
-
-                    <!-- URL Input -->
-                    <div class="mb-8">
-                        <form id="url-form" class="url-form">
-                            <input type="text" id="openapi-url" class="url-input flex-grow"
-                                placeholder="Enter URL or domain (e.g. github.com)" required>
-                            <button type="submit" class="vscode-btn">
-                                Load API
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
-
-
-                    <div class="mb-8 flex flex-row gap-4 main-buttons">
-                        <a href="/search" class="vscode-btn inline-flex items-center"
-                            style="background-color: var(--accent-color);">
-                            Explore OpenAPI Directory
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
+                <!-- URL Input -->
+                <div class="mb-12 max-w-2xl mx-auto">
+                    <form id="url-form" class="url-form">
+                        <input type="text" id="openapi-url" class="url-input flex-grow"
+                            placeholder="Enter OpenAPI-URL or domain (e.g. github.com)" required>
+                        <button type="submit" class="load-btn">
+                            Load
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 inline" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
                                     clip-rule="evenodd" />
                             </svg>
-                        </a>
+                        </button>
+                    </form>
+                </div>
 
+                <!-- Powered by -->
+                <div class="mb-16">
+                    <p class="text-sm mb-4" style="color: var(--comment-color);">Powered by</p>
+                    <img src="openapi.png" class="h-24 mx-auto" alt="OpenAPI">
+                </div>
+            </section>
 
-                        <a href="https://github.com/janwilmake/openapi-mcp-server" target="_blank"
-                            class="vscode-btn inline-flex items-center" style="background-color: var(--accent-color);">
-                            Try the MCP
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-
-                        <a href="https://github.com/janwilmake/openapisearch" target="_blank"
-                            class="vscode-btn inline-flex items-center" style="background-color: var(--accent-color);">
-                            View on GitHub
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
+            <!-- Action Cards -->
+            <section class="mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 action-cards">
+                    <div class="vscode-card">
+                        <a href="/search" class="card-link">
+                            <div class="p-8 text-center">
+                                <div class="mb-6" style="color: var(--accent-color);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Explore the Directory</h3>
+                                <p style="color: var(--comment-color);">Browse our curated collection of OpenAPI
+                                    specifications</p>
+                            </div>
                         </a>
                     </div>
 
-
-                    <p class="pt-8">Powered by</p>
-                    <div class="flex flex-row gap-6 pt-2">
-                        <img src="openapi.png" class="h-[150px]"></img>
+                    <div class="vscode-card">
+                        <a href="https://github.com/janwilmake/openapi-mcp-server" target="_blank" class="card-link">
+                            <div class="p-8 text-center">
+                                <div class="mb-6" style="color: var(--function-color);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Try The MCP</h3>
+                                <p style="color: var(--comment-color);">Model Context Protocol server for Claude and
+                                    other LLMs</p>
+                            </div>
+                        </a>
                     </div>
-                </section>
 
-                <!-- Features Section -->
-                <section class="mb-12">
-                    <h2 class="text-2xl font-semibold mb-6">
-                        <span style="color: var(--comment-color);">// Why OpenAPI Search?</span>
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="vscode-card p-6">
-                            <div class="text-xl mb-4" style="color: var(--keyword-color);">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20"
+                    <div class="vscode-card">
+                        <a href="https://github.com/janwilmake/openapisearch" target="_blank" class="card-link">
+                            <div class="p-8 text-center">
+                                <div class="mb-6" style="color: var(--string-color);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto"
+                                        viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">View on GitHub</h3>
+                                <p style="color: var(--comment-color);">Contribute to the open source project</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Additional Links -->
+                <div class="text-center mt-8">
+                    <p class="mb-3" style="color: var(--comment-color);">More resources:</p>
+                    <div class="space-x-6">
+                        <a href="/openapi" class="small-link">Browse OpenAPI specs</a>
+                        <a href="https://github.com/janwilmake/handmade-openapis" target="_blank"
+                            class="small-link">Handmade OpenAPIs repo</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-semibold mb-8 text-center">
+                    <span style="color: var(--comment-color);">// Why OpenAPI Search?</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 feature-cards">
+                    <div class="vscode-card">
+                        <div class="p-8 text-center">
+                            <div class="mb-6" style="color: var(--keyword-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" />
                                     <path fill-rule="evenodd"
@@ -705,106 +391,99 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-
-                            <h3 class="text-lg font-semibold mb-2">Discovery</h3>
-                            <p>
-                                Find the right API for your needs through a searchable, well-organized interface.
-                            </p>
+                            <h3 class="text-xl font-semibold mb-4">Discovery</h3>
+                            <p>Find the right API for your needs through a searchable, well-organized interface.</p>
                         </div>
-                        <div class="vscode-card p-6">
-                            <div class="text-xl mb-4" style="color: var(--string-color);">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20"
+                    </div>
+
+                    <div class="vscode-card">
+                        <div class="p-8 text-center">
+                            <div class="mb-6" style="color: var(--string-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <h3 class="text-lg font-semibold mb-2">LLM-Friendly</h3>
-                            <p>
-                                Our simple language OpenAPI parse allows MCPs to easily navigate even the biggest APIs.
+                            <h3 class="text-xl font-semibold mb-4">LLM-Friendly</h3>
+                            <p>Our simple language OpenAPI parse allows MCPs to easily navigate even the biggest APIs.
                             </p>
                         </div>
-                        <div class="vscode-card p-6">
-                            <div class="text-xl mb-4" style="color: var(--function-color);">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 100 100">
-                                    <!-- Outer circle -->
-                                    <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="4" fill="none" />
-                                    <!-- Arrow pointing outward -->
-                                    <path d="M50 25 L50 60 M35 40 L50 25 L65 40" stroke="currentColor" stroke-width="4"
+                    </div>
+
+                    <div class="vscode-card">
+                        <div class="p-8 text-center">
+                            <div class="mb-6" style="color: var(--function-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="6" fill="none" />
+                                    <path d="M50 20 L50 55 M35 35 L50 20 L65 35" stroke="currentColor" stroke-width="6"
                                         fill="none" stroke-linecap="round" stroke-linejoin="round" />
-                                    <!-- Small break in the circle to indicate "open" -->
-                                    <path d="M30 75 A 30 30 0 0 0 70 75" stroke="currentColor" stroke-width="4"
+                                    <path d="M25 70 A 30 30 0 0 0 75 70" stroke="currentColor" stroke-width="6"
                                         fill="none" />
                                 </svg>
                             </div>
-                            <h3 class="text-lg font-semibold mb-2">Open by Default</h3>
-                            <p>
-                                Promote open standards and keep APIs accessible, not locked behind commercial gateways.
+                            <h3 class="text-xl font-semibold mb-4">Open by Default</h3>
+                            <p>Promote open standards and keep APIs accessible, not locked behind commercial gateways.
                             </p>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-
-
-
-                <section class="mb-12">
-
-                    <h2 class="text-2xl font-semibold">
-                        <span style="color: var(--comment-color);">// What people are saying</span>
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                        <div class="tweet-embed">
-                            <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"> <a
-                                        href="https://twitter.com/EastlondonDev/status/1903472205331341434">March
-                                        22nd, 2025</a>
-                            </blockquote>
-                        </div>
-
-                        <div class="tweet-embed">
-                            <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"><a
-                                        href="https://twitter.com/janwilmake/status/1903879996592242987">March
-                                        22, 2025</a>
-                            </blockquote>
-                        </div>
-
-                        <div class="tweet-embed">
-                            <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"><a
-                                        href="https://twitter.com/janwilmake/status/1903405851286618501">March
-                                        22, 2025</a>
-                            </blockquote>
-                        </div>
-
+            <!-- Testimonials Section -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-semibold mb-8 text-center">
+                    <span style="color: var(--comment-color);">// What people are saying</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="tweet-embed">
+                        <blockquote class="twitter-tweet" data-dnt="true">
+                            <p lang="en" dir="ltr"> <a
+                                    href="https://twitter.com/EastlondonDev/status/1903472205331341434">March
+                                    22nd, 2025</a>
+                        </blockquote>
                     </div>
 
-                </section>
+                    <div class="tweet-embed">
+                        <blockquote class="twitter-tweet" data-dnt="true">
+                            <p lang="en" dir="ltr"><a
+                                    href="https://twitter.com/janwilmake/status/1903879996592242987">March
+                                    22, 2025</a>
+                        </blockquote>
+                    </div>
 
-            </div>
-        </main>
-    </div>
+                    <div class="tweet-embed">
+                        <blockquote class="twitter-tweet" data-dnt="true">
+                            <p lang="en" dir="ltr"><a
+                                    href="https://twitter.com/janwilmake/status/1903405851286618501">March
+                                    22, 2025</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </section>
 
-    <!-- VS Code Status Bar - Now sticky -->
-    <footer class="status-bar py-1 px-4 text-sm sticky bottom-0 z-10">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <a href="https://github.com/janwilmake/openapisearch" target="_blank" class="hover:opacity-80"
-                    style="color: var(--accent-color);">
-                    <svg class="h-4 w-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    main
-                </a>
-                <span>OpenAPI Search v1.0.0</span>
-            </div>
-            <div>
-                <span>© 2025 OpenAPI Search</span>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t py-6" style="border-color: var(--border-color);">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="https://github.com/janwilmake/openapisearch" target="_blank" class="small-link">
+                        <svg class="h-4 w-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        main
+                    </a>
+                    <span style="color: var(--comment-color);">OpenAPI Search v1.0.0</span>
+                </div>
+                <div>
+                    <span style="color: var(--comment-color);">© 2025 OpenAPI Search</span>
+                </div>
             </div>
         </div>
     </footer>
@@ -816,7 +495,6 @@
         const sunIcon = document.querySelector('.sun-icon');
         const htmlElement = document.documentElement;
 
-        // Function to set theme based on preference
         function setTheme(isDark) {
             if (isDark) {
                 htmlElement.classList.add('dark');
@@ -834,10 +512,8 @@
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         if (savedTheme) {
-            // Use saved preference if available
             setTheme(savedTheme === 'dark');
         } else {
-            // Otherwise use system preference
             setTheme(prefersDark);
         }
 
@@ -845,7 +521,6 @@
         themeToggle.addEventListener('click', () => {
             const isDark = htmlElement.classList.toggle('dark');
 
-            // Update icons
             if (isDark) {
                 moonIcon.classList.add('hidden');
                 sunIcon.classList.remove('hidden');
@@ -854,45 +529,17 @@
                 sunIcon.classList.add('hidden');
             }
 
-            // Save preference
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
         // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            // Only apply system preference if user hasn't set their own preference
             if (!localStorage.getItem('theme')) {
                 setTheme(e.matches);
             }
         });
 
-        // Mobile sidebar functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-        const closeSidebar = document.getElementById('close-sidebar');
-
-        function openMobileSidebar() {
-            mobileSidebar.classList.add('open');
-            sidebarBackdrop.classList.remove('hidden');
-        }
-
-        function closeMobileSidebar() {
-            mobileSidebar.classList.remove('open');
-            sidebarBackdrop.classList.add('hidden');
-        }
-
-        mobileMenuBtn.addEventListener('click', openMobileSidebar);
-        closeSidebar.addEventListener('click', closeMobileSidebar);
-        sidebarBackdrop.addEventListener('click', closeMobileSidebar);
-
-        // Close sidebar when clicking on a link in mobile
-        const mobileTreeItems = mobileSidebar.querySelectorAll('.tree-item');
-        mobileTreeItems.forEach(item => {
-            item.addEventListener('click', closeMobileSidebar);
-        });
-
-        // Handle URL form submission with improved domain detection
+        // Handle URL form submission
         document.getElementById('url-form').addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -901,32 +548,25 @@
             if (input) {
                 let url;
 
-                // Check if input contains protocol
                 if (input.startsWith('http://') || input.startsWith('https://')) {
                     url = input;
                 } else {
-                    // Check if it looks like a domain/hostname (contains dots but no slashes)
                     if (input.includes('.') && !input.includes('/')) {
-                        // It's likely a domain, navigate to /{hostname}
                         window.location.href = `/${input}`;
                         return;
                     } else {
-                        // Try to parse as URL, if that fails treat as hostname
                         try {
                             new URL(input);
                             url = input;
                         } catch (e) {
-                            // Treat as hostname
                             window.location.href = `/${input}`;
                             return;
                         }
                     }
                 }
 
-                // Validate URL
                 try {
                     new URL(url);
-                    // Encode the URL and redirect
                     const encodedUrl = encodeURIComponent(url);
                     window.location.href = `/${encodedUrl}`;
                 } catch (e) {

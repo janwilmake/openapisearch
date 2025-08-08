@@ -57,9 +57,12 @@ Unfortunately there has not been any conclusion on how OAS wants to be made disc
 
 # TODO
 
+- Remove sidebar
+- Put link to `providers.json` on github on explorer page (add provider)
+- Ensure https://openapisearhc.com/openapi.json also works
 - Create cache for entire parse of openapi using `openapi-for-llms` that updates in background with max-age of 24 hours.
 - Allow people to set a slug if they provide an OpenAPI URL for that
-- If OpenAPI isn't found, provide instructions on discoverability
+- If `.well-known/openapi` isn't found on main domain, provide instructions on discoverability
 - If OpenAPI was found, provide tips to improve
 
 # BACKLOG
