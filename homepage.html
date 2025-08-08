@@ -264,14 +264,88 @@
             display: flex;
             gap: 0.5rem;
         }
+
+        /* Mobile sidebar styles */
+        .sidebar-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-mobile {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100vh;
+            z-index: 50;
+            transition: left 0.3s ease;
+        }
+
+        .sidebar-mobile.open {
+            left: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar-desktop {
+                display: none;
+            }
+
+            body {
+                overflow: auto;
+            }
+
+            .url-form {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .vscode-btn {
+                min-width: auto;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .main-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .main-buttons .vscode-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 
 <body class="flex flex-col h-screen theme-transition">
-    <!-- VS Code-inspired Header - Now sticky -->
+    <!-- VS Code-inspired Header -->
     <header class="flex items-center py-1 px-4 border-b border-opacity-50"
         style="border-color: var(--border-color); background-color: var(--bg-color);">
         <div class="flex items-center">
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="mobile-menu-btn p-1 mr-2 rounded hover:bg-opacity-20"
+                style="background-color: var(--surface-color); background-opacity: 0.2;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 style="color: var(--accent-color);">
@@ -312,13 +386,116 @@
         </div>
     </header>
 
+    <!-- Mobile sidebar backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop hidden"></div>
+
     <div class="flex-1 flex overflow-hidden">
-        <!-- VS Code Explorer Sidebar - Now sticky -->
-        <aside class="w-64 activity-bar sticky top-0 h-full overflow-y-auto">
+        <!-- Desktop Sidebar -->
+        <aside class="w-64 activity-bar sidebar-desktop sticky top-0 h-full overflow-y-auto">
             <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
                 <h2 class="font-semibold">EXPLORER</h2>
             </div>
-            <div class="p-2">
+            <div class="sidebar-content p-2">
+                <div class="mb-2">
+                    <div class="flex items-center py-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>API RESOURCES</span>
+                    </div>
+                    <div class="ml-4">
+                        <a href="/README.md" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>README.md</span>
+                        </a>
+                        <a href="/openapi.json" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>openapi.json</span>
+                        </a>
+                        <a href="/providers.json" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-json" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>providers.json</span>
+                        </a>
+                        <a href="/index.md" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-md" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>index.md</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <div class="flex items-center py-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>FOR HUMANS</span>
+                    </div>
+                    <div class="ml-4">
+                        <a href="/openapi" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>openapi</span>
+                        </a>
+                        <a href="https://github.com/janwilmake/handmade-openapis" target="_blank" class="tree-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 file-html" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>handmade</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Sidebar -->
+        <aside id="mobile-sidebar" class="w-64 activity-bar sidebar-mobile">
+            <div class="p-4 border-b border-opacity-50 flex items-center justify-between"
+                style="border-color: var(--border-color);">
+                <h2 class="font-semibold">EXPLORER</h2>
+                <button id="close-sidebar" class="p-1 rounded hover:bg-opacity-20"
+                    style="background-color: var(--surface-color); background-opacity: 0.2;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+            <div class="sidebar-content p-2">
+                <!-- Same content as desktop sidebar -->
                 <div class="mb-2">
                     <div class="flex items-center py-1 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"
@@ -454,8 +631,8 @@
                     <!-- URL Input -->
                     <div class="mb-8">
                         <form id="url-form" class="url-form">
-                            <input type="url" id="openapi-url" class="url-input flex-grow"
-                                placeholder="Enter OpenAPI URL" required>
+                            <input type="text" id="openapi-url" class="url-input flex-grow"
+                                placeholder="Enter URL or domain (e.g. github.com)" required>
                             <button type="submit" class="vscode-btn">
                                 Load API
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
@@ -469,7 +646,7 @@
                     </div>
 
 
-                    <div class="mb-8 flex flex-row gap-4">
+                    <div class="mb-8 flex flex-row gap-4 main-buttons">
                         <a href="/search" class="vscode-btn inline-flex items-center"
                             style="background-color: var(--accent-color);">
                             Explore OpenAPI Directory
@@ -509,7 +686,6 @@
                     <p class="pt-8">Powered by</p>
                     <div class="flex flex-row gap-6 pt-2">
                         <img src="openapi.png" class="h-[150px]"></img>
-                        <img src="slop.png" width="150" height="150"></img>
                     </div>
                 </section>
 
@@ -582,12 +758,18 @@
 
                         <div class="tweet-embed">
                             <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"><a
-                                        href="https://twitter.com/brianships/status/1903898939901772247?ref_src=twsrc%5Etfw">March
-                                        23th, 2025
-                                    </a>
+                                <p lang="en" dir="ltr"> <a
+                                        href="https://twitter.com/EastlondonDev/status/1903472205331341434">March
+                                        22nd, 2025</a>
                             </blockquote>
+                        </div>
 
+                        <div class="tweet-embed">
+                            <blockquote class="twitter-tweet" data-dnt="true">
+                                <p lang="en" dir="ltr"><a
+                                        href="https://twitter.com/janwilmake/status/1903879996592242987">March
+                                        22, 2025</a>
+                            </blockquote>
                         </div>
 
                         <div class="tweet-embed">
@@ -597,21 +779,6 @@
                                         22, 2025</a>
                             </blockquote>
                         </div>
-                        <div class="tweet-embed">
-                            <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"> <a
-                                        href="https://twitter.com/EastlondonDev/status/1903472205331341434">March
-                                        22nd, 2025</a>
-                            </blockquote>
-                        </div>
-
-                        <!-- <div class="tweet-embed">
-                            <blockquote class="twitter-tweet" data-dnt="true">
-                                <p lang="en" dir="ltr"> <a
-                                        href="https://twitter.com/janwilmake/status/1906801199648485643">March
-                                        31th, 2025</a>
-                            </blockquote>
-                        </div> -->
 
                     </div>
 
@@ -699,22 +866,71 @@
             }
         });
 
-        // Handle URL form submission
+        // Mobile sidebar functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+        const closeSidebar = document.getElementById('close-sidebar');
+
+        function openMobileSidebar() {
+            mobileSidebar.classList.add('open');
+            sidebarBackdrop.classList.remove('hidden');
+        }
+
+        function closeMobileSidebar() {
+            mobileSidebar.classList.remove('open');
+            sidebarBackdrop.classList.add('hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileSidebar);
+        closeSidebar.addEventListener('click', closeMobileSidebar);
+        sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+
+        // Close sidebar when clicking on a link in mobile
+        const mobileTreeItems = mobileSidebar.querySelectorAll('.tree-item');
+        mobileTreeItems.forEach(item => {
+            item.addEventListener('click', closeMobileSidebar);
+        });
+
+        // Handle URL form submission with improved domain detection
         document.getElementById('url-form').addEventListener('submit', function (event) {
             event.preventDefault();
 
-            const url = document.getElementById('openapi-url').value.trim();
+            const input = document.getElementById('openapi-url').value.trim();
 
-            if (url) {
+            if (input) {
+                let url;
+
+                // Check if input contains protocol
+                if (input.startsWith('http://') || input.startsWith('https://')) {
+                    url = input;
+                } else {
+                    // Check if it looks like a domain/hostname (contains dots but no slashes)
+                    if (input.includes('.') && !input.includes('/')) {
+                        // It's likely a domain, navigate to /{hostname}
+                        window.location.href = `/${input}`;
+                        return;
+                    } else {
+                        // Try to parse as URL, if that fails treat as hostname
+                        try {
+                            new URL(input);
+                            url = input;
+                        } catch (e) {
+                            // Treat as hostname
+                            window.location.href = `/${input}`;
+                            return;
+                        }
+                    }
+                }
+
                 // Validate URL
                 try {
                     new URL(url);
-
                     // Encode the URL and redirect
                     const encodedUrl = encodeURIComponent(url);
                     window.location.href = `/${encodedUrl}`;
                 } catch (e) {
-                    alert('Please enter a valid URL');
+                    alert('Please enter a valid URL or domain');
                 }
             }
         });

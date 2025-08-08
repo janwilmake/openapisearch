@@ -211,7 +211,7 @@ export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
     console.log({ cachedLocation });
     // Verify the cached location still works
     const { isValid, redirectUrl, text, contentType } = await checkURL(
-      cachedLocation,
+      cachedLocation
     );
     if (isValid && redirectUrl) {
       return { redirectUrl, text, contentType };
@@ -227,7 +227,7 @@ export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
     console.log(`Checking: ${targetUrl}`);
 
     const { isValid, redirectUrl, text, contentType } = await checkURL(
-      targetUrl,
+      targetUrl
     );
 
     if (isValid && redirectUrl) {
@@ -271,7 +271,7 @@ export const getMetaviewObject = () => {
     },
     {} as {
       [slug: string]: { description: string | undefined; openapiUrl: string };
-    },
+    }
   );
   return metaviewObject;
 };
@@ -294,7 +294,7 @@ export const getMetaview = async (request: Request) => {
   const md = Object.entries(metaviewObject)
     .map(
       ([key, value]) =>
-        `- ${key}${value.description ? ` - ${value.description}` : ""}`,
+        `- ${key}${value.description ? ` - ${value.description}` : ""}`
     )
     .join("\n");
 
@@ -316,7 +316,7 @@ export const getValidOpenapiUrl = async (request: Request, env: Env) => {
 
   if (hardcodedUrl) {
     const { isValid, redirectUrl, text, contentType } = await checkURL(
-      hardcodedUrl,
+      hardcodedUrl
     );
 
     // Hardcoded first
@@ -397,7 +397,7 @@ export default {
       ) {
         return new Response(
           "Not found. Ensure to follow the {providerId} convention described in our openapi: https://openapisearch.com/openapi.json",
-          { status: 404 },
+          { status: 404 }
         );
       }
 
@@ -427,11 +427,11 @@ export default {
         .replace(/\{\{name\}\}/g, providerId)
         .replace(
           /\{\{title\}\}/g,
-          `LLM Context for ${decodeURIComponent(providerId)} API`,
+          `LLM Context for ${decodeURIComponent(providerId)} API`
         )
         .replace(
           /\{\{description\}\}/g,
-          `Easy LLM Context for any API. OpenAPI Search makes APIs Accessible for AI Codegen and tool use!`,
+          `Easy LLM Context for any API. OpenAPI Search makes APIs Accessible for AI Codegen and tool use!`
         );
 
       // Return the landing page HTML
@@ -440,10 +440,18 @@ export default {
       });
     }
 
-    // Return 404 for any other routes
-    return new Response(
-      "This is not a valid openapi path or providerId. Please go to the landingpage and fill in your OpenAPI there.",
-      { status: 404 },
-    );
+    try {
+      const pathUrl = new URL(url.pathname.slice(1) + url.search);
+      return new Response(null, {
+        headers: { Location: `/${encodeURIComponent(pathUrl.toString())}` },
+        status: 302,
+      });
+    } catch (e) {
+      // Return 404 for any other routes
+      return new Response(
+        "This is not a valid openapi path or providerId. Please go to the landingpage and fill in your OpenAPI there.",
+        { status: 404 }
+      );
+    }
   },
 };

@@ -39,6 +39,23 @@ Targeted improvements compared to https://apis.guru:
 - **2025-03-23** - https://xymake.com/janwilmake/status/1903879996592242987.html
 - **2025-03-29** - improved landingpage - https://xymake.com/janwilmake/status/1905974796426629437.html
 
+# On Agent-readiness for API products
+
+Blog coming soon but here's the gist:
+
+1. Make your OpenAPI super good.
+
+Your OpenAPI is your source of truth. Common pitfalls include:
+
+- Missing `operationId`, `summary` and/or `description` in your operations
+- Unclear or vague operationId, summary, or description. What matters is clarity to token ratio (a.k.a. signal to noise ratio)
+- Missing `servers[0].url` field.
+- Not referencing `externalDocs.url`. Almost nobody uses this. If you do, please ensure the url provided responds with markdown by default when accessed via `curl {url}`. When browsers access it, it's fine to respond with html.
+
+2. Make your OpenAPI discoverable.
+
+Unfortunately there has not been any conclusion on how OAS wants to be made discoverable still, but discussions have been plentiful. The easiest way to do make it discoverable, is redirecting to your `openapi.json` file from https://yourlanding.com/.well-known/openapi. Besides that, it's good practice to put your `openapi.json` at the root of your api tld. Read more in [openapi-discovery](openapi-discovery.md)
+
 # TODO
 
 - Figure out what todo when no openapi was found.

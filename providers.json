@@ -137,7 +137,7 @@
       "info": {
         "description": "Readonly API for posts, comments, and profiles from news.ycombinator.com"
       },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/hackernews.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/hackernews.json",
       "auth_mode": "PUBLIC",
       "categories": ["news"]
     },
@@ -362,7 +362,7 @@
     },
 
     "serper": {
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/serper.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/serper.json",
       "auth_mode": "BEARER",
       "info": {
         "description": "The worlds fastest and cheapest google search api",
@@ -382,24 +382,24 @@
 
     "brandwatch": {
       "info": { "description": "Watch social media about your brand" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/brandwatch.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/brandwatch.json"
     },
 
     "jina-reader": {
       "info": {
         "description": "Read webpages in markdown, html, or screenshot"
       },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/jina-reader.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/jina-reader.json"
     },
 
     "upstash-redis": {
       "info": { "description": "Control a Redis database over API" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-redis.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/upstash-redis.json"
     },
 
     "upstash-qstash": {
       "info": { "description": "Scheduling and batching API calls" },
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/upstash-qstash.json"
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/upstash-qstash.json"
     },
 
     "upstash-vector": {
@@ -458,7 +458,7 @@
         }
       },
 
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/notion-dbs.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/notion-dbs.json",
       "auth_mode": "BEARER",
       "auth_standard": "oauth2"
     },
@@ -553,13 +553,13 @@
     },
 
     "doppio": {
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/doppio.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/doppio.json",
       "auth_mode": "BEARER",
       "info": {}
     },
 
     "multion": {
-      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/openapisearch/refs/heads/main/handmade/multion.json",
+      "openapiUrl": "https://raw.githubusercontent.com/janwilmake/handmade-openapis/refs/heads/main/multion.json",
       "auth_mode": "BEARER"
     },
 
