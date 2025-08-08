@@ -1,0 +1,12 @@
+{
+  "name": "llms-to-readme",
+  "version": "1.0.0",
+  "description": "Convert llms.txt to README.md with enhanced GitHub links and buttons",
+  "main": "mod.js",
+  "files": [
+    "mod.js"
+  ],
+  "bin": {
+    "llms-to-readme": "./mod.js"
+  }
+}
