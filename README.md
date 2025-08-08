@@ -58,4 +58,6 @@ A good OpenAPI specification should allow an agent to navigate the entirety of y
 
 Unfortunately there has not been any conclusion on how OAS wants to be made discoverable still, but discussions have been plentiful. The easiest way to do make it discoverable, is redirecting to your `openapi.json` file from https://yourlanding.com/.well-known/openapi. Besides that, it's good practice to put your `openapi.json` at the root of your api tld. Read more in [openapi-discovery](openapi-discovery.md)
 
-3. Have all your APIs documented
+3. Have all your APIs documented in a single OpenAPI file
+
+Some large APIs have different files for different parts of their API. In that case, it's best to merge it in some way, for example with [redocly](https://redocly.com/blog/combining-openapis)
