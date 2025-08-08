@@ -17,7 +17,7 @@ This is the most direct approach - put your specification right at the root of y
 
 ### 2. Set Up Well-Known Redirects
 
-If you can't place your spec at the root, set up a redirect from:
+If you can't place your spec **at the root of your main domain**, set up a redirect from:
 
 ```
 /.well-known/openapi
@@ -27,13 +27,13 @@ These paths follow the [RFC 8615](https://www.rfc-editor.org/rfc/rfc8615) standa
 
 ## Why This Matters
 
-Our [discovery service](https://github.com/janwilmake/openapisearch/blob/main/findCachedOpenapiUrl.ts) checks these locations first before trying dozens of other possible paths. When you follow these simple conventions:
+Our [discovery service](https://github.com/janwilmake/openapisearch/blob/main/main.ts) checks these locations first before trying dozens of other possible paths. When you follow these simple conventions:
 
 - AI tools can automatically find and use your API
 - Developers spend less time hunting for documentation
 - Your API becomes part of the discoverable ecosystem
 
-While our service checks [many other locations](https://github.com/janwilmake/openapisearch/blob/main/findCachedOpenapiUrl.ts#L19-L70), focusing on these two standards will make your API immediately discoverable to the widest range of tools and services.
+While our service checks [many other locations](https://github.com/janwilmake/openapisearch/blob/main/main.ts), focusing on these two standards will make your API immediately discoverable to the widest range of tools and services.
 
 Want to see if your API is already discoverable? Visit [openapisearch.com](https://openapisearch.com) and enter your API's hostname.
 

@@ -117,6 +117,27 @@
         .search-wrapper {
             position: relative;
         }
+
+        .provider-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+            background-color: var(--border-color);
+        }
+
+        .provider-logo-error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: var(--border-color);
+            color: var(--text-color);
+            opacity: 0.5;
+            font-size: 12px;
+        }
     </style>
 </head>
 
@@ -160,10 +181,44 @@
         <section class="mb-12">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-semibold">Available APIs</h2>
-                <a href="/index.md" class="px-4 py-2 bg-surface-color text-sm rounded"
-                    style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color);">
-                    View All APIs
-                </a>
+
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mb-6 p-4 rounded"
+                style="background-color: var(--surface-color); border: 1px solid var(--border-color);">
+                <div class="flex flex-wrap gap-4 text-sm">
+                    <a href="https://github.com/janwilmake/openapisearch/tree/main/providers.json" target="_blank"
+                        style="color: var(--accent-color);" class="hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Add to directory
+                    </a>
+                    <a href="https://github.com/janwilmake/openapisearch/tree/main/openapi-discovery.md" target="_blank"
+                        style="color: var(--accent-color);" class="hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Tips for Discovery
+                    </a>
+
+                    <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Agent-friendly overview
+                    </a>
+                </div>
             </div>
 
             <!-- Search Bar -->
@@ -292,6 +347,37 @@
             return patternIdx === pattern.length;
         }
 
+        // Function to create logo element with fallback
+        function createProviderLogo(slug) {
+            const logoUrl = `https://openapisearch.com/logo/${slug}`;
+
+            const logoContainer = document.createElement('div');
+            logoContainer.className = 'flex-shrink-0';
+
+            const img = document.createElement('img');
+            img.src = logoUrl;
+            img.alt = `${slug} logo`;
+            img.className = 'provider-logo';
+
+            // Create fallback element
+            const fallback = document.createElement('div');
+            fallback.className = 'provider-logo-error';
+            fallback.textContent = 'API';
+            fallback.style.display = 'none';
+
+            // Handle image load error
+            img.onerror = function () {
+                img.style.display = 'none';
+                fallback.style.display = 'flex';
+            };
+
+            logoContainer.appendChild(img);
+            logoContainer.appendChild(fallback);
+
+            return logoContainer;
+        }
+
+
         // Fetch and display API providers with search functionality
         let allProviders = [];
 
@@ -305,7 +391,14 @@
                 const providers = await response.json();
                 allProviders = Object.entries(providers.providers);
 
-                displayProviders(''); // Display all providers initially
+
+                const searchQuery = new URLSearchParams(window.location.search).get('q') || '';
+                if (searchQuery) {
+                    const searchInput = document.getElementById('api-search');
+                    searchInput.value = decodeURIComponent(searchQuery);
+                }
+
+                displayProviders(searchQuery);
 
                 // Add event listener to search input
                 document.getElementById('api-search').addEventListener('input', (e) => {
@@ -355,48 +448,44 @@
                 const title = provider.title || id;
                 const description = provider.info?.description || 'No description available';
 
-                card.innerHTML = `
-                    <div class="p-4 border-b border-opacity-50" style="border-color: var(--border-color);">
-                        <h3 class="font-semibold">${title}</h3>
-                    </div>
-                    <div class="p-4">
-                        <p class="mb-4 text-sm">${description}</p>
-                        <div class="flex flex-row gap-3">
-                            <a href="/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                                Details
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                            <a href="https://oapis.org/slop/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-                                View SLOP
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                        </div>
+                // Create the card content
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'p-4 border-b border-opacity-50 flex items-center gap-3';
+                headerDiv.style.borderColor = 'var(--border-color)';
+
+                // Add logo
+                const logoElement = createProviderLogo(id);
+                headerDiv.appendChild(logoElement);
+
+                const titleElement = document.createElement('h3');
+                titleElement.className = 'font-semibold';
+                titleElement.textContent = title;
+                headerDiv.appendChild(titleElement);
+
+                const bodyDiv = document.createElement('div');
+                bodyDiv.className = 'p-4';
+                bodyDiv.innerHTML = `
+                    <p class="mb-4 text-sm">${description}</p>
+                    <div class="flex flex-row gap-3">
+                        <a href="/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                            Details
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="https://oapis.org/slop/${id}" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
+                            View SLOP
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
                     </div>
                 `;
 
+                card.appendChild(headerDiv);
+                card.appendChild(bodyDiv);
                 container.appendChild(card);
             });
-
-            // Show "View All" button if filtered and we have more available
-            // if (searchQuery && filteredProviders.length > 20) {
-            //     const viewMoreCard = document.createElement('div');
-            //     viewMoreCard.className = 'vscode-card flex flex-col justify-center items-center p-6';
-            //     viewMoreCard.innerHTML = `
-            //         <span class="text-2xl mb-2" style="color: var(--accent-color);">+${filteredProviders.length - 20}</span>
-            //         <p class="mb-4 text-sm">more APIs available</p>
-            //         <a href="/index.md" style="color: var(--accent-color);" class="hover:underline flex items-center text-sm">
-            //             View All
-            //             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-            //                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-            //             </svg>
-            //         </a>
-            //     `;
-            //     container.appendChild(viewMoreCard);
-            // }
         }
 
         // Load providers when the page loads

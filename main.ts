@@ -265,7 +265,7 @@ export const getMetaviewObject = () => {
         ...obj,
         [key]: {
           description: (item as any)?.info?.description,
-          openapiUrl: item.openapiUrl,
+          openapiUrl: item.openapiUrl as string,
         },
       };
     },
