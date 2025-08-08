@@ -151,6 +151,14 @@
             });
         }
 
+        // Function to redirect to error page
+        function redirectToError(message, input) {
+            const errorUrl = new URL('/error', window.location.origin);
+            errorUrl.searchParams.set('message', message);
+            errorUrl.searchParams.set('input', input);
+            window.location.href = errorUrl.toString();
+        }
+
         // Fetch the specifications in parallel with improved error handling
         async function fetchSpecifications() {
             const openApiCodeElement = document.getElementById('openapi-code');
@@ -180,20 +188,23 @@
                 .then(response => {
                     return response.text().then(text => {
                         if (!response.ok) {
-                            return `Error ${response.status} - ${text || 'Failed to fetch OpenAPI specification'}`;
+                            const errorMessage = `Error ${response.status} - ${text || 'Failed to fetch OpenAPI specification'}`;
+                            redirectToError(errorMessage, window.location.pathname);
+                            return;
                         }
                         return text;
                     });
                 })
                 .then(text => {
-                    openApiCodeElement.value = text;
-                    const openApiTokens = calculateTokens(text);
-                    openApiTokenCountElement.textContent = openApiTokens.toLocaleString() + ' tokens';
+                    if (text) {
+                        openApiCodeElement.value = text;
+                        const openApiTokens = calculateTokens(text);
+                        openApiTokenCountElement.textContent = openApiTokens.toLocaleString() + ' tokens';
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching OpenAPI specification:', error);
-                    openApiCodeElement.value = `Error - ${error.message || 'Failed to fetch OpenAPI specification'}`;
-                    openApiTokenCountElement.textContent = '0 tokens';
+                    redirectToError(error.message || 'Failed to fetch OpenAPI specification', window.location.pathname);
                 });
 
             // Fetch SLOP specification independently
@@ -201,20 +212,23 @@
                 .then(response => {
                     return response.text().then(text => {
                         if (!response.ok) {
-                            return `Error ${response.status} - ${text || 'Failed to fetch SLOP specification'}`;
+                            const errorMessage = `Error ${response.status} - ${text || 'Failed to fetch SLOP specification'}`;
+                            redirectToError(errorMessage, window.location.pathname);
+                            return;
                         }
                         return text;
                     });
                 })
                 .then(text => {
-                    slopCodeElement.value = text;
-                    const slopTokens = calculateTokens(text);
-                    slopTokenCountElement.textContent = slopTokens.toLocaleString() + ' tokens';
+                    if (text) {
+                        slopCodeElement.value = text;
+                        const slopTokens = calculateTokens(text);
+                        slopTokenCountElement.textContent = slopTokens.toLocaleString() + ' tokens';
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching SLOP specification:', error);
-                    slopCodeElement.value = `Error - ${error.message || 'Failed to fetch SLOP specification'}`;
-                    slopTokenCountElement.textContent = '0 tokens';
+                    redirectToError(error.message || 'Failed to fetch SLOP specification', window.location.pathname);
                 });
         }
 

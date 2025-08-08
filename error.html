@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Error - OpenAPI Search</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An error occurred while processing your request" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- 100% privacy-first analytics -->
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 m-0 p-5 font-sans">
+    <div class="max-w-4xl mx-auto p-5">
+        <a href="/search"
+            class="inline-flex items-center text-indigo-600 no-underline font-medium mb-4 transition duration-200 hover:text-indigo-800">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+            </svg>
+            Directory
+        </a>
+
+        <div class="text-center">
+            <!-- Error Icon -->
+            <div class="mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mx-auto text-red-500">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Something went wrong</h1>
+
+            <!-- Error message container -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6 max-w-2xl mx-auto">
+                <div class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-red-600 mr-3 mt-0.5 flex-shrink-0">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>
+                        <h3 class="text-red-800 font-medium mb-2">Error Details:</h3>
+                        <p id="error-message" class="text-red-700 text-left font-mono text-sm">Loading error message...
+                        </p>
+                        <div class="mt-3">
+                            <p class="text-red-600 text-sm text-left">
+                                <span class="font-medium">Request Path:</span>
+                                <span id="error-input" class="font-mono">Loading...</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <a href="https://github.com/janwilmake/openapisearch/blob/main/openapi-discovery.md" target="_blank"
+                    class="bg-green-600 text-white px-6 py-3 rounded-md no-underline font-medium transition duration-200 hover:bg-green-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                    </svg>
+                    Improve Explorability
+                </a>
+
+                <a href="/"
+                    class="bg-indigo-600 text-white px-6 py-3 rounded-md no-underline font-medium transition duration-200 hover:bg-indigo-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    Go Home
+                </a>
+
+                <button onclick="history.back()"
+                    class="bg-gray-600 text-white px-6 py-3 rounded-md font-medium transition duration-200 hover:bg-gray-800 flex items-center cursor-pointer border-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-2">
+                        <path d="M19 12H5"></path>
+                        <path d="M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Go Back
+                </button>
+            </div>
+
+            <!-- Additional help section -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
+                <h3 class="text-blue-800 font-medium mb-3">Need Help?</h3>
+                <p class="text-blue-700 text-sm mb-4">
+                    If you're experiencing issues with API exploration, you can help improve the system by contributing
+                    to our OpenAPI discovery documentation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a href="/search" class="text-blue-600 hover:text-blue-800 underline text-sm">
+                        Browse Available APIs
+                    </a>
+                    <span class="hidden sm:inline text-blue-400">•</span>
+                    <a href="https://github.com/janwilmake/openapisearch" target="_blank"
+                        class="text-blue-600 hover:text-blue-800 underline text-sm">
+                        View Project on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Load error details from URL parameters
+        window.addEventListener('DOMContentLoaded', () => {
+            const errorMessage = getUrlParameter('message') || 'An unknown error occurred';
+            const errorInput = getUrlParameter('input') || 'Unknown path';
+
+            document.getElementById('error-message').textContent = decodeURIComponent(errorMessage);
+            document.getElementById('error-input').textContent = decodeURIComponent(errorInput);
+
+            // Update page title with error type
+            document.title = `Error - ${errorMessage.substring(0, 50)}${errorMessage.length > 50 ? '...' : ''} - OpenAPI Search`;
+        });
+    </script>
+</body>
+
+</html>

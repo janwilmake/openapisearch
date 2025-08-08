@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapisearch.com/providers.schema.json",
+  "$comment": "Please follow the schema to add an API to the directory. Besides, if you control the domain, ensure to follow recommendations for your Openapi location, for better discoverability!",
 
   "providers": {
     "github": {
@@ -3583,6 +3584,7 @@
       "scope_separator": ",",
       "docs": "https://docs.nango.dev/integrations/all/tiktok-accounts"
     },
+
     "tiktok-ads": {
       "categories": ["social"],
       "hasOauth2": true,
