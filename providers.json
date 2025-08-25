@@ -3,6 +3,20 @@
   "$comment": "Please follow the schema to add an API to the directory. Besides, if you control the domain, ensure to follow recommendations for your Openapi location, for better discoverability!",
 
   "providers": {
+    "openai": {
+      "openapiUrl": "https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "OpenAI is a large AI service provider providing state of the art models in various modalities.",
+        "x-links": {
+          "apiManagementUrl": "https://platform.openai.com/api-keys",
+          "authorization_url": "https://platform.openai.com/login",
+          "signupUrl": "https://platform.openai.com/signup",
+          "docsUrl": "https://platform.openai.com/docs/overview"
+        }
+      },
+      "categories": ["ai"]
+    },
     "github": {
       "isTrustedOauthLink": true,
       "info": {
@@ -325,21 +339,6 @@
         "description": "Host serverless APIs",
         "x-links": { "apiManagementUrl": "https://www.val.town/settings/api" }
       }
-    },
-
-    "openai": {
-      "openapiUrl": "https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml",
-      "auth_mode": "BEARER",
-      "info": {
-        "description": "OpenAI is a large AI service provider providing state of the art models in various modalities.",
-        "x-links": {
-          "apiManagementUrl": "https://platform.openai.com/api-keys",
-          "authorization_url": "https://platform.openai.com/login",
-          "signupUrl": "https://platform.openai.com/signup",
-          "docsUrl": "https://platform.openai.com/docs/overview"
-        }
-      },
-      "categories": ["ai"]
     },
 
     "firecrawl": {
