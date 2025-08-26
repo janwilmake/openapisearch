@@ -27,3 +27,5 @@ But not only for the entire SDK but also for every individual method, like opena
 I think this would make selecting the right context much easier and give the developer more freedom to choose different strategies to build high-quality context.
 
 Library and API maintainers, SDK creators, please! Fix your context and put it in your repos!
+
+https://x.com/janwilmake/status/1960395242391093620
