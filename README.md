@@ -40,6 +40,9 @@ Targeted improvements compared to https://apis.guru:
 - **2025-03-29** - improved landingpage - https://xymake.com/janwilmake/status/1905974796426629437.html
 - **2025-08-08** - improved landingpage, UX and incentivization of explorability (https://x.com/janwilmake/status/1953798491651633647)
 
-# How to make your API machine-readable
+# OpenAPI Best Practices
 
-See https://agent-friendly.com
+- [best practices](docs/best-practices.md)
+- [openapi discovery](docs/openapi-discovery.md)
+- [openapi reference strategies](docs/openapi-reference-strategies.md)
+- [call to create better context](docs/call-to-create-better-context.md)
