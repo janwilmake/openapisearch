@@ -39,6 +39,7 @@ Targeted improvements compared to https://apis.guru:
 - **2025-03-23** - https://xymake.com/janwilmake/status/1903879996592242987.html
 - **2025-03-29** - improved landingpage - https://xymake.com/janwilmake/status/1905974796426629437.html
 - **2025-08-08** - improved landingpage, UX and incentivization of explorability (https://x.com/janwilmake/status/1953798491651633647)
+- **2025-09-01** - improved docs
 
 # OpenAPI Best Practices
 
