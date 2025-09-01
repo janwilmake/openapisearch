@@ -1,3 +1,4 @@
 node_modules
 .wrangler
 .git
+package-lock.json
