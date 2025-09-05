@@ -4,15 +4,11 @@ SDK products like Stainless don't currently have a good solution for a minimum s
 
 I propose creating `llms.txt` and `llms-full.txt` files not only for websites, but also for libraries and SDKs. The goal is to provide the surface area of the entire SDK without including any implementation details.
 
-Using uithub, I was able to find all files in the published package:
-https://uuithub.com/npmjs.com/package/parallel-web?pathPatterns=**%2F*.d.ts
+Using uithub, I was able to find all files in the published package: https://uuithub.com/npmjs.com/package/parallel-web?pathPatterns=**%2F*.d.ts
 
-By looking at all files in the package, I was able to extract the relevant files:
-https://letmeprompt.com/httpspastebincon-f35tpy0
+By looking at all files in the package, I was able to extract the relevant files: https://letmeprompt.com/httpspastebincon-f35tpy0
 
-By looking into these relevant files, I was able to construct how such an `llms.txt` might look like. Similarly, we could create `llms-full.txt` that has the entire surface area of the SDK.
-
-https://letmeprompt.com/rules-httpsuithu-8x7wsu0
+By looking into these relevant files, I was able to construct how such an `llms.txt` might look like. Similarly, we could create `llms-full.txt` that has the entire surface area of the SDK: https://letmeprompt.com/rules-httpsuithu-8x7wsu0
 
 Of course, a programmatic way of creating this would be preferable.
 
