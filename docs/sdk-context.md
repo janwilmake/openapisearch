@@ -13,3 +13,5 @@ By looking into these relevant files, I was able to construct how such an `llms.
 Of course, a programmatic way of creating this would be preferable.
 
 Furthermore, this still does not provide a complete understanding of what the SDK does. For this, we also need the documentation. My suggestion would be to include links to the relevant documentation, guides, and blogposts in the source files, such that the OpenAPI will have it as markdown in the API descriptions. The SDKs of all different languages will then automatically also include links to docs, guides, and blogposts.
+
+https://x.com/janwilmake/status/1963984107387433138
