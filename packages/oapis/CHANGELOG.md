@@ -1,4 +1,3 @@
-
 # Sunday 12th of January 2025
 
 Created the initial version of this. Please note, previous work is at https://github.com/janwilmake/openapisearch but it had a different idea.
@@ -19,7 +18,6 @@ Created the initial version of this. Please note, previous work is at https://gi
 
 # Tuesday 28th of January 2026
 
-- Refactored `generateOverview` into its own module (`generateOverview.ts`)
 - Enhanced overview output: endpoints are now grouped by tags with tag descriptions
 - Added endpoint count to overview header
 - Each operation now links to its oapis.org OpenAPI URL
