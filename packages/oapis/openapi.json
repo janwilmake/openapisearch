@@ -1,0 +1,161 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OpenAPI Processing API",
+    "description": "API for processing, converting and generating various formats from OpenAPI/Swagger specifications",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://oapis.org",
+      "description": "Main API server"
+    }
+  ],
+  "paths": {
+    "/{type}/{hostname}/{idOrRoute}": {
+      "get": {
+        "summary": "Process OpenAPI specification",
+        "description": "Fetches and processes OpenAPI/Swagger specifications in various formats based on the requested type",
+        "operationId": "processOpenAPI",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "description": "Type of processing to perform",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "request",
+                "response",
+                "summary",
+                "openapi",
+                "overview",
+                "operations",
+                "ts",
+                "cjs",
+                "esm",
+                "slop",
+                "llms.txt",
+                "skills"
+              ],
+              "example": "openapi"
+            }
+          },
+          {
+            "name": "hostname",
+            "in": "path",
+            "required": true,
+            "description": "Target hostname (with or without domain)",
+            "schema": {
+              "type": "string",
+              "example": "api.example"
+            }
+          },
+          {
+            "name": "idOrRoute",
+            "in": "path",
+            "required": false,
+            "description": "Operation ID or route path",
+            "schema": {
+              "type": "string",
+              "example": "getUserProfile"
+            }
+          },
+          {
+            "name": "accept",
+            "in": "header",
+            "required": false,
+            "description": "Desired response format",
+            "schema": {
+              "type": "string",
+              "enum": ["application/json", "text/yaml"],
+              "default": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "OpenAPI document",
+                      "additionalProperties": true
+                    },
+                    {
+                      "type": "object",
+                      "description": "Request schema",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "text/yaml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/typescript": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/javascript": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input parameters",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found - Operation or OpenAPI spec not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["message"]
+      }
+    }
+  }
+}

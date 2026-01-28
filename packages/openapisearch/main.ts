@@ -302,6 +302,37 @@ export const getMetaview = async (request: Request) => {
 };
 
 /**
+ * Generates llms.txt content following the llmstxt.org specification
+ */
+export const getLlmsTxt = () => {
+  const metaviewObject = getMetaviewObject();
+
+  const apiList = Object.entries(metaviewObject)
+    .map(([key, value]) => {
+      const description = value.description
+        ? `: ${value.description.split("\n")[0].slice(0, 100)}`
+        : "";
+      return `- [${key}](https://openapisearch.com/llms.txt/${key})${description}`;
+    })
+    .join("\n");
+
+  const llmsTxt = `# OpenAPI Search
+
+> A directory of OpenAPI specifications for popular APIs, making them accessible for LLM code generation and tool use.
+
+OpenAPI Search indexes and serves OpenAPI specifications from various providers. Use the /openapi/{providerId} endpoint to fetch any API's OpenAPI spec.
+
+## API Directory
+
+${apiList}
+`;
+
+  return new Response(llmsTxt, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+};
+
+/**
  * Gets a valid openapi url based on the pathname in several ways
  *
  * 1) checks hardcoded
@@ -377,8 +408,12 @@ export default {
       return logo.fetch(request, env);
     }
 
+    if (path === "/llms.txt") {
+      return getLlmsTxt();
+    }
+
     if (path === "/" || path.startsWith("/index.")) {
-      if (accept?.includes("text/html") && path !== "/index.md") {
+      if (accept?.includes("text/html")) {
         return new Response(homepage, {
           headers: { "content-type": "text/html;charset=utf8" },
         });
