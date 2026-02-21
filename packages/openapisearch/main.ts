@@ -72,7 +72,7 @@ const OPENAPI_PATHS = [
   "/swagger.yml",
   "/api-specification.json",
   "/api-specification.yaml",
-  "/api-specification.yml",
+  "/api-specification.yml"
 ];
 
 // Maximum size to read for validation (100KB)
@@ -193,7 +193,7 @@ export async function checkURL(url: string): Promise<{
         isValid: true,
         redirectUrl: url,
         text: fullText,
-        contentType,
+        contentType
       };
     }
 
@@ -210,9 +210,8 @@ export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
   if (cachedLocation) {
     console.log({ cachedLocation });
     // Verify the cached location still works
-    const { isValid, redirectUrl, text, contentType } = await checkURL(
-      cachedLocation
-    );
+    const { isValid, redirectUrl, text, contentType } =
+      await checkURL(cachedLocation);
     if (isValid && redirectUrl) {
       return { redirectUrl, text, contentType };
     }
@@ -226,14 +225,13 @@ export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
 
     console.log(`Checking: ${targetUrl}`);
 
-    const { isValid, redirectUrl, text, contentType } = await checkURL(
-      targetUrl
-    );
+    const { isValid, redirectUrl, text, contentType } =
+      await checkURL(targetUrl);
 
     if (isValid && redirectUrl) {
       // Cache this successful location
       await env.OPENAPI_LOCATIONS.put(hostname, redirectUrl, {
-        expirationTtl: 86400 * 30,
+        expirationTtl: 86400 * 30
       });
 
       // Redirect to the found OpenAPI spec
@@ -249,7 +247,7 @@ export const findCachedOpenapiUrl = async (env: Env, hostname: string) => {
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type"
 };
 
 /**
@@ -265,8 +263,8 @@ export const getMetaviewObject = () => {
         ...obj,
         [key]: {
           description: (item as any)?.info?.description,
-          openapiUrl: item.openapiUrl as string,
-        },
+          openapiUrl: item.openapiUrl as string
+        }
       };
     },
     {} as {
@@ -287,7 +285,7 @@ export const getMetaview = async (request: Request) => {
 
   if (accept?.includes("application/json")) {
     return new Response(JSON.stringify(metaviewObject, undefined, 2), {
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" }
     });
   }
 
@@ -312,7 +310,7 @@ export const getLlmsTxt = () => {
       const description = value.description
         ? `: ${value.description.split("\n")[0].slice(0, 100)}`
         : "";
-      return `- [${key}](https://openapisearch.com/llms.txt/${key})${description}`;
+      return `- [${key}](https://oapis.org/llms.txt/${key})${description}`;
     })
     .join("\n");
 
@@ -328,7 +326,7 @@ ${apiList}
 `;
 
   return new Response(llmsTxt, {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
+    headers: { "Content-Type": "text/plain; charset=utf-8" }
   });
 };
 
@@ -346,9 +344,8 @@ export const getValidOpenapiUrl = async (request: Request, env: Env) => {
   const hardcodedUrl = metaviewObject[providerSlug]?.openapiUrl;
 
   if (hardcodedUrl) {
-    const { isValid, redirectUrl, text, contentType } = await checkURL(
-      hardcodedUrl
-    );
+    const { isValid, redirectUrl, text, contentType } =
+      await checkURL(hardcodedUrl);
 
     // Hardcoded first
     if (isValid) {
@@ -359,10 +356,10 @@ export const getValidOpenapiUrl = async (request: Request, env: Env) => {
   const asUrl = providerSlug.includes("__")
     ? providerSlug.replaceAll("__", "/")
     : providerSlug.includes("/")
-    ? providerSlug
-    : decodeURIComponent(providerSlug).includes("/")
-    ? decodeURIComponent(providerSlug)
-    : undefined;
+      ? providerSlug
+      : decodeURIComponent(providerSlug).includes("/")
+        ? decodeURIComponent(providerSlug)
+        : undefined;
 
   if (asUrl) {
     // it's already an URL
@@ -394,7 +391,7 @@ export default {
     // Handle OPTIONS requests for CORS
     if (request.method === "OPTIONS") {
       return new Response(null, {
-        headers: corsHeaders,
+        headers: corsHeaders
       });
     }
 
@@ -415,7 +412,7 @@ export default {
     if (path === "/" || path.startsWith("/index.")) {
       if (accept?.includes("text/html")) {
         return new Response(homepage, {
-          headers: { "content-type": "text/html;charset=utf8" },
+          headers: { "content-type": "text/html;charset=utf8" }
         });
       }
 
@@ -441,13 +438,13 @@ export default {
       if (isRedirect) {
         return new Response(redirectUrl, {
           status: 307,
-          headers: { Location: redirectUrl },
+          headers: { Location: redirectUrl }
         });
       }
 
       return new Response(text, {
         status: 200,
-        headers: { "Content-Type": contentType, ...corsHeaders },
+        headers: { "Content-Type": contentType, ...corsHeaders }
       });
     }
     const segments = url.pathname.split("/").slice(1);
@@ -471,7 +468,7 @@ export default {
 
       // Return the landing page HTML
       return new Response(renderedPage, {
-        headers: { "Content-Type": "text/html;charset=utf8" },
+        headers: { "Content-Type": "text/html;charset=utf8" }
       });
     }
 
@@ -479,7 +476,7 @@ export default {
       const pathUrl = new URL(url.pathname.slice(1) + url.search);
       return new Response(null, {
         headers: { Location: `/${encodeURIComponent(pathUrl.toString())}` },
-        status: 302,
+        status: 302
       });
     } catch (e) {
       // Return 404 for any other routes
@@ -488,5 +485,5 @@ export default {
         { status: 404 }
       );
     }
-  },
+  }
 };

@@ -43,6 +43,7 @@ Targeted improvements compared to https://apis.guru:
 - **2025-08-08** - improved landingpage, UX and incentivization of explorability (https://x.com/janwilmake/status/1953798491651633647)
 - **2025-09-01** - improved docs
 - **2026-01-28** - llms.txt compatibility, skills endpoint, fix deadlinks ([Post](https://x.com/janwilmake/status/2016512243253285113))
+- **2026-02-21** - fixed typo in llms.txt
 
 # OpenAPI Best Practices
 
