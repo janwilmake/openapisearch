@@ -7,7 +7,7 @@
 - fix circular deref error: https://x.com/janwilmake/status/1904080564073681085
 - allow setting multiple operationIds into the API to return a single OpenAPI for it via elegant GET api (subset of entire api)
 - allow people to determine the providerId based on the `openapi.json` location (if explorable, just domain! if not, give tips for improvement)
-- figure out if i can add hostname logo to `og-image` (forgithub has it too)
+- figure out if I can add hostname logo to `og-image` (forgithub has it too)
 
 # TODO
 
