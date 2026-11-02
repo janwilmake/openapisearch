@@ -83,6 +83,17 @@
       "openapiUrl": "https://podscan.fm/docs/api.json"
     },
 
+    "arcmira": {
+      "openapiUrl": "https://api.arcmira.com/v1/openapi.json",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "Search YouTube and podcast transcripts for timestamped quotes, named speakers and sponsors.",
+        "x-links": {
+          "docsUrl": "https://arcmira.com/docs"
+        }
+      },
+      "categories": ["search", "podcasts", "video"]
+    },
     "x": {
       "categories": ["marketing", "social"],
       "isTrustedOauthLink": true,
