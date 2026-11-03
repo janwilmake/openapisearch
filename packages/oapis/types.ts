@@ -34,6 +34,7 @@ export interface RequestBody {
 }
 
 export interface Operation {
+  security?: Record<string, string[]>[];
   operationId?: string;
   servers?: Server[];
   summary?: string;
@@ -55,6 +56,7 @@ export interface PathItem {
 }
 export type Server = { url: string; description?: string };
 export interface OpenapiDocument {
+  security?: Record<string, string[]>[];
   tags?: any;
   components?: any;
   webhooks?: any;
