@@ -170,7 +170,22 @@ const getOpenAPISubset = (openapi: OpenapiDocument, route: string) => {
     const { tags, webhooks, components, ...dereferenced } = dereferenceSync(
       newOpenapi,
     ) as OpenapiDocument;
-    return dereferenced;
+    // Security requirements reference scheme names directly rather than through $ref.
+    const requirements = [...(dereferenced.security ?? [])];
+    for (const path of Object.values(dereferenced.paths)) {
+      for (const [method, operation] of Object.entries(path)) {
+        if (["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(method)) {
+          requirements.push(...(operation.security ?? []));
+        }
+      }
+    }
+    const names = new Set(requirements.flatMap(requirement => Object.keys(requirement)));
+    const securitySchemes = Object.fromEntries(
+      Object.entries(components?.securitySchemes ?? {}).filter(([name]) => names.has(name)),
+    );
+    return Object.keys(securitySchemes).length
+      ? { ...dereferenced, components: { securitySchemes } }
+      : dereferenced;
   } catch {
     return { error: "Could not deref", ...newOpenapi };
   }
