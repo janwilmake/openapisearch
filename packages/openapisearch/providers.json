@@ -94,6 +94,17 @@
       },
       "categories": ["search", "podcasts", "video"]
     },
+    "getyoutubetranscript": {
+      "openapiUrl": "https://getyoutubetranscript.com/openapi.json",
+      "auth_mode": "BEARER",
+      "info": {
+        "description": "Get YouTube video transcripts with timestamps, plus YouTube search and channel and playlist browsing.",
+        "x-links": {
+          "docsUrl": "https://getyoutubetranscript.com/docs"
+        }
+      },
+      "categories": ["search", "video"]
+    },
     "x": {
       "categories": ["marketing", "social"],
       "isTrustedOauthLink": true,
